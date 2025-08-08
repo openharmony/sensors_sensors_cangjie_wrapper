@@ -23,6 +23,6 @@ ohos_cj_library("kit.SensorServiceKit") {
 
   kit = true
   subsystem_name = "sensors"
-  part_name = "sensors_cangjie_api"
+  part_name = "sensors_cangjie_wrapper"
   lib_name = "SensorServiceKit"
 }

@@ -1,13 +1,13 @@
 {
-  "name": "@ohos/sensors_cangjie_api",
+  "name": "@ohos/sensors_cangjie_wrapper",
   "description": "Obtaining sensor data",
   "version": "3.1",
   "license": "Apache License 2.0",
   "segment": {
-    "destPath": "base/sensors/sensors_cangjie_api"
+    "destPath": "base/sensors/sensors_cangjie_wrapper"
   },
   "component": {
-    "name": "sensors_cangjie_api",
+    "name": "sensors_cangjie_wrapper",
     "subsystem": "sensors",
     "syscap": ["SystemCapability.Sensors.Sensor", "SystemCapability.Sensors.Sensor.Lite"],
     "features": [],
@@ -18,16 +18,16 @@
     ],
     "deps": {
       "components": [
-        "cangjie_api",
-        "hiviewdfx_cangjie_api",
-        "arkui_cangjie_api",
+        "cangjie_ark_interop",
+        "hiviewdfx_cangjie_wrapper",
+        "arkui_cangjie_wrapper",
         "sensor"
       ]
     },
     "build": {
       "sub_component": [
-          "//base/sensors/sensors_cangjie_api/ohos/sensor:ohos.sensor",
-          "//base/sensors/sensors_cangjie_api/kit/SensorServiceKit:kit.SensorServiceKit"
+          "//base/sensors/sensors_cangjie_wrapper/ohos/sensor:ohos.sensor",
+          "//base/sensors/sensors_cangjie_wrapper/kit/SensorServiceKit:kit.SensorServiceKit"
       ],
       "inner_kits": [
       ],

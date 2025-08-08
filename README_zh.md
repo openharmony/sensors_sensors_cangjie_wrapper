@@ -16,7 +16,7 @@
 ## 目录<a name="section161941989596"></a>
 
 ```
-base/sensors/sensors_cangjie_api
+base/sensors/sensors_cangjie_wrapper
 ├── ohos             # 仓颉泛Sensor接口实现
 ├── kit              # 仓颉kit化代码
 ├── figures          # 存放readme中的架构图
@@ -34,4 +34,4 @@ base/sensors/sensors_cangjie_api
 
 **泛Sensor子系统**
 
-sensors_cangjie_api
+sensors_cangjie_wrapper

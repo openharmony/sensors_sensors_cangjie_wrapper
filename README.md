@@ -16,7 +16,7 @@ The following figure shows the architecture of the pan-sensor service framework.
 ## Directory Structure
 
 ```
-base/sensors/sensors_cangjie_api
+base/sensors/sensors_cangjie_wrapper
 ├── ohos             # Cangjie Pan-Sensor code
 ├── kit              # Cangjie kit code
 ├── figures          # architecture pictures
@@ -34,4 +34,4 @@ The following modules work cooperatively to implement pan-sensor capabilities: S
 
 **Pan-sensor subsystem**
 
-sensors_cangjie_api
+sensors_cangjie_wrapper

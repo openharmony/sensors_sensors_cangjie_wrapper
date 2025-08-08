@@ -24,15 +24,15 @@ ohos_cj_library("ohos.sensor") {
   ]
 
   cj_external_deps = [
-    "cangjie_api:ohos.ffi",
-    "cangjie_api:ohos.labels",
-    "arkui_cangjie_api:ohos.base",
-    "hiviewdfx_cangjie_api:ohos.hilog",
+    "cangjie_ark_interop:ohos.ffi",
+    "cangjie_ark_interop:ohos.labels",
+    "arkui_cangjie_wrapper:ohos.base",
+    "hiviewdfx_cangjie_wrapper:ohos.hilog",
   ]
 
   external_deps = [ "sensor:cj_sensor_ffi" ]
 
   subsystem_name = "sensors"
-  part_name = "sensors_cangjie_api"
+  part_name = "sensors_cangjie_wrapper"
   lib_name = "sensor"
 }
