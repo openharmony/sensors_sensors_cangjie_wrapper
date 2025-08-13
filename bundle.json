@@ -12,8 +12,8 @@
     "syscap": ["SystemCapability.Sensors.Sensor", "SystemCapability.Sensors.Sensor.Lite"],
     "features": [],
     "adapted_system_type": [ "standard" ],
-    "rom": "2048KB",
-    "ram": "~4096KB",
+    "rom": "160KB",
+    "ram": "480KB",
     "hisysevent_config": [
     ],
     "deps": {
