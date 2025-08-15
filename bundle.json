@@ -1,7 +1,7 @@
 {
   "name": "@ohos/sensors_cangjie_wrapper",
   "description": "Obtaining sensor data",
-  "version": "3.1",
+  "version": "6.0",
   "license": "Apache License 2.0",
   "segment": {
     "destPath": "base/sensors/sensors_cangjie_wrapper"
@@ -13,7 +13,7 @@
     "features": [],
     "adapted_system_type": [ "standard" ],
     "rom": "160KB",
-    "ram": "480KB",
+    "ram": "144KB",
     "hisysevent_config": [
     ],
     "deps": {
