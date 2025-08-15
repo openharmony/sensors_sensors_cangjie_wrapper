@@ -1,8 +1,8 @@
-# 泛Sensor仓颉<a name="ZH-CN_TOPIC_0000001078062432"></a>
+# 泛Sensor服务仓颉接口<a name="ZH-CN_TOPIC_0000001078062432"></a>
 
 ## 简介<a name="section11660541593"></a>
 
-泛Sensor服务子系统提供了轻量级sensor服务基础框架，提供了如下功能：
+泛Sensor服务仓颉接口是在 OpenHarmony 上基于泛Sensor服务子系统能力之上封装的仓颉API。泛Sensor服务子系统提供了轻量级sensor服务基础框架，提供了如下功能：
 
 -   Sensor列表查询
 -   Sensor启停
@@ -32,6 +32,5 @@ base/sensors/sensors_cangjie_wrapper
 
 ## 相关仓<a name="section1371113476307"></a>
 
-**泛Sensor仓颉**
 
-sensors_cangjie_wrapper
+[sensors_miscdevice_lite](https://gitee.com/openharmony/sensors_sensor/blob/master/README_zh.md)
