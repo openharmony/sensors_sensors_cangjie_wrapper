@@ -1,8 +1,8 @@
-# Pan-Sensor
+# sensors_cangjie_wrapper
 
 ## Introduction
 
-The pan-sensor service subsystem provides a lightweight sensor service framework, through which you can perform the following operations:
+The sensors_cangjie_wrapper is a Cangjie API encapsulated on OpenHarmony based on the capabilities of the pan-sensor service subsystem. The pan-sensor service subsystem provides a lightweight sensor service framework, through which you can perform the following operations:
 
 -   Query the sensor list.
 -   Enable or disable a sensor.
@@ -11,7 +11,7 @@ The pan-sensor service subsystem provides a lightweight sensor service framework
 
 The following figure shows the architecture of the pan-sensor service framework.
 
-![](figures/en-us_image_0000001106694563.png)
+![](figures/sensors_cangjie_wrapper_architecture_en.png)
 
 ## Directory Structure
 
@@ -32,6 +32,4 @@ The following modules work cooperatively to implement pan-sensor capabilities: S
 
 ## Repositories Involved
 
-**Pan-sensor subsystem**
-
-sensors_cangjie_wrapper
+[sensors_miscdevice_lite](https://gitee.com/openharmony/sensors_sensor/blob/master/README.md)

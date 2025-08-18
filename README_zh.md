@@ -32,5 +32,4 @@ base/sensors/sensors_cangjie_wrapper
 
 ## 相关仓<a name="section1371113476307"></a>
 
-
 [sensors_miscdevice_lite](https://gitee.com/openharmony/sensors_sensor/blob/master/README_zh.md)
