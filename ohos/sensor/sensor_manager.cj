@@ -15,7 +15,7 @@
 
 package ohos.sensor
 
-import ohos.base.*
+import ohos.callback_invoke.{ CallbackObject, Callback1Argument}
 import std.collection.{ArrayList, HashMap}
 import std.sync.Mutex
 
@@ -108,24 +108,44 @@ class SensorManager {
 
     func getOrCreate(sensorType: SensorId): CallbackList {
         synchronized(mutex) {
-            if (let Some(v) <- sensorMap.get(sensorType.value)) {
+            if (let Some(v) <- sensorMap.get(sensorType.getValue())) {
                 return v
             }
             let list = CallbackList()
-            sensorMap.add(sensorType.value, list)
+            sensorMap.add(sensorType.getValue(), list)
             list
         }
     }
 
     static func isMatchType(`type`: SensorId, callback: CallbackObject): Bool {
         match (`type`) {
-            case ROTATION_VECTOR => callback is Callback1Argument<RotationVectorResponse>
+            case Accelerometer => callback is Callback1Argument<AccelerometerResponse>
+            case AccelerometerUncalibrated => callback is Callback1Argument<AccelerometerUncalibratedResponse>
+            case AmbientLight => callback is Callback1Argument<LightResponse>
+            case AmbientTemperature => callback is Callback1Argument<AmbientTemperatureResponse>
+            case Barometer => callback is Callback1Argument<BarometerResponse>
+            case Gravity => callback is Callback1Argument<GravityResponse>
+            case Gyroscope => callback is Callback1Argument<GyroscopeResponse>
+            case GyroscopeUncalibrated => callback is Callback1Argument<GyroscopeUncalibratedResponse>
+            case Hall => callback is Callback1Argument<HallResponse>
+            case HeartRate => callback is Callback1Argument<HeartRateResponse>
+            case Humidity => callback is Callback1Argument<HumidityResponse>
+            case LinearAccelerometer => callback is Callback1Argument<LinearAccelerometerResponse>
+            case MagneticField => callback is Callback1Argument<MagneticFieldResponse>
+            case MagneticFieldUncalibrated => callback is Callback1Argument<MagneticFieldUncalibratedResponse>
+            case Orientation => callback is Callback1Argument<OrientationResponse>
+            case Pedometer => callback is Callback1Argument<PedometerResponse>
+            case PedometerDetection => callback is Callback1Argument<PedometerDetectionResponse>
+            case Proximity => callback is Callback1Argument<ProximityResponse>
+            case RotationVector => callback is Callback1Argument<RotationVectorResponse>
+            case SignificantMotion => callback is Callback1Argument<SignificantMotionResponse>
+            case WearDetection => callback is Callback1Argument<WearDetectionResponse>
             case _ => false
         }
     }
 
     func isSensorSubscribed(`type`: SensorId): Bool {
-        isSensorSubscribed(`type`.value)
+        isSensorSubscribed(`type`.getValue())
     }
 
     func isSensorSubscribed(`type`: Int32): Bool {
@@ -136,7 +156,7 @@ class SensorManager {
 
     func remove(sensorType: SensorId) {
         synchronized(mutex) {
-            sensorMap.remove(sensorType.value)
+            sensorMap.remove(sensorType.getValue())
         }
     }
 }
@@ -184,7 +204,27 @@ func emitSensorCallback(sensorTypeId: Int32, callbackListOpt: ?Array<CallbackObj
 func emitOneSensorTypeCallbacks(sensorTypeId: Int32, callbackList: Array<CallbackObject>, responseData: Response): Unit {
     for (callback in callbackList) {
         match (sensorTypeId) {
+            case 1 => emitCallbackFunc<AccelerometerResponse>(callback, responseData)
+            case 2 => emitCallbackFunc<GyroscopeResponse>(callback, responseData)
+            case 5 => emitCallbackFunc<LightResponse>(callback, responseData)
+            case 6 => emitCallbackFunc<MagneticFieldResponse>(callback, responseData)
+            case 8 => emitCallbackFunc<BarometerResponse>(callback, responseData)
+            case 10 => emitCallbackFunc<HallResponse>(callback, responseData)
+            case 12 => emitCallbackFunc<ProximityResponse>(callback, responseData)
+            case 13 => emitCallbackFunc<HumidityResponse>(callback, responseData)
+            case 256 => emitCallbackFunc<OrientationResponse>(callback, responseData)
+            case 257 => emitCallbackFunc<GravityResponse>(callback, responseData)
+            case 258 => emitCallbackFunc<LinearAccelerometerResponse>(callback, responseData)
             case 259 => emitCallbackFunc<RotationVectorResponse>(callback, responseData)
+            case 260 => emitCallbackFunc<AmbientTemperatureResponse>(callback, responseData)
+            case 261 => emitCallbackFunc<MagneticFieldUncalibratedResponse>(callback, responseData)
+            case 263 => emitCallbackFunc<GyroscopeUncalibratedResponse>(callback, responseData)
+            case 264 => emitCallbackFunc<SignificantMotionResponse>(callback, responseData)
+            case 265 => emitCallbackFunc<PedometerDetectionResponse>(callback, responseData)
+            case 266 => emitCallbackFunc<PedometerResponse>(callback, responseData)
+            case 278 => emitCallbackFunc<HeartRateResponse>(callback, responseData)
+            case 280 => emitCallbackFunc<WearDetectionResponse>(callback, responseData)
+            case 281 => emitCallbackFunc<AccelerometerUncalibratedResponse>(callback, responseData)
             case _ => return
         }
     }
@@ -193,6 +233,6 @@ func emitOneSensorTypeCallbacks(sensorTypeId: Int32, callbackList: Array<Callbac
 func emitCallbackFunc<T>(callback: CallbackObject, responseData: Response): Unit {
     let callbackInstOpt = (callback as Callback1Argument<T>)
     if (let Some(callbackInst) <- callbackInstOpt) {
-        callbackInst.invoke((responseData as T).getOrThrow())
+        callbackInst.invoke(None, (responseData as T).getOrThrow())
     }
 }

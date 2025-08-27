@@ -14,15 +14,13 @@
 import("//build/ohos.gni")
 import("//build/cangjie/cjc.gni")
 
-ohos_cj_library("kit.SensorServiceKit") {
+ohos_cangjie_shared_library("kit.SensorServiceKit") {
   sources = [ "index.cj" ]
 
   cj_deps = [
     "../../ohos/sensor:ohos.sensor",
   ]
 
-  kit = true
   subsystem_name = "sensors"
   part_name = "sensors_cangjie_wrapper"
-  lib_name = "SensorServiceKit"
 }
