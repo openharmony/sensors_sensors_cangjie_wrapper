@@ -16,7 +16,7 @@
 package ohos.sensor
 
 import std.collection.HashMap
-import ohos.base.*
+import ohos.business_exception.*
 
 const SERVICE_EXCEPTION: Int32 = 14500101 // Use this error code when the service is exception.
 const SENSOR_NO_SUPPORT: Int32 = 14500102 // Use this error code when the sensor is not supported by the device.
