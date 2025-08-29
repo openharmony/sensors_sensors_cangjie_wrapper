@@ -1,6 +1,6 @@
 {
   "name": "@ohos/sensors_cangjie_wrapper",
-  "description": "Obtaining sensor data",
+  "description": "Provides APIs for performing basic operations on sensors, including obtaining sensor data and subscribing to or unsubscribing from sensor data",
   "version": "6.0",
   "license": "Apache License 2.0",
   "segment": {
@@ -9,13 +9,12 @@
   "component": {
     "name": "sensors_cangjie_wrapper",
     "subsystem": "sensors",
-    "syscap": ["SystemCapability.Sensors.Sensor", "SystemCapability.Sensors.Sensor.Lite"],
+    "syscap": ["SystemCapability.Sensors.Sensor"],
     "features": [],
     "adapted_system_type": [ "standard" ],
     "rom": "160KB",
     "ram": "144KB",
-    "hisysevent_config": [
-    ],
+    "hisysevent_config": [],
     "deps": {
       "components": [
         "cangjie_ark_interop",
@@ -29,10 +28,8 @@
           "//base/sensors/sensors_cangjie_wrapper/ohos/sensor:ohos.sensor",
           "//base/sensors/sensors_cangjie_wrapper/kit/SensorServiceKit:kit.SensorServiceKit"
       ],
-      "inner_kits": [
-      ],
-      "test": [
-      ]
+      "inner_kits": [],
+      "test": []
     }
   }
 }
