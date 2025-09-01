@@ -12,7 +12,7 @@ The following figure shows the architecture of the pan-sensor service framework.
 
 As shown in the architecture:
 
-- The pan-Sensor Service Cangjie interface currently provides the following capabilities:
+- The pan-sensor Service Cangjie interface currently provides the following capabilities:
 
   - subscribing to or unsubscribing from sensor data.
   - obtaining Sensor data.
@@ -27,8 +27,9 @@ base/sensors/sensors_cangjie_wrapper
 ├── figures               # architecture pictures
 ├── kit                   # Cangjie kit code
 │   └── SensorServiceKit  # Cangjie SensorServiceKit
-└── ohos                  # Cangjie pan-Sensor code
-    └── sensor            # Cangjie sensor code
+├── ohos                  # Cangjie pan-sensor code
+│   └── sensor            # Cangjie sensor code
+└── test                  # Test cases
 ```
 
 ## Constraints

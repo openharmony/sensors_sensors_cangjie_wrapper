@@ -27,8 +27,9 @@ base/sensors/sensors_cangjie_wrapper
 ├── figures               # 存放README中的架构图
 ├── kit                   # Sensor仓颉服务kit化代码
 │   └── SensorServiceKit  # SensorServiceKit代码目录
-└── ohos                  # 泛Sensor仓颉接口代码
-    └── sensor            # sensor仓颉接口代码目录
+├── ohos                  # 泛Sensor仓颉接口代码
+│   └── sensor            # sensor仓颉接口代码目录
+└── test                  # 测试用例代码
 ```
 
 ## 约束
