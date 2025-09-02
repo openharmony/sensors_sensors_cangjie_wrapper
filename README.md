@@ -61,9 +61,3 @@ Developers are welcome to contribute code, documentation, etc. For specific cont
 ## Repositories Involved
 
 [sensors\_sensor](https://gitee.com/openharmony/sensors_sensor/blob/master/README.md)
-
-[arkcompiler_cangjie_ark_interop](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop)
-
-[arkui_arkui_cangjie_wrapper](https://gitcode.com/openharmony-sig/arkui_arkui_cangjie_wrapper)
-
-[hiviewdfx_hiviewdfx_cangjie_wrapper](https://gitcode.com/openharmony-sig/hiviewdfx_hiviewdfx_cangjie_wrapper)
