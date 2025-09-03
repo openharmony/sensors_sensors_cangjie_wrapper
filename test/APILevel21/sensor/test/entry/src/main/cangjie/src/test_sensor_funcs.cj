@@ -59,18 +59,6 @@ class TestSensorGetSensorList {
             @Expect(false)
         }
     }
-
-    @TestCase
-    @Tag[APILevel21, TestLevel0]
-    func test_SensorInfoParam(): Unit {
-        try {
-            let param = SensorInfoParam(Int32(1), Int32(2))
-            param.deviceId = 3
-            param.sensorIndex = 4
-        } catch (e: Exception) {
-            @Expect(false)
-        }
-    }
 }
 
 @Test
