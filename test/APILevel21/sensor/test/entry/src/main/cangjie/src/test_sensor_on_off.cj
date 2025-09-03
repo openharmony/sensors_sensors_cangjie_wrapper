@@ -100,6 +100,21 @@ class TestSensorOnOff {
 
     @TestCase
     @Tag[APILevel21, TestLevel0]
+    func testOnInternalGameModeWithParam(): Unit {
+        let callback = OrientationSensorCallback()
+        try {
+            let param = SensorInfoParam(deviceId: 1i32, sensorIndex: 1i32)
+            on(SensorId.Orientation, callback, option: Options(interval: IntervalOption.GameMode, sensorInfoParam: param))
+            sleepFor(1.second)
+            @Expect(callback.invokedCount > 3)
+            off(SensorId.Orientation)
+        } catch (e: BusinessException) {
+            failExpect("on failed, ${e}")
+        }
+    }
+
+    @TestCase
+    @Tag[APILevel21, TestLevel0]
     func On_InternalUIMode_Success(): Unit {
         let callback = OrientationSensorCallback()
         try {
