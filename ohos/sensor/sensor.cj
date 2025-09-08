@@ -1956,25 +1956,425 @@ public class Sensor {
 * Subscribe to sensor data.
 *
 * @relation on(type: SensorId.ACCELEROMETER, callback: Callback<AccelerometerResponse>, options?: Options): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onAccelerometer(callback: Callback1Argument<AccelerometerResponse>, option!: ?Options = None): Unit {
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let interval = option?.interval.value ?? DEFAULT_REPORTING_INTERVAL
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(Accelerometer.getValue(), interval, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+    // Due to interval, no need to check type is subscribed
+    ON_SENSOR_MANAGER.getOrCreate(Accelerometer).on(callback)
+}
+
+/**
+* Subscribe to sensor data.
+*
 * @relation on(type: SensorId.ACCELEROMETER_UNCALIBRATED, callback: Callback<AccelerometerUncalibratedResponse>,options?: Options): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onAccelerometerUncalibrated(callback: Callback1Argument<AccelerometerUncalibratedResponse>, option!: ?Options = None): Unit {
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let interval = option?.interval.value ?? DEFAULT_REPORTING_INTERVAL
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(AccelerometerUncalibrated.getValue(), interval, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+    // Due to interval, no need to check type is subscribed
+    ON_SENSOR_MANAGER.getOrCreate(AccelerometerUncalibrated).on(callback)
+}
+
+/**
+* Subscribe to sensor data.
+*
 * @relation on(type: SensorId.AMBIENT_LIGHT, callback: Callback<LightResponse>, options?: Options): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onAmbientLight(callback: Callback1Argument<LightResponse>, option!: ?Options = None): Unit {
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let interval = option?.interval.value ?? DEFAULT_REPORTING_INTERVAL
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(AmbientLight.getValue(), interval, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+    // Due to interval, no need to check type is subscribed
+    ON_SENSOR_MANAGER.getOrCreate(AmbientLight).on(callback)
+}
+
+/**
+* Subscribe to sensor data.
+*
 * @relation on(type: SensorId.AMBIENT_TEMPERATURE, callback: Callback<AmbientTemperatureResponse>,options?: Options): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onAmbientTemperature(callback: Callback1Argument<AmbientTemperatureResponse>, option!: ?Options = None): Unit {
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let interval = option?.interval.value ?? DEFAULT_REPORTING_INTERVAL
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(AmbientTemperature.getValue(), interval, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+    // Due to interval, no need to check type is subscribed
+    ON_SENSOR_MANAGER.getOrCreate(AmbientTemperature).on(callback)
+}
+
+/**
+* Subscribe to sensor data.
+*
 * @relation on(type: SensorId.BAROMETER, callback: Callback<BarometerResponse>, options?: Options): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onBarometer(callback: Callback1Argument<BarometerResponse>, option!: ?Options = None): Unit {
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let interval = option?.interval.value ?? DEFAULT_REPORTING_INTERVAL
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(Barometer.getValue(), interval, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+    // Due to interval, no need to check type is subscribed
+    ON_SENSOR_MANAGER.getOrCreate(Barometer).on(callback)
+}
+
+/**
+* Subscribe to sensor data.
+*
 * @relation on(type: SensorId.GRAVITY, callback: Callback<GravityResponse>, options?: Options): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onGravity(callback: Callback1Argument<GravityResponse>, option!: ?Options = None): Unit {
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let interval = option?.interval.value ?? DEFAULT_REPORTING_INTERVAL
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(Gravity.getValue(), interval, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+    // Due to interval, no need to check type is subscribed
+    ON_SENSOR_MANAGER.getOrCreate(Gravity).on(callback)
+}
+
+/**
+* Subscribe to sensor data.
+*
 * @relation on(type: SensorId.GYROSCOPE, callback: Callback<GyroscopeResponse>, options?: Options): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onGyroscope(callback: Callback1Argument<GyroscopeResponse>, option!: ?Options = None): Unit {
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let interval = option?.interval.value ?? DEFAULT_REPORTING_INTERVAL
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(Gyroscope.getValue(), interval, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+    // Due to interval, no need to check type is subscribed
+    ON_SENSOR_MANAGER.getOrCreate(Gyroscope).on(callback)
+}
+
+/**
+* Subscribe to sensor data.
+*
 * @relation on(type: SensorId.GYROSCOPE_UNCALIBRATED, callback: Callback<GyroscopeUncalibratedResponse>, options?: Options): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onGyroscopeUncalibrated(callback: Callback1Argument<GyroscopeUncalibratedResponse>, option!: ?Options = None): Unit {
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let interval = option?.interval.value ?? DEFAULT_REPORTING_INTERVAL
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(GyroscopeUncalibrated.getValue(), interval, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+    // Due to interval, no need to check type is subscribed
+    ON_SENSOR_MANAGER.getOrCreate(GyroscopeUncalibrated).on(callback)
+}
+
+/**
+* Subscribe to sensor data.
+*
 * @relation on(type: SensorId.HALL, callback: Callback<HallResponse>, options?: Options): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onHall(callback: Callback1Argument<HallResponse>, option!: ?Options = None): Unit {
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let interval = option?.interval.value ?? DEFAULT_REPORTING_INTERVAL
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(Hall.getValue(), interval, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+    // Due to interval, no need to check type is subscribed
+    ON_SENSOR_MANAGER.getOrCreate(Hall).on(callback)
+}
+
+/**
+* Subscribe to sensor data.
+*
 * @relation on(type: SensorId.HEART_RATE, callback: Callback<HeartRateResponse>, options?: Options): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onHeartRate(callback: Callback1Argument<HeartRateResponse>, option!: ?Options = None): Unit {
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let interval = option?.interval.value ?? DEFAULT_REPORTING_INTERVAL
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(HeartRate.getValue(), interval, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+    // Due to interval, no need to check type is subscribed
+    ON_SENSOR_MANAGER.getOrCreate(HeartRate).on(callback)
+}
+
+/**
+* Subscribe to sensor data.
+*
 * @relation on(type: SensorId.HUMIDITY, callback: Callback<HumidityResponse>, options?: Options): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onHumidity(callback: Callback1Argument<HumidityResponse>, option!: ?Options = None): Unit {
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let interval = option?.interval.value ?? DEFAULT_REPORTING_INTERVAL
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(Humidity.getValue(), interval, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+    // Due to interval, no need to check type is subscribed
+    ON_SENSOR_MANAGER.getOrCreate(Humidity).on(callback)
+}
+
+/**
+* Subscribe to sensor data.
+*
 * @relation on(type: SensorId.LINEAR_ACCELEROMETER, callback: Callback<LinearAccelerometerResponse>, options?: Options): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onLinearAccelerometer(callback: Callback1Argument<LinearAccelerometerResponse>, option!: ?Options = None): Unit {
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let interval = option?.interval.value ?? DEFAULT_REPORTING_INTERVAL
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(LinearAccelerometer.getValue(), interval, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+    // Due to interval, no need to check type is subscribed
+    ON_SENSOR_MANAGER.getOrCreate(LinearAccelerometer).on(callback)
+}
+
+/**
+* Subscribe to sensor data.
+*
 * @relation on(type: SensorId.MAGNETIC_FIELD, callback: Callback<MagneticFieldResponse>, options?: Options): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onMagneticField(callback: Callback1Argument<MagneticFieldResponse>, option!: ?Options = None): Unit {
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let interval = option?.interval.value ?? DEFAULT_REPORTING_INTERVAL
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(MagneticField.getValue(), interval, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+    // Due to interval, no need to check type is subscribed
+    ON_SENSOR_MANAGER.getOrCreate(MagneticField).on(callback)
+}
+
+/**
+* Subscribe to sensor data.
+*
 * @relation on(type: SensorId.MAGNETIC_FIELD_UNCALIBRATED, callback: Callback<MagneticFieldUncalibratedResponse>, options?: Options): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onMagneticFieldUncalibrated(callback: Callback1Argument<MagneticFieldUncalibratedResponse>, option!: ?Options = None): Unit {
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let interval = option?.interval.value ?? DEFAULT_REPORTING_INTERVAL
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(MagneticFieldUncalibrated.getValue(), interval, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+    // Due to interval, no need to check type is subscribed
+    ON_SENSOR_MANAGER.getOrCreate(MagneticFieldUncalibrated).on(callback)
+}
+
+/**
+* Subscribe to sensor data.
+*
 * @relation on(type: SensorId.ORIENTATION, callback: Callback<OrientationResponse>, options?: Options): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onOrientation(callback: Callback1Argument<OrientationResponse>, option!: ?Options = None): Unit {
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let interval = option?.interval.value ?? DEFAULT_REPORTING_INTERVAL
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(Orientation.getValue(), interval, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+    // Due to interval, no need to check type is subscribed
+    ON_SENSOR_MANAGER.getOrCreate(Orientation).on(callback)
+}
+
+/**
+* Subscribe to sensor data.
+*
 * @relation on(type: SensorId.PEDOMETER, callback: Callback<PedometerResponse>, options?: Options): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onPedometer(callback: Callback1Argument<PedometerResponse>, option!: ?Options = None): Unit {
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let interval = option?.interval.value ?? DEFAULT_REPORTING_INTERVAL
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(Pedometer.getValue(), interval, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+    // Due to interval, no need to check type is subscribed
+    ON_SENSOR_MANAGER.getOrCreate(Pedometer).on(callback)
+}
+
+/**
+* Subscribe to sensor data.
+*
 * @relation on(type: SensorId.PEDOMETER_DETECTION, callback: Callback<PedometerDetectionResponse>, options?: Options): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onPedometerDetection(callback: Callback1Argument<PedometerDetectionResponse>, option!: ?Options = None): Unit {
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let interval = option?.interval.value ?? DEFAULT_REPORTING_INTERVAL
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(PedometerDetection.getValue(), interval, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+    // Due to interval, no need to check type is subscribed
+    ON_SENSOR_MANAGER.getOrCreate(PedometerDetection).on(callback)
+}
+
+/**
+* Subscribe to sensor data.
+*
 * @relation on(type: SensorId.PROXIMITY, callback: Callback<ProximityResponse>, options?: Options): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onProximity(callback: Callback1Argument<ProximityResponse>, option!: ?Options = None): Unit {
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let interval = option?.interval.value ?? DEFAULT_REPORTING_INTERVAL
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(Proximity.getValue(), interval, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+    // Due to interval, no need to check type is subscribed
+    ON_SENSOR_MANAGER.getOrCreate(Proximity).on(callback)
+}
+
+/**
+* Subscribe to sensor data.
+*
 * @relation on(type: SensorId.ROTATION_VECTOR, callback: Callback<RotationVectorResponse>, options?: Options): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onRotationVector(callback: Callback1Argument<RotationVectorResponse>, option!: ?Options = None): Unit {
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let interval = option?.interval.value ?? DEFAULT_REPORTING_INTERVAL
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(RotationVector.getValue(), interval, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+    // Due to interval, no need to check type is subscribed
+    ON_SENSOR_MANAGER.getOrCreate(RotationVector).on(callback)
+}
+
+/**
+* Subscribe to sensor data.
+*
 * @relation on(type: SensorId.SIGNIFICANT_MOTION, callback: Callback<SignificantMotionResponse>, options?: Options): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onSignificantMotion(callback: Callback1Argument<SignificantMotionResponse>, option!: ?Options = None): Unit {
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let interval = option?.interval.value ?? DEFAULT_REPORTING_INTERVAL
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(SignificantMotion.getValue(), interval, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+    // Due to interval, no need to check type is subscribed
+    ON_SENSOR_MANAGER.getOrCreate(SignificantMotion).on(callback)
+}
+
+/**
+* Subscribe to sensor data.
+*
 * @relation on(type: SensorId.WEAR_DETECTION, callback: Callback<WearDetectionResponse>, options?: Options): void;
 */
 @!APILevel[
@@ -1982,44 +2382,520 @@ public class Sensor {
     stagemodelonly: true,
     syscap: "SystemCapability.Sensors.Sensor"
 ]
-public func on<T>(sensorType: SensorId, callback: Callback1Argument<T>, option!: ?Options = None): Unit where T <: Response {
-    if (!SensorManager.isMatchType(sensorType, callback)) {
-        throw BusinessException(ERR_PARAMETER_ERROR, getErrorMsg(ERR_PARAMETER_ERROR))
-    }
-
+public func onWearDetection(callback: Callback1Argument<WearDetectionResponse>, option!: ?Options = None): Unit {
     let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
     let interval = option?.interval.value ?? DEFAULT_REPORTING_INTERVAL
-    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(sensorType.getValue(), interval, lambdaData.getID()) }
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(WearDetection.getValue(), interval, lambdaData.getID()) }
     if (ret != SUCCESS_CODE) {
         throw BusinessException(ret, getErrorMsg(ret))
     }
     // Due to interval, no need to check type is subscribed
-    ON_SENSOR_MANAGER.getOrCreate(sensorType).on(callback)
+    ON_SENSOR_MANAGER.getOrCreate(WearDetection).on(callback)
 }
 
 /**
 * Subscribe to sensor data once.
 *
 * @relation once(type: SensorId.ACCELEROMETER, callback: Callback<AccelerometerResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onceAccelerometer(callback: Callback1Argument<AccelerometerResponse>): Unit {
+    if (ON_SENSOR_MANAGER.isSensorSubscribed(Accelerometer)) {
+        ONCE_SENSOR_MANAGER.getOrCreate(Accelerometer).on(callback)
+        return
+    }
+
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(Accelerometer.getValue(), DEFAULT_REPORTING_INTERVAL, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+
+    ONCE_SENSOR_MANAGER.getOrCreate(Accelerometer).on(callback)
+}
+
+/**
+* Subscribe to sensor data once.
+*
 * @relation once(type: SensorId.ACCELEROMETER_UNCALIBRATED, callback: Callback<AccelerometerUncalibratedResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onceAccelerometerUncalibrated(callback: Callback1Argument<AccelerometerUncalibratedResponse>): Unit {
+    if (ON_SENSOR_MANAGER.isSensorSubscribed(AccelerometerUncalibrated)) {
+        ONCE_SENSOR_MANAGER.getOrCreate(AccelerometerUncalibrated).on(callback)
+        return
+    }
+
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(AccelerometerUncalibrated.getValue(), DEFAULT_REPORTING_INTERVAL, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+
+    ONCE_SENSOR_MANAGER.getOrCreate(AccelerometerUncalibrated).on(callback)
+}
+
+/**
+* Subscribe to sensor data once.
+*
 * @relation once(type: SensorId.AMBIENT_LIGHT, callback: Callback<LightResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onceAmbientLight(callback: Callback1Argument<LightResponse>): Unit {
+    if (ON_SENSOR_MANAGER.isSensorSubscribed(AmbientLight)) {
+        ONCE_SENSOR_MANAGER.getOrCreate(AmbientLight).on(callback)
+        return
+    }
+
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(AmbientLight.getValue(), DEFAULT_REPORTING_INTERVAL, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+
+    ONCE_SENSOR_MANAGER.getOrCreate(AmbientLight).on(callback)
+}
+
+/**
+* Subscribe to sensor data once.
+*
 * @relation once(type: SensorId.AMBIENT_TEMPERATURE, callback: Callback<AmbientTemperatureResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onceAmbientTemperature(callback: Callback1Argument<AmbientTemperatureResponse>): Unit {
+    if (ON_SENSOR_MANAGER.isSensorSubscribed(AmbientTemperature)) {
+        ONCE_SENSOR_MANAGER.getOrCreate(AmbientTemperature).on(callback)
+        return
+    }
+
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(AmbientTemperature.getValue(), DEFAULT_REPORTING_INTERVAL, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+
+    ONCE_SENSOR_MANAGER.getOrCreate(AmbientTemperature).on(callback)
+}
+
+/**
+* Subscribe to sensor data once.
+*
 * @relation once(type: SensorId.BAROMETER, callback: Callback<BarometerResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onceBarometer(callback: Callback1Argument<BarometerResponse>): Unit {
+    if (ON_SENSOR_MANAGER.isSensorSubscribed(Barometer)) {
+        ONCE_SENSOR_MANAGER.getOrCreate(Barometer).on(callback)
+        return
+    }
+
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(Barometer.getValue(), DEFAULT_REPORTING_INTERVAL, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+
+    ONCE_SENSOR_MANAGER.getOrCreate(Barometer).on(callback)
+}
+
+/**
+* Subscribe to sensor data once.
+*
 * @relation once(type: SensorId.GRAVITY, callback: Callback<GravityResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onceGravity(callback: Callback1Argument<GravityResponse>): Unit {
+    if (ON_SENSOR_MANAGER.isSensorSubscribed(Gravity)) {
+        ONCE_SENSOR_MANAGER.getOrCreate(Gravity).on(callback)
+        return
+    }
+
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(Gravity.getValue(), DEFAULT_REPORTING_INTERVAL, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+
+    ONCE_SENSOR_MANAGER.getOrCreate(Gravity).on(callback)
+}
+
+/**
+* Subscribe to sensor data once.
+*
 * @relation once(type: SensorId.GYROSCOPE, callback: Callback<GyroscopeResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onceGyroscope(callback: Callback1Argument<GyroscopeResponse>): Unit {
+    if (ON_SENSOR_MANAGER.isSensorSubscribed(Gyroscope)) {
+        ONCE_SENSOR_MANAGER.getOrCreate(Gyroscope).on(callback)
+        return
+    }
+
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(Gyroscope.getValue(), DEFAULT_REPORTING_INTERVAL, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+
+    ONCE_SENSOR_MANAGER.getOrCreate(Gyroscope).on(callback)
+}
+
+/**
+* Subscribe to sensor data once.
+*
 * @relation once(type: SensorId.GYROSCOPE_UNCALIBRATED, callback: Callback<GyroscopeUncalibratedResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onceGyroscopeUncalibrated(callback: Callback1Argument<GyroscopeUncalibratedResponse>): Unit {
+    if (ON_SENSOR_MANAGER.isSensorSubscribed(GyroscopeUncalibrated)) {
+        ONCE_SENSOR_MANAGER.getOrCreate(GyroscopeUncalibrated).on(callback)
+        return
+    }
+
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(GyroscopeUncalibrated.getValue(), DEFAULT_REPORTING_INTERVAL, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+
+    ONCE_SENSOR_MANAGER.getOrCreate(GyroscopeUncalibrated).on(callback)
+}
+
+/**
+* Subscribe to sensor data once.
+*
 * @relation once(type: SensorId.HALL, callback: Callback<HallResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onceHall(callback: Callback1Argument<HallResponse>): Unit {
+    if (ON_SENSOR_MANAGER.isSensorSubscribed(Hall)) {
+        ONCE_SENSOR_MANAGER.getOrCreate(Hall).on(callback)
+        return
+    }
+
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(Hall.getValue(), DEFAULT_REPORTING_INTERVAL, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+
+    ONCE_SENSOR_MANAGER.getOrCreate(Hall).on(callback)
+}
+
+/**
+* Subscribe to sensor data once.
+*
 * @relation once(type: SensorId.HEART_RATE, callback: Callback<HeartRateResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onceHeartRate(callback: Callback1Argument<HeartRateResponse>): Unit {
+    if (ON_SENSOR_MANAGER.isSensorSubscribed(HeartRate)) {
+        ONCE_SENSOR_MANAGER.getOrCreate(HeartRate).on(callback)
+        return
+    }
+
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(HeartRate.getValue(), DEFAULT_REPORTING_INTERVAL, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+
+    ONCE_SENSOR_MANAGER.getOrCreate(HeartRate).on(callback)
+}
+
+/**
+* Subscribe to sensor data once.
+*
 * @relation once(type: SensorId.HUMIDITY, callback: Callback<HumidityResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onceHumidity(callback: Callback1Argument<HumidityResponse>): Unit {
+    if (ON_SENSOR_MANAGER.isSensorSubscribed(Humidity)) {
+        ONCE_SENSOR_MANAGER.getOrCreate(Humidity).on(callback)
+        return
+    }
+
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(Humidity.getValue(), DEFAULT_REPORTING_INTERVAL, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+
+    ONCE_SENSOR_MANAGER.getOrCreate(Humidity).on(callback)
+}
+
+/**
+* Subscribe to sensor data once.
+*
 * @relation once(type: SensorId.LINEAR_ACCELEROMETER, callback: Callback<LinearAccelerometerResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onceLinearAccelerometer(callback: Callback1Argument<LinearAccelerometerResponse>): Unit {
+    if (ON_SENSOR_MANAGER.isSensorSubscribed(LinearAccelerometer)) {
+        ONCE_SENSOR_MANAGER.getOrCreate(LinearAccelerometer).on(callback)
+        return
+    }
+
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(LinearAccelerometer.getValue(), DEFAULT_REPORTING_INTERVAL, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+
+    ONCE_SENSOR_MANAGER.getOrCreate(LinearAccelerometer).on(callback)
+}
+
+/**
+* Subscribe to sensor data once.
+*
 * @relation once(type: SensorId.MAGNETIC_FIELD, callback: Callback<MagneticFieldResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onceMagneticField(callback: Callback1Argument<MagneticFieldResponse>): Unit {
+    if (ON_SENSOR_MANAGER.isSensorSubscribed(MagneticField)) {
+        ONCE_SENSOR_MANAGER.getOrCreate(MagneticField).on(callback)
+        return
+    }
+
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(MagneticField.getValue(), DEFAULT_REPORTING_INTERVAL, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+
+    ONCE_SENSOR_MANAGER.getOrCreate(MagneticField).on(callback)
+}
+
+/**
+* Subscribe to sensor data once.
+*
 * @relation once(type: SensorId.MAGNETIC_FIELD_UNCALIBRATED, callback: Callback<MagneticFieldUncalibratedResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onceMagneticFieldUncalibrated(callback: Callback1Argument<MagneticFieldUncalibratedResponse>): Unit {
+    if (ON_SENSOR_MANAGER.isSensorSubscribed(MagneticFieldUncalibrated)) {
+        ONCE_SENSOR_MANAGER.getOrCreate(MagneticFieldUncalibrated).on(callback)
+        return
+    }
+
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(MagneticFieldUncalibrated.getValue(), DEFAULT_REPORTING_INTERVAL, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+
+    ONCE_SENSOR_MANAGER.getOrCreate(MagneticFieldUncalibrated).on(callback)
+}
+
+/**
+* Subscribe to sensor data once.
+*
 * @relation once(type: SensorId.ORIENTATION, callback: Callback<OrientationResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onceOrientation(callback: Callback1Argument<OrientationResponse>): Unit {
+    if (ON_SENSOR_MANAGER.isSensorSubscribed(Orientation)) {
+        ONCE_SENSOR_MANAGER.getOrCreate(Orientation).on(callback)
+        return
+    }
+
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(Orientation.getValue(), DEFAULT_REPORTING_INTERVAL, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+
+    ONCE_SENSOR_MANAGER.getOrCreate(Orientation).on(callback)
+}
+
+/**
+* Subscribe to sensor data once.
+*
 * @relation once(type: SensorId.PEDOMETER, callback: Callback<PedometerResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func oncePedometer(callback: Callback1Argument<PedometerResponse>): Unit {
+    if (ON_SENSOR_MANAGER.isSensorSubscribed(Pedometer)) {
+        ONCE_SENSOR_MANAGER.getOrCreate(Pedometer).on(callback)
+        return
+    }
+
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(Pedometer.getValue(), DEFAULT_REPORTING_INTERVAL, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+
+    ONCE_SENSOR_MANAGER.getOrCreate(Pedometer).on(callback)
+}
+
+/**
+* Subscribe to sensor data once.
+*
 * @relation once(type: SensorId.PEDOMETER_DETECTION, callback: Callback<PedometerDetectionResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func oncePedometerDetection(callback: Callback1Argument<PedometerDetectionResponse>): Unit {
+    if (ON_SENSOR_MANAGER.isSensorSubscribed(PedometerDetection)) {
+        ONCE_SENSOR_MANAGER.getOrCreate(PedometerDetection).on(callback)
+        return
+    }
+
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(PedometerDetection.getValue(), DEFAULT_REPORTING_INTERVAL, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+
+    ONCE_SENSOR_MANAGER.getOrCreate(PedometerDetection).on(callback)
+}
+
+/**
+* Subscribe to sensor data once.
+*
 * @relation once(type: SensorId.PROXIMITY, callback: Callback<ProximityResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onceProximity(callback: Callback1Argument<ProximityResponse>): Unit {
+    if (ON_SENSOR_MANAGER.isSensorSubscribed(Proximity)) {
+        ONCE_SENSOR_MANAGER.getOrCreate(Proximity).on(callback)
+        return
+    }
+
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(Proximity.getValue(), DEFAULT_REPORTING_INTERVAL, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+
+    ONCE_SENSOR_MANAGER.getOrCreate(Proximity).on(callback)
+}
+
+/**
+* Subscribe to sensor data once.
+*
 * @relation once(type: SensorId.ROTATION_VECTOR, callback: Callback<RotationVectorResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onceRotationVector(callback: Callback1Argument<RotationVectorResponse>): Unit {
+    if (ON_SENSOR_MANAGER.isSensorSubscribed(RotationVector)) {
+        ONCE_SENSOR_MANAGER.getOrCreate(RotationVector).on(callback)
+        return
+    }
+
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(RotationVector.getValue(), DEFAULT_REPORTING_INTERVAL, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+
+    ONCE_SENSOR_MANAGER.getOrCreate(RotationVector).on(callback)
+}
+
+/**
+* Subscribe to sensor data once.
+*
 * @relation once(type: SensorId.SIGNIFICANT_MOTION, callback: Callback<SignificantMotionResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func onceSignificantMotion(callback: Callback1Argument<SignificantMotionResponse>): Unit {
+    if (ON_SENSOR_MANAGER.isSensorSubscribed(SignificantMotion)) {
+        ONCE_SENSOR_MANAGER.getOrCreate(SignificantMotion).on(callback)
+        return
+    }
+
+    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(SignificantMotion.getValue(), DEFAULT_REPORTING_INTERVAL, lambdaData.getID()) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+
+    ONCE_SENSOR_MANAGER.getOrCreate(SignificantMotion).on(callback)
+}
+
+/**
+* Subscribe to sensor data once.
+*
 * @relation once(type: SensorId.WEAR_DETECTION, callback: Callback<WearDetectionResponse>): void;
 */
 @!APILevel[
@@ -2027,48 +2903,625 @@ public func on<T>(sensorType: SensorId, callback: Callback1Argument<T>, option!:
     stagemodelonly: true,
     syscap: "SystemCapability.Sensors.Sensor"
 ]
-public func once<T>(sensorType: SensorId, callback: Callback1Argument<T>): Unit where T <: Response {
-    if (!SensorManager.isMatchType(sensorType, callback)) {
-        throw BusinessException(ERR_PARAMETER_ERROR, getErrorMsg(ERR_PARAMETER_ERROR))
-    }
-
-    if (ON_SENSOR_MANAGER.isSensorSubscribed(sensorType)) {
-        ONCE_SENSOR_MANAGER.getOrCreate(sensorType).on(callback)
+public func onceWearDetection(callback: Callback1Argument<WearDetectionResponse>): Unit {
+    if (ON_SENSOR_MANAGER.isSensorSubscribed(WearDetection)) {
+        ONCE_SENSOR_MANAGER.getOrCreate(WearDetection).on(callback)
         return
     }
 
     let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
-    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(sensorType.getValue(), DEFAULT_REPORTING_INTERVAL, lambdaData.getID()) }
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(WearDetection.getValue(), DEFAULT_REPORTING_INTERVAL, lambdaData.getID()) }
     if (ret != SUCCESS_CODE) {
         throw BusinessException(ret, getErrorMsg(ret))
     }
 
-    ONCE_SENSOR_MANAGER.getOrCreate(sensorType).on(callback)
+    ONCE_SENSOR_MANAGER.getOrCreate(WearDetection).on(callback)
 }
 
 /**
-* Subscribe to sensor data once.
+* Unsubscribe to sensor data.
 *
 * @relation off(type: SensorId.ACCELEROMETER, callback?: Callback<AccelerometerResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func offAccelerometer(callback!: ?Callback1Argument<AccelerometerResponse> = None): Unit {
+    if (!ON_SENSOR_MANAGER.isSensorSubscribed(Accelerometer)) {
+        return
+    }
+
+    let size = match (callback) {
+        case Some(v) => removeCallback(Accelerometer, v)
+        case None => removeAllCallback(Accelerometer)
+    }
+
+    if (size > 0) {
+        return
+    }
+
+    let ret = unsafe { FfiSensorUnSubscribeSensor(Accelerometer.getValue()) }
+    if (ret == ERR_PARAMETER_ERROR || ret == ERR_NO_PERMISSION) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+}
+
+/**
+* Unsubscribe to sensor data.
+*
 * @relation off(type: SensorId.ACCELEROMETER_UNCALIBRATED, callback?: Callback<AccelerometerUncalibratedResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func offAccelerometerUncalibrated(callback!: ?Callback1Argument<AccelerometerUncalibratedResponse> = None): Unit {
+    if (!ON_SENSOR_MANAGER.isSensorSubscribed(AccelerometerUncalibrated)) {
+        return
+    }
+
+    let size = match (callback) {
+        case Some(v) => removeCallback(AccelerometerUncalibrated, v)
+        case None => removeAllCallback(AccelerometerUncalibrated)
+    }
+
+    if (size > 0) {
+        return
+    }
+
+    let ret = unsafe { FfiSensorUnSubscribeSensor(AccelerometerUncalibrated.getValue()) }
+    if (ret == ERR_PARAMETER_ERROR || ret == ERR_NO_PERMISSION) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+}
+
+/**
+* Unsubscribe to sensor data.
+*
 * @relation off(type: SensorId.AMBIENT_LIGHT, callback?: Callback<LightResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func offAmbientLight(callback!: ?Callback1Argument<LightResponse> = None): Unit {
+    if (!ON_SENSOR_MANAGER.isSensorSubscribed(AmbientLight)) {
+        return
+    }
+
+    let size = match (callback) {
+        case Some(v) => removeCallback(AmbientLight, v)
+        case None => removeAllCallback(AmbientLight)
+    }
+
+    if (size > 0) {
+        return
+    }
+
+    let ret = unsafe { FfiSensorUnSubscribeSensor(AmbientLight.getValue()) }
+    if (ret == ERR_PARAMETER_ERROR || ret == ERR_NO_PERMISSION) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+}
+
+/**
+* Unsubscribe to sensor data.
+*
 * @relation off(type: SensorId.AMBIENT_TEMPERATURE, callback?: Callback<AmbientTemperatureResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func offAmbientTemperature(callback!: ?Callback1Argument<AmbientTemperatureResponse> = None): Unit {
+    if (!ON_SENSOR_MANAGER.isSensorSubscribed(AmbientTemperature)) {
+        return
+    }
+
+    let size = match (callback) {
+        case Some(v) => removeCallback(AmbientTemperature, v)
+        case None => removeAllCallback(AmbientTemperature)
+    }
+
+    if (size > 0) {
+        return
+    }
+
+    let ret = unsafe { FfiSensorUnSubscribeSensor(AmbientTemperature.getValue()) }
+    if (ret == ERR_PARAMETER_ERROR || ret == ERR_NO_PERMISSION) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+}
+
+/**
+* Unsubscribe to sensor data.
+*
 * @relation off(type: SensorId.BAROMETER, callback?: Callback<BarometerResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func offBarometer(callback!: ?Callback1Argument<BarometerResponse> = None): Unit {
+    if (!ON_SENSOR_MANAGER.isSensorSubscribed(Barometer)) {
+        return
+    }
+
+    let size = match (callback) {
+        case Some(v) => removeCallback(Barometer, v)
+        case None => removeAllCallback(Barometer)
+    }
+
+    if (size > 0) {
+        return
+    }
+
+    let ret = unsafe { FfiSensorUnSubscribeSensor(Barometer.getValue()) }
+    if (ret == ERR_PARAMETER_ERROR || ret == ERR_NO_PERMISSION) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+}
+
+/**
+* Unsubscribe to sensor data.
+*
 * @relation off(type: SensorId.GRAVITY, callback?: Callback<GravityResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func offGravity(callback!: ?Callback1Argument<GravityResponse> = None): Unit {
+    if (!ON_SENSOR_MANAGER.isSensorSubscribed(Gravity)) {
+        return
+    }
+
+    let size = match (callback) {
+        case Some(v) => removeCallback(Gravity, v)
+        case None => removeAllCallback(Gravity)
+    }
+
+    if (size > 0) {
+        return
+    }
+
+    let ret = unsafe { FfiSensorUnSubscribeSensor(Gravity.getValue()) }
+    if (ret == ERR_PARAMETER_ERROR || ret == ERR_NO_PERMISSION) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+}
+
+/**
+* Unsubscribe to sensor data.
+*
 * @relation off(type: SensorId.GYROSCOPE, callback?: Callback<GyroscopeResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func offGyroscope(callback!: ?Callback1Argument<GyroscopeResponse> = None): Unit {
+    if (!ON_SENSOR_MANAGER.isSensorSubscribed(Gyroscope)) {
+        return
+    }
+
+    let size = match (callback) {
+        case Some(v) => removeCallback(Gyroscope, v)
+        case None => removeAllCallback(Gyroscope)
+    }
+
+    if (size > 0) {
+        return
+    }
+
+    let ret = unsafe { FfiSensorUnSubscribeSensor(Gyroscope.getValue()) }
+    if (ret == ERR_PARAMETER_ERROR || ret == ERR_NO_PERMISSION) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+}
+
+/**
+* Unsubscribe to sensor data.
+*
 * @relation off(type: SensorId.GYROSCOPE_UNCALIBRATED, callback?: Callback<GyroscopeUncalibratedResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func offGyroscopeUncalibrated(callback!: ?Callback1Argument<GyroscopeUncalibratedResponse> = None): Unit {
+    if (!ON_SENSOR_MANAGER.isSensorSubscribed(GyroscopeUncalibrated)) {
+        return
+    }
+
+    let size = match (callback) {
+        case Some(v) => removeCallback(GyroscopeUncalibrated, v)
+        case None => removeAllCallback(GyroscopeUncalibrated)
+    }
+
+    if (size > 0) {
+        return
+    }
+
+    let ret = unsafe { FfiSensorUnSubscribeSensor(GyroscopeUncalibrated.getValue()) }
+    if (ret == ERR_PARAMETER_ERROR || ret == ERR_NO_PERMISSION) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+}
+
+/**
+* Unsubscribe to sensor data.
+*
 * @relation off(type: SensorId.HALL, callback?: Callback<HallResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func offHall(callback!: ?Callback1Argument<HallResponse> = None): Unit {
+    if (!ON_SENSOR_MANAGER.isSensorSubscribed(Hall)) {
+        return
+    }
+
+    let size = match (callback) {
+        case Some(v) => removeCallback(Hall, v)
+        case None => removeAllCallback(Hall)
+    }
+
+    if (size > 0) {
+        return
+    }
+
+    let ret = unsafe { FfiSensorUnSubscribeSensor(Hall.getValue()) }
+    if (ret == ERR_PARAMETER_ERROR || ret == ERR_NO_PERMISSION) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+}
+
+/**
+* Unsubscribe to sensor data.
+*
 * @relation off(type: SensorId.HEART_RATE, callback?: Callback<HeartRateResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func offHeartRate(callback!: ?Callback1Argument<HeartRateResponse> = None): Unit {
+    if (!ON_SENSOR_MANAGER.isSensorSubscribed(HeartRate)) {
+        return
+    }
+
+    let size = match (callback) {
+        case Some(v) => removeCallback(HeartRate, v)
+        case None => removeAllCallback(HeartRate)
+    }
+
+    if (size > 0) {
+        return
+    }
+
+    let ret = unsafe { FfiSensorUnSubscribeSensor(HeartRate.getValue()) }
+    if (ret == ERR_PARAMETER_ERROR || ret == ERR_NO_PERMISSION) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+}
+
+/**
+* Unsubscribe to sensor data.
+*
 * @relation off(type: SensorId.HUMIDITY, callback?: Callback<HumidityResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func offHumidity(callback!: ?Callback1Argument<HumidityResponse> = None): Unit {
+    if (!ON_SENSOR_MANAGER.isSensorSubscribed(Humidity)) {
+        return
+    }
+
+    let size = match (callback) {
+        case Some(v) => removeCallback(Humidity, v)
+        case None => removeAllCallback(Humidity)
+    }
+
+    if (size > 0) {
+        return
+    }
+
+    let ret = unsafe { FfiSensorUnSubscribeSensor(Humidity.getValue()) }
+    if (ret == ERR_PARAMETER_ERROR || ret == ERR_NO_PERMISSION) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+}
+
+/**
+* Unsubscribe to sensor data.
+*
 * @relation off(type: SensorId.LINEAR_ACCELEROMETER, callback?: Callback<LinearAccelerometerResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func offLinearAccelerometer(callback!: ?Callback1Argument<LinearAccelerometerResponse> = None): Unit {
+    if (!ON_SENSOR_MANAGER.isSensorSubscribed(LinearAccelerometer)) {
+        return
+    }
+
+    let size = match (callback) {
+        case Some(v) => removeCallback(LinearAccelerometer, v)
+        case None => removeAllCallback(LinearAccelerometer)
+    }
+
+    if (size > 0) {
+        return
+    }
+
+    let ret = unsafe { FfiSensorUnSubscribeSensor(LinearAccelerometer.getValue()) }
+    if (ret == ERR_PARAMETER_ERROR || ret == ERR_NO_PERMISSION) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+}
+
+/**
+* Unsubscribe to sensor data.
+*
 * @relation off(type: SensorId.MAGNETIC_FIELD, callback?: Callback<MagneticFieldResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func offMagneticField(callback!: ?Callback1Argument<MagneticFieldResponse> = None): Unit {
+    if (!ON_SENSOR_MANAGER.isSensorSubscribed(MagneticField)) {
+        return
+    }
+
+    let size = match (callback) {
+        case Some(v) => removeCallback(MagneticField, v)
+        case None => removeAllCallback(MagneticField)
+    }
+
+    if (size > 0) {
+        return
+    }
+
+    let ret = unsafe { FfiSensorUnSubscribeSensor(MagneticField.getValue()) }
+    if (ret == ERR_PARAMETER_ERROR || ret == ERR_NO_PERMISSION) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+}
+
+/**
+* Unsubscribe to sensor data.
+*
 * @relation off(type: SensorId.MAGNETIC_FIELD_UNCALIBRATED, callback?: Callback<MagneticFieldUncalibratedResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func offMagneticFieldUncalibrated(callback!: ?Callback1Argument<MagneticFieldUncalibratedResponse> = None): Unit {
+    if (!ON_SENSOR_MANAGER.isSensorSubscribed(MagneticFieldUncalibrated)) {
+        return
+    }
+
+    let size = match (callback) {
+        case Some(v) => removeCallback(MagneticFieldUncalibrated, v)
+        case None => removeAllCallback(MagneticFieldUncalibrated)
+    }
+
+    if (size > 0) {
+        return
+    }
+
+    let ret = unsafe { FfiSensorUnSubscribeSensor(MagneticFieldUncalibrated.getValue()) }
+    if (ret == ERR_PARAMETER_ERROR || ret == ERR_NO_PERMISSION) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+}
+
+/**
+* Unsubscribe to sensor data.
+*
 * @relation off(type: SensorId.ORIENTATION, callback?: Callback<OrientationResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func offOrientation(callback!: ?Callback1Argument<OrientationResponse> = None): Unit {
+    if (!ON_SENSOR_MANAGER.isSensorSubscribed(Orientation)) {
+        return
+    }
+
+    let size = match (callback) {
+        case Some(v) => removeCallback(Orientation, v)
+        case None => removeAllCallback(Orientation)
+    }
+
+    if (size > 0) {
+        return
+    }
+
+    let ret = unsafe { FfiSensorUnSubscribeSensor(Orientation.getValue()) }
+    if (ret == ERR_PARAMETER_ERROR || ret == ERR_NO_PERMISSION) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+}
+
+/**
+* Unsubscribe to sensor data.
+*
 * @relation off(type: SensorId.PEDOMETER, callback?: Callback<PedometerResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func offPedometer(callback!: ?Callback1Argument<PedometerResponse> = None): Unit {
+    if (!ON_SENSOR_MANAGER.isSensorSubscribed(Pedometer)) {
+        return
+    }
+
+    let size = match (callback) {
+        case Some(v) => removeCallback(Pedometer, v)
+        case None => removeAllCallback(Pedometer)
+    }
+
+    if (size > 0) {
+        return
+    }
+
+    let ret = unsafe { FfiSensorUnSubscribeSensor(Pedometer.getValue()) }
+    if (ret == ERR_PARAMETER_ERROR || ret == ERR_NO_PERMISSION) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+}
+
+/**
+* Unsubscribe to sensor data.
+*
 * @relation off(type: SensorId.PEDOMETER_DETECTION, callback?: Callback<PedometerDetectionResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func offPedometerDetection(callback!: ?Callback1Argument<PedometerDetectionResponse> = None): Unit {
+    if (!ON_SENSOR_MANAGER.isSensorSubscribed(PedometerDetection)) {
+        return
+    }
+
+    let size = match (callback) {
+        case Some(v) => removeCallback(PedometerDetection, v)
+        case None => removeAllCallback(PedometerDetection)
+    }
+
+    if (size > 0) {
+        return
+    }
+
+    let ret = unsafe { FfiSensorUnSubscribeSensor(PedometerDetection.getValue()) }
+    if (ret == ERR_PARAMETER_ERROR || ret == ERR_NO_PERMISSION) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+}
+
+
+/**
+* Unsubscribe to sensor data.
+*
 * @relation off(type: SensorId.PROXIMITY, callback?: Callback<ProximityResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func offProximity(callback!: ?Callback1Argument<ProximityResponse> = None): Unit {
+    if (!ON_SENSOR_MANAGER.isSensorSubscribed(Proximity)) {
+        return
+    }
+
+    let size = match (callback) {
+        case Some(v) => removeCallback(Proximity, v)
+        case None => removeAllCallback(Proximity)
+    }
+
+    if (size > 0) {
+        return
+    }
+
+    let ret = unsafe { FfiSensorUnSubscribeSensor(Proximity.getValue()) }
+    if (ret == ERR_PARAMETER_ERROR || ret == ERR_NO_PERMISSION) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+}
+
+/**
+* Unsubscribe to sensor data.
+*
 * @relation off(type: SensorId.ROTATION_VECTOR, callback?: Callback<RotationVectorResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func offRotationVector(callback!: ?Callback1Argument<RotationVectorResponse> = None): Unit {
+    if (!ON_SENSOR_MANAGER.isSensorSubscribed(RotationVector)) {
+        return
+    }
+
+    let size = match (callback) {
+        case Some(v) => removeCallback(RotationVector, v)
+        case None => removeAllCallback(RotationVector)
+    }
+
+    if (size > 0) {
+        return
+    }
+
+    let ret = unsafe { FfiSensorUnSubscribeSensor(RotationVector.getValue()) }
+    if (ret == ERR_PARAMETER_ERROR || ret == ERR_NO_PERMISSION) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+}
+
+/**
+* Unsubscribe to sensor data.
+*
 * @relation off(type: SensorId.SIGNIFICANT_MOTION, callback?: Callback<SignificantMotionResponse>): void;
+*/
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func offSignificantMotion(callback!: ?Callback1Argument<SignificantMotionResponse> = None): Unit {
+    if (!ON_SENSOR_MANAGER.isSensorSubscribed(SignificantMotion)) {
+        return
+    }
+
+    let size = match (callback) {
+        case Some(v) => removeCallback(SignificantMotion, v)
+        case None => removeAllCallback(SignificantMotion)
+    }
+
+    if (size > 0) {
+        return
+    }
+
+    let ret = unsafe { FfiSensorUnSubscribeSensor(SignificantMotion.getValue()) }
+    if (ret == ERR_PARAMETER_ERROR || ret == ERR_NO_PERMISSION) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+}
+
+/**
+* Unsubscribe to sensor data.
+*
 * @relation off(type: SensorId.WEAR_DETECTION, callback?: Callback<WearDetectionResponse>): void;
 */
 @!APILevel[
@@ -2076,21 +3529,21 @@ public func once<T>(sensorType: SensorId, callback: Callback1Argument<T>): Unit 
     stagemodelonly: true,
     syscap: "SystemCapability.Sensors.Sensor"
 ]
-public func off(sensorType: SensorId, callback!: ?CallbackObject = None): Unit {
-    if (!ON_SENSOR_MANAGER.isSensorSubscribed(sensorType)) {
+public func offWearDetection(callback!: ?Callback1Argument<WearDetectionResponse> = None): Unit {
+    if (!ON_SENSOR_MANAGER.isSensorSubscribed(WearDetection)) {
         return
     }
 
     let size = match (callback) {
-        case Some(v) => removeCallback(sensorType, v)
-        case None => removeAllCallback(sensorType)
+        case Some(v) => removeCallback(WearDetection, v)
+        case None => removeAllCallback(WearDetection)
     }
 
     if (size > 0) {
         return
     }
 
-    let ret = unsafe { FfiSensorUnSubscribeSensor(sensorType.getValue()) }
+    let ret = unsafe { FfiSensorUnSubscribeSensor(WearDetection.getValue()) }
     if (ret == ERR_PARAMETER_ERROR || ret == ERR_NO_PERMISSION) {
         throw BusinessException(ret, getErrorMsg(ret))
     }
