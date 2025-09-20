@@ -14,16 +14,16 @@
 
 - 泛Sensor服务仓颉接口当前提供以下能力：
 
-  -   Sensor订阅/取消订阅。
-  -   获取Sensor信息。
+  - Sensor订阅/取消订阅。
+  - 获取Sensor信息。
 - 接口封装：使用仓颉实现Sensor服务能力。
-- Sensor仓颉FFI接口定义：负责定义C互操作仓颉接口，用于实现仓颉Sensor能力。
-- 传感器服务：负责提供Sensor基础功能，封装C接口提供给仓颉进行互操作。
+- Sensor仓颉FFI接口定义：负责定义C语言互操作仓颉接口，用于实现仓颉Sensor能力。
+- 传感器服务：负责提供Sensor基础功能，封装C语言接口提供给仓颉进行互操作。
 
 ## 目录
 
 ```
-base/sensors/sensors_cangjie_wrapper     
+base/sensors/sensors_cangjie_wrapper   
 ├── figures               # 存放README中的架构图
 ├── kit                   # Sensor仓颉服务kit化代码
 │   └── SensorServiceKit  # SensorServiceKit代码目录
@@ -34,8 +34,8 @@ base/sensors/sensors_cangjie_wrapper
 
 ## 约束
 
--   要使用Sensor的功能，设备必须具有对应的Sensor器件。
--   针对某些Sensor，开发者需要请求相应的权限，才能获取到相应Sensor的数据。
+- 要使用Sensor的功能，设备必须具有对应的Sensor器件。
+- 针对某些Sensor，开发者需要请求相应的权限，才能获取到相应Sensor的数据。
 
 ## 使用说明
 
@@ -62,3 +62,7 @@ base/sensors/sensors_cangjie_wrapper
 ## 相关仓
 
 [sensors\_sensor](https://gitee.com/openharmony/sensors_sensor/blob/master/README_zh.md)
+
+[cangjie_ark_interop](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/README_zh.md)
+
+[hiviewdfx_cangjie_wrapper](https://gitcode.com/openharmony-sig/hiviewdfx_hiviewdfx_cangjie_wrapper/blob/master/README_zh.md)

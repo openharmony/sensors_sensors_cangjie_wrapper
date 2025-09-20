@@ -17,8 +17,8 @@ As shown in the architecture:
   - subscribing to or unsubscribing from sensor data.
   - obtaining Sensor data.
 - Interface encapsulation: Implement Sensor service capabilities using Cangjie.
-- Sensor Cangjie FFI interface definition: responsible for defining the C interoperability Cangjie interface, used to implement Cangjie Sensor capabilities.
-- Sensor Service: Responsible for providing basic Sensor functions and encapsulating C interfaces for interoperability with Cangjie.
+- Sensor Cangjie FFI interface definition: responsible for defining the C language interoperability Cangjie interface, used to implement Cangjie Sensor capabilities.
+- Sensor Service: Responsible for providing basic Sensor functions and encapsulating C language interfaces for interoperability with Cangjie.
 
 ## Directory Structure
 
@@ -44,7 +44,7 @@ As shown in the diagram, Sensor Service Cangjie provides the following capabilit
 - querying the sensor list.
 - subscribing to or unsubscribing from sensor data.
 
-Please refer to the Sensor related API for details[ohos.sensor(Sensors)](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/API_Reference/source_en/apis/SensorServiceKit/cj-apis-sensor.md). 
+Please refer to the Sensor related API for details[ohos.sensor(Sensors)](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/API_Reference/source_en/apis/SensorServiceKit/cj-apis-sensor.md).
 For relevant guidance, please refer to[Introduction to Sensor Service Kit Development](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/Dev_Guide/source_en/device/sensor/cj-sensor-overview.md).
 
 Compared to ArkTS, the following features are currently not supported:
@@ -61,3 +61,7 @@ Developers are welcome to contribute code, documentation, etc. For specific cont
 ## Repositories Involved
 
 [sensors\_sensor](https://gitee.com/openharmony/sensors_sensor/blob/master/README.md)
+
+[cangjie_ark_interop](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/README.md)
+
+[hiviewdfx_cangjie_wrapper](https://gitcode.com/openharmony-sig/hiviewdfx_hiviewdfx_cangjie_wrapper/blob/master/README.md)
