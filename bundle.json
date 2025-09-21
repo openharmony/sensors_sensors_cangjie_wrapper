@@ -19,7 +19,6 @@
       "components": [
         "cangjie_ark_interop",
         "hiviewdfx_cangjie_wrapper",
-        "arkui_cangjie_wrapper",
         "sensor"
       ]
     },
