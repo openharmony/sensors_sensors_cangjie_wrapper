@@ -16,11 +16,8 @@ As shown in the architecture:
   
   - subscribing to or unsubscribing from sensor data.
   - obtaining Sensor data.
-
 - Interface encapsulation: Implement Sensor service capabilities using Cangjie.
-
-- Sensor Cangjie FFI interface definition: responsible for defining the C language interoperability Cangjie interface, used to implement Cangjie Sensor capabilities.
-
+- Sensor Cangjie FFI interface definition: Responsible for defining the C language interoperability interface called by the Cangjie language, used to implement Cangjie Sensor capabilities.
 - Sensor Service: Responsible for providing basic Sensor functions and encapsulating C language interfaces for interoperability with Cangjie.
 
 ## Directory Structure
@@ -69,5 +66,4 @@ Developers are welcome to contribute code, documentation, etc. For specific cont
 [cangjie_ark_interop](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/README.md)
 
 [hiviewdfx_cangjie_wrapper](https://gitcode.com/openharmony-sig/hiviewdfx_hiviewdfx_cangjie_wrapper/blob/master/README.md)
-
 
