@@ -20,7 +20,7 @@ package ohos_app_cangjie_entry
 
 import std.unittest.testmacro.*
 import std.math.*
-import kit.SensorServiceKit.*
+import SensorServiceKit.*
 import std.unittest.*
 import std.unittest.common.*
 import std.unittest.testmacro.*
