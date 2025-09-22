@@ -13,11 +13,14 @@ The following figure shows the architecture of the pan-sensor service framework.
 As shown in the architecture:
 
 - The pan-sensor Service Cangjie interface currently provides the following capabilities:
-
+  
   - subscribing to or unsubscribing from sensor data.
   - obtaining Sensor data.
+
 - Interface encapsulation: Implement Sensor service capabilities using Cangjie.
+
 - Sensor Cangjie FFI interface definition: responsible for defining the C language interoperability Cangjie interface, used to implement Cangjie Sensor capabilities.
+
 - Sensor Service: Responsible for providing basic Sensor functions and encapsulating C language interfaces for interoperability with Cangjie.
 
 ## Directory Structure
@@ -25,11 +28,13 @@ As shown in the architecture:
 ```
 base/sensors/sensors_cangjie_wrapper
 ├── figures               # architecture pictures
-├── kit                   # Cangjie kit code
+├── kit
 │   └── SensorServiceKit  # Cangjie SensorServiceKit
-├── ohos                  # Cangjie pan-sensor code
-│   └── sensor            # Cangjie sensor code
-└── test                  # Test cases
+├── ohos
+│   └── sensor            # Cangjie pan-sensor code
+└── test
+    └── APILevel22
+        └── sensor        # Cangjie sensor test cases
 ```
 
 ## Constraints
@@ -44,15 +49,14 @@ As shown in the diagram, Sensor Service Cangjie provides the following capabilit
 - querying the sensor list.
 - subscribing to or unsubscribing from sensor data.
 
-Please refer to the Sensor related API for details[ohos.sensor(Sensors)](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/API_Reference/source_en/apis/SensorServiceKit/cj-apis-sensor.md).
-For relevant guidance, please refer to[Introduction to Sensor Service Kit Development](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/Dev_Guide/source_en/device/sensor/cj-sensor-overview.md).
-
-Compared to ArkTS, the following features are currently not supported:
+Compared with the API capabilities provided by ArkTS, the following features are currently not supported:
 
 - Obtain the geomagnetic field information of a specific location on Earth at a certain moment.
 - Obtain altitude based on air pressure values.
 - Calculate the geomagnetic tilt angle based on the tilt matrix.
 - Calculate rotation matrices, etc.
+
+Please refer to the Sensor related API for details [Sensor API reference](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/API_Reference/source_en/apis/SensorServiceKit/cj-apis-sensor.md).For relevant guidance, please refer to [Sensor Development guidance](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/Dev_Guide/source_en/device/sensor/cj-sensor-overview.md).
 
 ## Code Contribution
 
@@ -65,3 +69,5 @@ Developers are welcome to contribute code, documentation, etc. For specific cont
 [cangjie_ark_interop](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/README.md)
 
 [hiviewdfx_cangjie_wrapper](https://gitcode.com/openharmony-sig/hiviewdfx_hiviewdfx_cangjie_wrapper/blob/master/README.md)
+
+
