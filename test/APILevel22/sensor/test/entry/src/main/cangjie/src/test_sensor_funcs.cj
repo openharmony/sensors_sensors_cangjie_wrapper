@@ -42,7 +42,7 @@ extend Sensor {
 @Test
 class TestSensorGetSensorList {
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_GetSensorList_BasicFunction_Success(): Unit {
         sleepFor(1.second) // wait for sensor init
         let sensors = getSensorList()
@@ -50,7 +50,7 @@ class TestSensorGetSensorList {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_GetSingleSensor(): Unit {
         try {
             let sensor = getSingleSensor(SensorId.Accelerometer)
@@ -64,7 +64,7 @@ class TestSensorGetSensorList {
 @Test
 class TestSensorEnum {
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_EnumSensorId() {
         let sensorIdArr: Array<SensorId> = [Accelerometer, Gyroscope, AmbientLight, MagneticField, Barometer, Hall, Proximity, Humidity, Orientation, Gravity, LinearAccelerometer, RotationVector, AmbientTemperature, MagneticFieldUncalibrated, GyroscopeUncalibrated, SignificantMotion, PedometerDetection, Pedometer, HeartRate, WearDetection, AccelerometerUncalibrated]
         let sensorIdStrArr: Array<String> = ["SensorId.Accelerometer", "SensorId.Gyroscope", "SensorId.AmbientLight", "SensorId.MagneticField", "SensorId.Barometer", "SensorId.Hall", "SensorId.Proximity", "SensorId.Humidity", "SensorId.Orientation", "SensorId.Gravity", "SensorId.LinearAccelerometer", "SensorId.RotationVector", "SensorId.AmbientTemperature", "SensorId.MagneticFieldUncalibrated", "SensorId.GyroscopeUncalibrated", "SensorId.SignificantMotion", "SensorId.PedometerDetection", "SensorId.Pedometer", "SensorId.HeartRate", "SensorId.WearDetection", "SensorId.AccelerometerUncalibrated"]
@@ -80,7 +80,7 @@ class TestSensorEnum {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_EnumSensorAccuracy() {
         let sensorAccuracyArr: Array<SensorAccuracy> = [AccuracyUnreliable, AccuracyLow,  AccuracyMedium, AccuracyHigh]
         let sensorAccuracyArr2: Array<SensorAccuracy> = [AccuracyUnreliable, AccuracyLow,  AccuracyMedium, AccuracyHigh]
@@ -97,7 +97,7 @@ class TestSensorEnum {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_EnumIntervalOption() {
         let sensorAccuracyArr: Array<IntervalOption> = [SensorNumber(1), GameMode, UIMode, NormalMode]
         let sensorAccuracyArr2: Array<IntervalOption> = [SensorNumber(1), GameMode, UIMode, NormalMode]
