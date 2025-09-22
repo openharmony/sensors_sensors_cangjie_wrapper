@@ -25,7 +25,7 @@
     "build": {
       "sub_component": [
           "//base/sensors/sensors_cangjie_wrapper/ohos/sensor:ohos.sensor",
-          "//base/sensors/sensors_cangjie_wrapper/kit/SensorServiceKit:kit.SensorServiceKit"
+          "//base/sensors/sensors_cangjie_wrapper/kit/SensorServiceKit:SensorServiceKit"
       ],
       "inner_kits": [],
       "test": []

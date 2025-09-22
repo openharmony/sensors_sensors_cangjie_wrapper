@@ -13,6 +13,6 @@
  * limitations under the License.
  */
 
-package kit.SensorServiceKit
+package SensorServiceKit
 
 public import ohos.sensor.*
