@@ -16,9 +16,16 @@ As shown in the architecture:
   
   - subscribing to or unsubscribing from sensor data.
   - obtaining Sensor data.
+
 - Interface encapsulation: Implement Sensor service capabilities using Cangjie.
+
 - Sensor Cangjie FFI interface definition: Responsible for defining the C language interoperability interface called by the Cangjie language, used to implement Cangjie Sensor capabilities.
+
 - Sensor Service: Responsible for providing basic Sensor functions and encapsulating C language interfaces for interoperability with Cangjie.
+
+- cangjie_ark_interop: Responsible for providing Cangjie annotation class definitions for labeling APIs, and providing the BusinessException class definition thrown to users.
+
+- hiviewdfx_cangjie_wrapper: Responsible for providing log interfaces for printing logs at key paths.
 
 ## Directory Structure
 
@@ -30,8 +37,7 @@ base/sensors/sensors_cangjie_wrapper
 ├── ohos
 │   └── sensor            # Cangjie pan-sensor code
 └── test
-    └── APILevel22
-        └── sensor        # Cangjie sensor test cases
+    └── sensor            # Cangjie sensor test cases
 ```
 
 ## Constraints
@@ -66,4 +72,3 @@ Developers are welcome to contribute code, documentation, etc. For specific cont
 [cangjie_ark_interop](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/README.md)
 
 [hiviewdfx_cangjie_wrapper](https://gitcode.com/openharmony-sig/hiviewdfx_hiviewdfx_cangjie_wrapper/blob/master/README.md)
-

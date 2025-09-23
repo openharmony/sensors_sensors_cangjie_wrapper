@@ -23,6 +23,10 @@
 
 - 传感器服务：负责提供Sensor基础功能，封装C语言接口提供给仓颉进行互操作。
 
+- cangjie_ark_interop：负责提供仓颉注解类定义，用于对API进行标注，以及提供抛向用户的BusinessException异常类定义。
+
+- hiviewdfx_cangjie_wrapper：负责提供日志接口，用于在关键路径处打印日志。
+
 ## 目录
 
 ```
@@ -33,8 +37,7 @@ base/sensors/sensors_cangjie_wrapper
 ├── ohos
 │   └── sensor            # sensor仓颉接口代码
 └── test
-    └── APILevel22
-        └── sensor        # sensor仓颉接口测试用例代码
+    └── sensor            # sensor仓颉接口测试用例代码
 ```
 
 ## 约束
@@ -70,5 +73,3 @@ base/sensors/sensors_cangjie_wrapper
 [cangjie_ark_interop](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/README_zh.md)
 
 [hiviewdfx_cangjie_wrapper](https://gitcode.com/openharmony-sig/hiviewdfx_hiviewdfx_cangjie_wrapper/blob/master/README_zh.md)
-
-
