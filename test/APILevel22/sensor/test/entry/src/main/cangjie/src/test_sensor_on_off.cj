@@ -44,7 +44,7 @@ class OrientationSensorCallback <: Callback1Argument<OrientationResponse> {
 @Test
 class TestSensorOnOff {
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func Once_IsCallOnce_Success(): Unit {
         let callback = OrientationSensorCallback()
         try {
@@ -57,7 +57,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func On_DefaultInternal_CallMultipleTimes(): Unit {
         let callback = OrientationSensorCallback()
         try {
@@ -71,7 +71,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func On_Internal400MS_Success(): Unit {
         let callback = OrientationSensorCallback()
         try {
@@ -85,7 +85,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func On_InternalGameMode_Success(): Unit {
         let callback = OrientationSensorCallback()
         try {
@@ -99,7 +99,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func testOnInternalGameModeWithParam(): Unit {
         let callback = OrientationSensorCallback()
         try {
@@ -114,7 +114,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func On_InternalUIMode_Success(): Unit {
         let callback = OrientationSensorCallback()
         try {
@@ -128,7 +128,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func On_InternalNormalMode_Success(): Unit {
         let callback = OrientationSensorCallback()
         try {
@@ -142,7 +142,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func On_DuplicateSubscription_Success(): Unit {
         let callback = OrientationSensorCallback()
         try {
@@ -156,7 +156,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func Off_OffOneCallback_Success(): Unit {
         let callback1 = OrientationSensorCallback()
         let callback2 = OrientationSensorCallback()
@@ -174,7 +174,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func Off_OffAllCallbacks_Success(): Unit {
         let callback1 = OrientationSensorCallback()
         let callback2 = OrientationSensorCallback()
@@ -194,7 +194,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func On_ACCELEROMETER_Success_Or_Not_Exist() {
         let sensors = getSensorList()
         var isSensorExist = false
@@ -215,7 +215,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func On_ACCELEROMETER_UNCALIBRATED_Success_Or_Not_Exist() {
         let sensors = getSensorList()
         var isSensorExist = false
@@ -236,7 +236,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func On_AMBIENT_LIGHT_Success_Or_Not_Exist() {
         let sensors = getSensorList()
         var isSensorExist = false
@@ -257,7 +257,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func On_AMBIENT_TEMPERATURE_Success_Or_Not_Exist() {
         let sensors = getSensorList()
         var isSensorExist = false
@@ -278,7 +278,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func On_BAROMETER_Success_Or_Not_Exist() {
         let sensors = getSensorList()
         var isSensorExist = false
@@ -299,7 +299,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func On_GRAVITY_Success_Or_Not_Exist() {
         let sensors = getSensorList()
         var isSensorExist = false
@@ -320,7 +320,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func On_GYROSCOPE_Success_Or_Not_Exist() {
         let sensors = getSensorList()
         var isSensorExist = false
@@ -341,7 +341,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func On_GYROSCOPE_UNCALIBRATED_Success_Or_Not_Exist() {
         let sensors = getSensorList()
         var isSensorExist = false
@@ -362,7 +362,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func On_HALL_Success_Or_Not_Exist() {
         let sensors = getSensorList()
         var isSensorExist = false
@@ -383,7 +383,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func On_HEART_RATE_Success_Or_Not_Exist() {
         let sensors = getSensorList()
         var isSensorExist = false
@@ -404,7 +404,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func On_HUMIDITY_Success_Or_Not_Exist() {
         let sensors = getSensorList()
         var isSensorExist = false
@@ -425,7 +425,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func On_LINEAR_ACCELEROMETER_Success_Or_Not_Exist() {
         let sensors = getSensorList()
         var isSensorExist = false
@@ -446,7 +446,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func On_MAGNETIC_FIELD_Success_Or_Not_Exist() {
         let sensors = getSensorList()
         var isSensorExist = false
@@ -467,7 +467,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func On_MAGNETIC_FIELD_UNCALIBRATED_Success_Or_Not_Exist() {
         let sensors = getSensorList()
         var isSensorExist = false
@@ -488,7 +488,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func On_ORIENTATION_Success_Or_Not_Exist() {
         let sensors = getSensorList()
         var isSensorExist = false
@@ -509,7 +509,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func On_NoPermissionSensorId_ThrowException() {
         // user granted permission: ACTIVITY_MOTION
         expectBusinessException(201) {
@@ -532,7 +532,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func On_PEDOMETER_Success_Or_Not_Exist() {
         let sensors = getSensorList()
         var isSensorExist = false
@@ -554,7 +554,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func On_PEDOMETER_DETECTION_Success_Or_Not_Exist() {
         let sensors = getSensorList()
         var isSensorExist = false
@@ -576,7 +576,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func On_PROXIMITY_Success_Or_Not_Exist() {
         let sensors = getSensorList()
         var isSensorExist = false
@@ -597,7 +597,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func On_ROTATION_VECTOR_Success_Or_Not_Exist() {
         let sensors = getSensorList()
         var isSensorExist = false
@@ -618,7 +618,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func On_SIGNIFICANT_MOTION_Success_Or_Not_Exist() {
         let sensors = getSensorList()
         var isSensorExist = false
@@ -639,7 +639,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func On_WEAR_DETECTION_Success_Or_Not_Exist() {
         let sensors = getSensorList()
         var isSensorExist = false
@@ -660,7 +660,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func On_NotSupportedSensorId_ThrowException() {
         expectBusinessException(401) {
             on(AmbientTemperature, AmbientTemperatureResponseCallback())
@@ -680,7 +680,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func On_NotMatchSensorId_ThrowException() {
         expectBusinessException(401) {
             on(Accelerometer, SignificantMotionResponseCallback())
@@ -688,7 +688,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func Off_SupportedSensorId_Success() {
         off(Accelerometer)
         off(AccelerometerUncalibrated)
@@ -714,7 +714,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func Off_NotMatchSensorId_ThrowException() {
         on(Accelerometer, AccelerometerResponseCallback())
         expectBusinessException(401) {
@@ -724,7 +724,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func Once_NotMatchedSensorId_ThrowException() {
         expectBusinessException(401) {
             once(Accelerometer, SignificantMotionResponseCallback())
@@ -732,7 +732,7 @@ class TestSensorOnOff {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func Once_OnedSensorId_ThrowException() {
         let callback1 = AccelerometerResponseCallback()
         let callback2 = AccelerometerResponseCallback()
