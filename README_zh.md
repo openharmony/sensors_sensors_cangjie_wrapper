@@ -19,9 +19,9 @@
 
 框架层
 
-- 传感器订阅/取消订阅功能封装：基于底层sensor组件提供的订阅/取消订阅传感器的能力，实现仓颉订阅/取消订阅传感器数据的功能。
-- 获取传感器信息接口功能封装：基于底层sensor组件提供的获取传感器信息的能力，实现仓颉获取设备上传感器信息的功能。
-- 仓颉传感器FFI接口定义：负责定义被仓颉语言调用的C语言互操作接口，用于实现仓颉Sensor能力。
+- 传感器订阅/取消订阅功能封装：基于底层 sensor 组件提供的订阅/取消订阅传感器的能力，实现仓颉订阅/取消订阅传感器数据的功能。
+- 获取传感器信息接口功能封装：基于底层 sensor 组件提供的获取传感器信息的能力，实现仓颉获取设备上传感器信息的功能。
+- 仓颉传感器FFI接口定义：负责定义被仓颉语言调用的C语言互操作接口，用于实现仓颉 Sensor 能力。
 
 架构图中的依赖部件引入说明：
 
@@ -44,18 +44,18 @@ base/sensors/sensors_cangjie_wrapper
 
 ## 使用说明
 
-如架构图所示，泛Sensor服务仓颉提供了以下功能：
+提供了以下传感器功能：
 
-- 订阅Sensor，监听Sensor数据变化。
-- 取消Sensor订阅。
-- 获取设备上的Sensor信息。
+- 订阅传感器，监听传感器数据变化。
+- 取消传感器订阅。
+- 获取设备上的传感器信息。
 
 传感器相关API请参见[传感器API参考](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/API_Reference/source_zh_cn/apis/SensorServiceKit/cj-apis-sensor.md)，相关指导请参见[传感器开发指南](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/Dev_Guide/source_zh_cn/device/sensor/cj-sensor-guidelines.md)。
 
 ## 约束
 
-* 要使用Sensor的功能，设备必须具有对应的Sensor器件。
-* 针对某些Sensor，开发者需要请求相应的权限，才能获取到相应Sensor的数据。
+* 要使用传感器的功能，设备必须具有对应的传感器器件。
+* 针对某些传感器，开发者需要请求相应的权限，才能获取到相应传感器的数据。
 * 与ArkTS提供的API能力相比，暂不支持以下能力：
   * 获取某时刻地球上特定位置的地磁场信息。
   * 根据气压值获取海拔高度。
