@@ -21,7 +21,7 @@ Framework Layer
 
 - Sensor Subscribe/Unsubscribe Function Encapsulation: Based on the subscribe/unsubscribe sensor capabilities provided by the underlying sensor component, implements the function of subscribing/unsubscribing to sensor data in Cangjie.
 - Get Sensor Information Interface Function Encapsulation: Based on the get sensor information capabilities provided by the underlying sensor component, implements the function of getting sensor information on the device in Cangjie.
-- Cangjie Sensor FFI Interface Definition: Responsible for defining C language interoperability interfaces called by the Cangjie language to implement Cangjie Sensor capabilities.
+- 
 
 Dependency Component Introduction in Architecture Diagram:
 
