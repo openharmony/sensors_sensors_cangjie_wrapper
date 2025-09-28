@@ -1,27 +1,32 @@
-# 泛Sensor服务仓颉接口
+# 泛Sensor服务仓颉封装
 
 ## 简介
 
-泛Sensor服务仓颉接口是在OpenHarmony上基于泛Sensor服务子系统能力之上封装的仓颉API。Sensor是指用于侦测环境中所发生事件或变化，并将此消息发送至其他电子设备（如中央处理器）的设备。泛Sensor服务子系统提供了获取Sensor数据的能力，包括获取Sensor属性列表、订阅Sensor数据、设置数据上报模式等功能。当前开发的泛Sensor服务仓颉接口仅支持standard设备。
+泛Sensor服务仓颉封装是 OpenHarmony 上面向开发者提供使用仓颉语言进行应用开发时的传感器相关能力。泛Sensor服务仓颉封装提供了获取传感器数据的能力，包括获取传感器属性列表、订阅传感器数据功能，且仅支持standard设备。
 
 ## 系统架构
 
-**图 1**  泛Sensor服务仓颉架构图
+**图 1**  泛Sensor服务仓颉封装架构图
 
-![泛Sensor服务仓颉架构图](figures/sensors_cangjie_wrapper_architecture.png)
+![泛Sensor服务仓颉封装架构图](figures/sensors_cangjie_wrapper_architecture.png)
 
-如架构图所示：
 
-- 泛Sensor服务仓颉接口当前提供以下能力：
-  
-  - Sensor订阅/取消订阅。
-  - 获取Sensor信息。
+接口层：
 
-- 接口封装：使用仓颉实现Sensor服务能力。
+- 传感器功能接口对外提供了订阅传感器数据、取消订阅传感器数据和获取设备上的传感器信息的能力。能获取的传感器有加速度传感器、温度传感器、气压计传感器、重力传感器、陀螺仪传感器、心率传感器、湿度传感器、环境光传感器、计步传感器等。
+- 订阅传感器数据：允许开发者发起订阅请求，订阅后可接收指定传感器的实时数据推送。
+- 取消订阅传感器数据：允许已订阅的外部系统终止对指定传感器的数据接收，取消后不再获取该传感器的后续数据推送。
+- 获取设备上的传感器信息的能力：获取的是传感器的名称、硬件版本、精度等信息。
 
-- Sensor仓颉FFI接口定义：负责定义被仓颉语言调用的C语言互操作接口，用于实现仓颉Sensor能力。
+框架层：
 
-- 传感器服务：负责提供Sensor基础功能，封装C语言接口提供给仓颉进行互操作。
+- 传感器功能封装：该封装层是对订阅传感器数据、取消订阅传感器数据和获取设备上的传感器信息的能力进行仓颉封装实现。
+
+架构图中的依赖部件引入说明：
+
+- Sensor：负责提供传感器基础功能。
+- cangjie_ark_interop：负责提供仓颉注解类定义，用于对API进行标注，以及提供抛向用户的BusinessException异常类定义。
+- hiviewdfx_cangjie_wrapper：负责提供日志接口，用于在关键路径处打印日志。
 
 ## 目录
 
@@ -33,31 +38,25 @@ base/sensors/sensors_cangjie_wrapper
 ├── ohos
 │   └── sensor            # sensor仓颉接口代码
 └── test
-    └── APILevel22
-        └── sensor        # sensor仓颉接口测试用例代码
+    └── sensor            # sensor仓颉接口测试用例代码
 ```
-
-## 约束
-
-- 要使用Sensor的功能，设备必须具有对应的Sensor器件。
-- 针对某些Sensor，开发者需要请求相应的权限，才能获取到相应Sensor的数据。
 
 ## 使用说明
 
-如架构图所示，泛Sensor服务仓颉提供了以下功能：
+提供了以下传感器功能：
 
-- 订阅Sensor，监听Sensor数据变化。
-- 取消Sensor订阅。
-- 获取设备上的Sensor信息。
-
-与ArkTS提供的API能力相比，暂不支持以下能力：
-
-- 获取某时刻地球上特定位置的地磁场信息。
-- 根据气压值获取海拔高度。
-- 根据倾斜矩阵计算地磁倾角。
-- 计算旋转矩阵等。
+- 订阅传感器，监听传感器数据变化。
+- 取消传感器订阅。
+- 获取设备上的传感器信息。
 
 传感器相关API请参见[传感器API参考](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/API_Reference/source_zh_cn/apis/SensorServiceKit/cj-apis-sensor.md)，相关指导请参见[传感器开发指南](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/Dev_Guide/source_zh_cn/device/sensor/cj-sensor-guidelines.md)。
+
+## 约束
+
+* 传感器的功能依赖设备必须具有对应的传感器器件。
+* 与ArkTS提供的API能力相比，暂不支持以下能力：
+  * 获取地球上特定位置的地磁场信息。
+  * 根据气压值获取海拔高度。
 
 ## 参与贡献
 
@@ -65,10 +64,8 @@ base/sensors/sensors_cangjie_wrapper
 
 ## 相关仓
 
-[sensors\_sensor](https://gitee.com/openharmony/sensors_sensor/blob/master/README_zh.md)
+[sensors\_sensor](https://gitcode.com/openharmony/sensors_sensor/blob/master/README_zh.md)
 
 [cangjie_ark_interop](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/README_zh.md)
 
 [hiviewdfx_cangjie_wrapper](https://gitcode.com/openharmony-sig/hiviewdfx_hiviewdfx_cangjie_wrapper/blob/master/README_zh.md)
-
-
