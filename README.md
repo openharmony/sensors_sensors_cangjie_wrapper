@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Generic Sensor Service Cangjie Wrapper provides sensor-related capabilities for developers using the Cangjie language for application development on OpenHarmony. The Generic Sensor Service subsystem provides the ability to obtain sensor data, including getting sensor attribute lists, subscribing to sensor data, and setting data reporting modes. The current Generic Sensor Service Cangjie wrapper interface supports standard devices.
+The Generic Sensor Service Cangjie Wrapper provides sensor-related capabilities for developers using the Cangjie language for application development on OpenHarmony. The Generic Sensor Service Cangjie Wrapper  provides the ability to obtain sensor data, including getting sensor attribute lists, subscribing to sensor data. The current Generic Sensor Service Cangjie wrapper interface supports standard devices.
 
 ## System Architecture
 
@@ -12,19 +12,20 @@ The Generic Sensor Service Cangjie Wrapper provides sensor-related capabilities 
 
 As shown in the architecture diagram:
 
-Interface Layer
+Interface Layer:
 
-- Sensor Subscribe/Unsubscribe Interface: Provides developers with the ability to subscribe/unsubscribe to sensor data.
-- Get Sensor Information Interface: Provides developers with the ability to obtain sensor information on the device.
+- The sensor function interface provides external capabilities for subscribing to sensor data, unsubscribing from sensor data, and obtaining sensor information on the device. The available sensors include accelerometer, temperature sensor, barometer, gravity sensor, gyroscope, heart rate sensor, humidity sensor, ambient light sensor, and pedometer, among others.
+- Subscribe to sensor data: Allows developers to initiate subscription requests. After subscribing, they can receive real-time data pushes from the specified sensors.
+- Unsubscribe from sensor data: Allows subscribed external systems to stop receiving data from a specified sensor. After unsubscribing, subsequent data pushes from that sensor will no longer be received.
+- Ability to obtain sensor information on the device: includes obtaining information such as the sensor's name, hardware version, and accuracy.
 
-Framework Layer
+Framework Layer:
 
-- Sensor Subscribe/Unsubscribe Function Encapsulation: Based on the subscribe/unsubscribe sensor capabilities provided by the underlying sensor component, implements the function of subscribing/unsubscribing to sensor data in Cangjie.
-- Get Sensor Information Interface Function Encapsulation: Based on the get sensor information capabilities provided by the underlying sensor component, implements the function of getting sensor information on the device in Cangjie.
+- Sensor function encapsulation: This encapsulation layer implements a packaging of the capabilities to subscribe to sensor data, unsubscribe from sensor data, and obtain sensor information on the device.
 
-Dependency Component Introduction in Architecture Diagram
+Dependency Component Introduction in Architecture Diagram:
 
-- sensor: Responsible for providing basic sensor functionality, encapsulating C language interfaces for interoperability with Cangjie.
+- sensor: Responsible for providing basic sensor functionality.
 - cangjie_ark_interop: Responsible for providing Cangjie annotation class definitions for API annotation, and providing BusinessException exception class definitions thrown to users.
 - hiviewdfx_cangjie_wrapper: Responsible for providing log interfaces for printing logs at critical paths.
 
@@ -56,10 +57,8 @@ For sensor-related APIs, please refer to [Sensor API Reference](https://gitcode.
 * To use Sensor functions, the device must have the corresponding Sensor components.
 * For certain Sensors, developers need to request the corresponding permissions to obtain the respective Sensor data.
 * Compared to APIs provided by ArkTS, the following capabilities are not currently supported:
-  * Get geomagnetic field information at a specific location on Earth at a certain time.
+  * Get geomagnetic field information at a specific location on Earth.
   * Get altitude based on pressure values.
-  * Calculate magnetic dip angle based on tilt matrix.
-  * Calculate rotation matrix, etc.
 
 ## Contribution
 
