@@ -1441,16 +1441,16 @@ public class PedometerResponse <: Response {
         22,
         syscap: "SystemCapability.Sensors.Sensor"
     ]
-    public var steps: Float32
+    public var steps: Int64
 
-    init(steps: Float32) {
+    init(steps: Int64) {
         this.steps = steps
     }
 
     init(v: CSensorCallbackData) {
         super(v.timestamp, SensorAccuracy.parse(v.option))
         let data = Response.parseCResponseData<CPedometerResponse>(v.data, v.dataLen)
-        steps = data.steps
+        steps = Int64(data.steps)
     }
 }
 
