@@ -15,8 +15,8 @@
 
 package ohos_app_cangjie_entry
 
-import AbilityKit.Ability
-import AbilityKit.AbilityStage
+import kit.AbilityKit.Ability
+import kit.AbilityKit.AbilityStage
 
 class MyAbilityStage <: AbilityStage {
     public func onCreate(): Unit {

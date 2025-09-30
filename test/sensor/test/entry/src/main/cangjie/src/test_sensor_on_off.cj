@@ -21,8 +21,8 @@ package ohos_app_cangjie_entry
 import std.unittest.testmacro.*
 import std.sync.*
 import std.time.*
-import BasicServicesKit.*
-import SensorServiceKit.*
+import kit.BasicServicesKit.*
+import kit.SensorServiceKit.*
 //import kit.AccountKit.*
 import std.unittest.*
 import std.unittest.common.*
