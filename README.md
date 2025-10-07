@@ -1,4 +1,4 @@
-# Generic Sensor Service Cangjie Wrapper
+# Generic Sensor Service Cangjie Wrapper(beta feature)
 
 ## Introduction
 
