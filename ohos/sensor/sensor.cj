@@ -25,8 +25,6 @@ import ohos.labels.*
 
 /**
  * Enum for obtain the type of sensor.
- *
- * @relation enum SensorId
  */
 @Derive[ToString, Equatable]
 @!APILevel[
@@ -36,8 +34,6 @@ import ohos.labels.*
 public enum SensorId {
     /**
      * Acceleration sensor.
-     *
-     * @relation ACCELEROMETER = 1
      */
     | @!APILevel[
         22,
@@ -47,8 +43,6 @@ public enum SensorId {
     Accelerometer
     /**
      * Gyroscope sensor.
-     *
-     * @relation GYROSCOPE = 2
      */
     | @!APILevel[
         22,
@@ -58,8 +52,6 @@ public enum SensorId {
     Gyroscope
     /**
      * Ambient light sensor.
-     *
-     * @relation AMBIENT_LIGHT = 5
      */
     | @!APILevel[
         22,
@@ -68,8 +60,6 @@ public enum SensorId {
     AmbientLight
     /**
      * Magnetic field sensor.
-     *
-     * @relation MAGNETIC_FIELD = 6
      */
     | @!APILevel[
         22,
@@ -78,8 +68,6 @@ public enum SensorId {
     MagneticField
     /**
      * Barometric pressure sensor.
-     *
-     * @relation BAROMETER = 8
      */
     | @!APILevel[
         22,
@@ -88,8 +76,6 @@ public enum SensorId {
     Barometer
     /**
      * Hall effect sensor.
-     *
-     * @relation HALL = 10
      */
     | @!APILevel[
         22,
@@ -98,8 +84,6 @@ public enum SensorId {
     Hall
     /**
      * Proximity sensor.
-     *
-     * @relation PROXIMITY = 12
      */
     | @!APILevel[
         22,
@@ -108,8 +92,6 @@ public enum SensorId {
     Proximity
     /**
      * Humidity sensor.
-     *
-     * @relation HUMIDITY = 13
      */
     | @!APILevel[
         22,
@@ -118,8 +100,6 @@ public enum SensorId {
     Humidity
     /**
      * Orientation sensor.
-     *
-     * @relation ORIENTATION = 256
      */
     | @!APILevel[
         22,
@@ -128,8 +108,6 @@ public enum SensorId {
     Orientation
     /**
      * Gravity sensor.
-     *
-     * @relation GRAVITY = 257
      */
     | @!APILevel[
         22,
@@ -138,8 +116,6 @@ public enum SensorId {
     Gravity
     /**
      * Linear acceleration sensor.
-     *
-     * @relation LINEAR_ACCELEROMETER = 258
      */
     | @!APILevel[
         22,
@@ -149,8 +125,6 @@ public enum SensorId {
     LinearAccelerometer
     /**
      * Rotation vector sensor.
-     *
-     * @relation ROTATION_VECTOR = 259
      */
     | @!APILevel[
         22,
@@ -159,8 +133,6 @@ public enum SensorId {
     RotationVector
     /**
      * Ambient temperature sensor.
-     *
-     * @relation AMBIENT_TEMPERATURE = 260
      */
     | @!APILevel[
         22,
@@ -169,8 +141,6 @@ public enum SensorId {
     AmbientTemperature
     /**
      * Uncalibrated magnetic field sensor.
-     *
-     * @relation MAGNETIC_FIELD_UNCALIBRATED = 261
      */
     | @!APILevel[
         22,
@@ -179,8 +149,6 @@ public enum SensorId {
     MagneticFieldUncalibrated
     /**
      * Uncalibrated gyroscope sensor.
-     *
-     * @relation GYROSCOPE_UNCALIBRATED = 263
      */
     | @!APILevel[
         22,
@@ -190,8 +158,6 @@ public enum SensorId {
     GyroscopeUncalibrated
     /**
      * Significant motion sensor.
-     *
-     * @relation SIGNIFICANT_MOTION = 264
      */
     | @!APILevel[
         22,
@@ -200,8 +166,6 @@ public enum SensorId {
     SignificantMotion
     /**
      * Pedometer detection sensor.
-     *
-     * @relation PEDOMETER_DETECTION = 265
      */
     | @!APILevel[
         22,
@@ -211,8 +175,6 @@ public enum SensorId {
     PedometerDetection
     /**
      * Pedometer sensor.
-     *
-     * @relation PEDOMETER = 266
      */
     | @!APILevel[
         22,
@@ -222,8 +184,6 @@ public enum SensorId {
     Pedometer
     /**
      * Heart rate sensor.
-     *
-     * @relation HEART_RATE = 278
      */
     | @!APILevel[
         22,
@@ -233,8 +193,6 @@ public enum SensorId {
     HeartRate
     /**
      * Wear detection sensor.
-     *
-     * @relation WEAR_DETECTION = 280
      */
     | @!APILevel[
         22,
@@ -243,8 +201,6 @@ public enum SensorId {
     WearDetection
     /**
      * Uncalibrated acceleration sensor.
-     *
-     * @relation ACCELEROMETER_UNCALIBRATED = 281
      */
     | @!APILevel[
         22,
@@ -318,8 +274,6 @@ public enum SensorId {
 
 /**
  * Enumerates the accuracy levels of data reported by a sensor.
- *
- * @relation enum SensorAccuracy
  */
 @Derive[ToString, Equatable]
 @!APILevel[
@@ -329,8 +283,6 @@ public enum SensorId {
 public enum SensorAccuracy {
     /**
      * The sensor data is unreliable. It is possible that the sensor does not contact with the device to measure.
-     *
-     * @relation ACCURACY_UNRELIABLE = 0
      */
     | @!APILevel[
         22,
@@ -339,8 +291,6 @@ public enum SensorAccuracy {
     AccuracyUnreliable
     /**
      * The sensor data is at a low accuracy level. The data must be calibrated based on the environment before being used.
-     *
-     * @relation ACCURACY_LOW = 1
      */
     |
     @!APILevel[
@@ -350,8 +300,6 @@ public enum SensorAccuracy {
     AccuracyLow
     /**
      * The sensor data is at a medium accuracy level. You are advised to calibrate the data based on the environment before using it.
-     *
-     * @relation ACCURACY_MEDIUM = 2
      */
     |
     @!APILevel[
@@ -361,8 +309,6 @@ public enum SensorAccuracy {
     AccuracyMedium
     /**
      * The sensor data is at a high accuracy level. The data can be used directly.
-     *
-     * @relation ACCURACY_HIGH = 3
      */
     |
     @!APILevel[
@@ -453,8 +399,6 @@ public enum IntervalOption {
 
 /**
 * Parameters of sensor on the device.
-*
-* @relation interface SensorInfoParam.
 */
 @!APILevel[
     22,
@@ -464,8 +408,6 @@ public class SensorInfoParam {
     /**
     * Unique identifier for the device that contains one or multiple sensors.
     * By default, deviceId may default to querying or controlling the local default sensor.
-    *
-    * @relation deviceId?: number;
     */
     @!APILevel[
         22,
@@ -475,8 +417,6 @@ public class SensorInfoParam {
 
     /**
     * Index of sensors of the same type. By default, it controls default sensors of the sensor type.
-    *
-    * @relation sensorIndex?: number;
     */
     @!APILevel[
         22,
@@ -499,8 +439,6 @@ public class SensorInfoParam {
 
 /**
 * Acceleration sensor event data.
-*
-* @relation interface AccelerometerResponse extends Response
 */
 @!APILevel[
     22,
@@ -509,8 +447,6 @@ public class SensorInfoParam {
 public class AccelerometerResponse <: Response {
     /**
     * Acceleration x-axis component.
-    *
-    * @relation x: number;
     */
     @!APILevel[
         22,
@@ -520,8 +456,6 @@ public class AccelerometerResponse <: Response {
 
     /**
     * Acceleration y-axis component.
-    *
-    * @relation y: number;
     */
     @!APILevel[
         22,
@@ -530,8 +464,6 @@ public class AccelerometerResponse <: Response {
     public var y: Float32
     /**
     * Acceleration z-axis component.
-    *
-    * @relation z: number;
     */
     @!APILevel[
         22,
@@ -554,8 +486,6 @@ public class AccelerometerResponse <: Response {
 
 /**
  * Subscribe to the sensor's optional parameters.
- *
- * @relation interface Options
  */
 @!APILevel[
     22,
@@ -564,8 +494,6 @@ public class AccelerometerResponse <: Response {
 public class Options {
     /**
     * Sensor event reporting event interval.
-    *
-    * @relation interval?: number | SensorFrequency;
     */
     @!APILevel[
         22,
@@ -575,8 +503,6 @@ public class Options {
 
     /**
     * Parameters of sensor on the device.
-    *
-    * @relation sensorInfoParam?: SensorInfoParam;
     */
     @!APILevel[
         22,
@@ -599,8 +525,6 @@ public class Options {
 
 /**
  * The basic data structure of the sensor event.
- *
- * @relation interface Response
  */
 @!APILevel[
     22,
@@ -609,8 +533,6 @@ public class Options {
 public open class Response {
     /**
      * The timestamp of the reported sensor data.
-     *
-     * @relation timestamp: number
      */
     @!APILevel[
         22,
@@ -620,8 +542,6 @@ public open class Response {
 
     /**
      * The accuracy levels of data reported by a sensor.
-     *
-     * @relation accuracy: SensorAccuracy
      */
     @!APILevel[
         22,
@@ -653,8 +573,6 @@ class ResponseImpl {}
 
 /**
  * Acceleration uncalibrated sensor event data.
- *
- * @relation interface AccelerometerUncalibratedResponse extends Response
  */
 @!APILevel[
     22,
@@ -663,8 +581,6 @@ class ResponseImpl {}
 public class AccelerometerUncalibratedResponse <: Response {
     /**
     * Acceleration uncalibrated x-axis component.
-    *
-    * @relation x: number;
     */
     @!APILevel[
         22,
@@ -674,8 +590,6 @@ public class AccelerometerUncalibratedResponse <: Response {
 
     /**
     * Acceleration uncalibrated y-axis component.
-    *
-    * @relation y: number;
     */
     @!APILevel[
         22,
@@ -685,8 +599,6 @@ public class AccelerometerUncalibratedResponse <: Response {
 
     /**
     * Acceleration uncalibrated z-axis component.
-    *
-    * @relation z: number;
     */
     @!APILevel[
         22,
@@ -696,8 +608,6 @@ public class AccelerometerUncalibratedResponse <: Response {
 
     /**
     * Acceleration uncalibrated x-axis offset.
-    *
-    * @relation biasX: number;
     */
     @!APILevel[
         22,
@@ -707,8 +617,6 @@ public class AccelerometerUncalibratedResponse <: Response {
 
     /**
     * Acceleration uncalibrated y-axis offset.
-    *
-    * @relation biasY: number;
     */
     @!APILevel[
         22,
@@ -717,8 +625,6 @@ public class AccelerometerUncalibratedResponse <: Response {
     public var biasY: Float32
     /**
     * Acceleration uncalibrated z-axis offset.
-    *
-    * @relation biasZ: number;
     */
     @!APILevel[
         22,
@@ -745,8 +651,6 @@ public class AccelerometerUncalibratedResponse <: Response {
 
 /**
  * Light sensor event data.
- * 
- * @relation interface LightResponse extends Response
  */
 @!APILevel[
     22,
@@ -755,8 +659,6 @@ public class AccelerometerUncalibratedResponse <: Response {
 public class LightResponse <: Response {
     /**
     * Indicates light intensity, in lux.
-    *
-    * @relation intensity: number;
     */
     @!APILevel[
         22,
@@ -766,8 +668,6 @@ public class LightResponse <: Response {
 
     /**
     * Indicates color temperature, in kelvin.
-    *
-    * @relation colorTemperature?: number;
     */
     @!APILevel[
         22,
@@ -777,8 +677,6 @@ public class LightResponse <: Response {
 
     /**
     * Indicates infrared luminance, in cd/m2.
-    *
-    * @relation infraredLuminance?: number;
     */
     @!APILevel[
         22,
@@ -803,8 +701,6 @@ public class LightResponse <: Response {
 
 /**
  * Ambient temperature sensor event data.
- *
- * @relation interface AmbientTemperatureResponse extends Response
  */
 @!APILevel[
     22,
@@ -813,8 +709,6 @@ public class LightResponse <: Response {
 public class AmbientTemperatureResponse <: Response {
     /**
     * Indicates ambient temperature, in celsius.
-    *
-    * @relation temperature: number;
     */
     @!APILevel[
         22,
@@ -835,8 +729,6 @@ public class AmbientTemperatureResponse <: Response {
 
 /**
  * Barometer sensor event data.
- *
- * @relation interface BarometerResponse extends Response.
  */
 @!APILevel[
     22,
@@ -845,8 +737,6 @@ public class AmbientTemperatureResponse <: Response {
 public class BarometerResponse <: Response {
     /**
     * Indicates the number of barometer, in hpa.
-    *
-    * @relation pressure: number;
     */
     @!APILevel[
         22,
@@ -867,8 +757,6 @@ public class BarometerResponse <: Response {
 
 /**
  * Gravity sensor event data.
- *
- * @relation interface GravityResponse extends Response
  */
 @!APILevel[
     22,
@@ -877,8 +765,6 @@ public class BarometerResponse <: Response {
 public class GravityResponse <: Response {
     /**
     * Gravity x-axis component.
-    *
-    * @relation x: number;
     */
     @!APILevel[
         22,
@@ -887,8 +773,6 @@ public class GravityResponse <: Response {
     public var x: Float32
     /**
     * Gravity y-axis component.
-    *
-    * @relation y: number;
     */
     @!APILevel[
         22,
@@ -897,8 +781,6 @@ public class GravityResponse <: Response {
     public var y: Float32
     /**
     * Gravity z-axis component.
-    *
-    * @relation z: number;
     */
     @!APILevel[
         22,
@@ -921,8 +803,6 @@ public class GravityResponse <: Response {
 
 /**
  * Gyroscope sensor event data.
- *
- * @relation interface GyroscopeResponse extends Response.
  */
 @!APILevel[
     22,
@@ -931,8 +811,6 @@ public class GravityResponse <: Response {
 public class GyroscopeResponse <: Response {
     /**
     * Gyroscope x-axis component.
-    *
-    * @relation x: number;
     */
     @!APILevel[
         22,
@@ -942,8 +820,6 @@ public class GyroscopeResponse <: Response {
 
     /**
     * Gyroscope y-axis component.
-    *
-    * @relation y: number;
     */
     @!APILevel[
         22,
@@ -953,8 +829,6 @@ public class GyroscopeResponse <: Response {
 
     /**
     * Gyroscope z-axis component.
-    *
-    * @relation z: number;
     */
     @!APILevel[
         22,
@@ -977,8 +851,6 @@ public class GyroscopeResponse <: Response {
 
 /**
  * Gyroscope uncalibrated sensor event data.
- *
- * @relation interface GyroscopeUncalibratedResponse extends Response.
  */
 @!APILevel[
     22,
@@ -987,8 +859,6 @@ public class GyroscopeResponse <: Response {
 public class GyroscopeUncalibratedResponse <: Response {
     /**
     * Gyroscope uncalibrated x-axis component.
-    *
-    * @relation x: number;
     */
     @!APILevel[
         22,
@@ -998,8 +868,6 @@ public class GyroscopeUncalibratedResponse <: Response {
 
     /**
     * Gyroscope uncalibrated y-axis component.
-    *
-    * @relation y: number;
     */
     @!APILevel[
         22,
@@ -1009,8 +877,6 @@ public class GyroscopeUncalibratedResponse <: Response {
 
     /**
     * Gyroscope uncalibrated z-axis component.
-    *
-    * @relation z: number;
     */
     @!APILevel[
         22,
@@ -1020,8 +886,6 @@ public class GyroscopeUncalibratedResponse <: Response {
 
     /**
     * Gyroscope uncalibrated x-axis offset.
-    *
-    * @relation biasX: number;
     */
     @!APILevel[
         22,
@@ -1031,8 +895,6 @@ public class GyroscopeUncalibratedResponse <: Response {
 
     /**
     * Gyroscope uncalibrated y-axis offset.
-    *
-    * @relation biasY: number;
     */
     @!APILevel[
         22,
@@ -1042,8 +904,6 @@ public class GyroscopeUncalibratedResponse <: Response {
 
     /**
     * Gyroscope uncalibrated z-axis offset.
-    *
-    * @relation biasZ: number;
     */
     @!APILevel[
         22,
@@ -1070,8 +930,6 @@ public class GyroscopeUncalibratedResponse <: Response {
 
 /**
  * Hall sensor event data.
- *
- * @relation interface HallResponse extends Response.
  */
 @!APILevel[
     22,
@@ -1080,8 +938,6 @@ public class GyroscopeUncalibratedResponse <: Response {
 public class HallResponse <: Response {
     /**
     * Indicates hall status, 0 indicates open, and greater than 0 indicates suction.
-    *
-    * @relation status: number;
     */
     @!APILevel[
         22,
@@ -1102,8 +958,6 @@ public class HallResponse <: Response {
 
 /**
  * Heart rate sensor event data.
- *
- * @relation interface HeartRateResponse extends Response
  */
 @!APILevel[
     22,
@@ -1112,8 +966,6 @@ public class HallResponse <: Response {
 public class HeartRateResponse <: Response {
     /**
     * Indicates the number of heart rate.
-    *
-    * @relation heartRate: number;
     */
     @!APILevel[
         22,
@@ -1134,8 +986,6 @@ public class HeartRateResponse <: Response {
 
 /**
  * Humidity sensor event data.
- *
- * @relation interface HumidityResponse extends Response
  */
 @!APILevel[
     22,
@@ -1144,8 +994,6 @@ public class HeartRateResponse <: Response {
 public class HumidityResponse <: Response {
     /**
     * Indicates the number of humidity.
-    *
-    * @relation humidity: number;
     */
     @!APILevel[
         22,
@@ -1166,8 +1014,6 @@ public class HumidityResponse <: Response {
 
 /**
  * Linear acceleration sensor event data.
- *
- * @relation interface LinearAccelerometerResponse extends Response.
  */
 @!APILevel[
     22,
@@ -1176,8 +1022,6 @@ public class HumidityResponse <: Response {
 public class LinearAccelerometerResponse <: Response {
     /**
     * Linear acceleration x-axis component.
-    *
-    * @relation x: number;
     */
     @!APILevel[
         22,
@@ -1187,8 +1031,6 @@ public class LinearAccelerometerResponse <: Response {
 
     /**
     * Linear acceleration y-axis component.
-    *
-    * @relation y: number;
     */
     @!APILevel[
         22,
@@ -1198,8 +1040,6 @@ public class LinearAccelerometerResponse <: Response {
 
     /**
     * Linear acceleration z-axis component.
-    *
-    * @relation z: number;
     */
     @!APILevel[
         22,
@@ -1222,8 +1062,6 @@ public class LinearAccelerometerResponse <: Response {
 
 /**
  * Magnetic field sensor event data.
- *
- * @relation interface MagneticFieldResponse extends Response.
  */
 @!APILevel[
     22,
@@ -1232,8 +1070,6 @@ public class LinearAccelerometerResponse <: Response {
 public class MagneticFieldResponse <: Response {
     /**
     * Magnetic field x-axis component.
-    *
-    * @relation x: number;
     */
     @!APILevel[
         22,
@@ -1243,8 +1079,6 @@ public class MagneticFieldResponse <: Response {
 
     /**
     * Magnetic field y-axis component.
-    *
-    * @relation y: number;
     */
     @!APILevel[
         22,
@@ -1253,8 +1087,6 @@ public class MagneticFieldResponse <: Response {
     public var y: Float32
     /**
     * Magnetic field z-axis component.
-    *
-    * @relation z: number;
     */
     @!APILevel[
         22,
@@ -1277,8 +1109,6 @@ public class MagneticFieldResponse <: Response {
 
 /**
  * Magnetic field sensor event data.
- *
- * @relation interface MagneticFieldUncalibratedResponse extends Response.
  */
 @!APILevel[
     22,
@@ -1287,8 +1117,6 @@ public class MagneticFieldResponse <: Response {
 public class MagneticFieldUncalibratedResponse <: Response {
     /**
     * Magnetic field uncalibrated x-axis component.
-    *
-    * @relation x: number;
     */
     @!APILevel[
         22,
@@ -1298,8 +1126,6 @@ public class MagneticFieldUncalibratedResponse <: Response {
 
     /**
     * Magnetic field uncalibrated y-axis component.
-    *
-    * @relation y: number;
     */
     @!APILevel[
         22,
@@ -1309,8 +1135,6 @@ public class MagneticFieldUncalibratedResponse <: Response {
 
     /**
     * Magnetic field uncalibrated z-axis component.
-    *
-    * @relation z: number;
     */
     @!APILevel[
         22,
@@ -1320,8 +1144,6 @@ public class MagneticFieldUncalibratedResponse <: Response {
 
     /**
     * Magnetic field uncalibrated x-axis offset.
-    *
-    * @relation biasX: number;
     */
     @!APILevel[
         22,
@@ -1331,8 +1153,6 @@ public class MagneticFieldUncalibratedResponse <: Response {
 
     /**
     * Magnetic field uncalibrated y-axis offset.
-    *
-    * @relation biasY: number;
     */
     @!APILevel[
         22,
@@ -1342,8 +1162,6 @@ public class MagneticFieldUncalibratedResponse <: Response {
 
     /**
     * Magnetic field uncalibrated z-axis offset.    *
-    *
-    * @relation biasZ: number;
     */
     @!APILevel[
         22,
@@ -1370,8 +1188,6 @@ public class MagneticFieldUncalibratedResponse <: Response {
 
 /**
  * Orientation sensor event data.
- *
- * @relation interface OrientationResponse extends Response.
  */
 @!APILevel[
     22,
@@ -1380,8 +1196,6 @@ public class MagneticFieldUncalibratedResponse <: Response {
 public class OrientationResponse <: Response {
     /**
     * The device rotates at an angle around the Z axis.
-    *
-    * @relation alpha: number;
     */
     @!APILevel[
         22,
@@ -1391,8 +1205,6 @@ public class OrientationResponse <: Response {
 
     /**
     * The device rotates at an angle around the X axis.
-    *
-    * @relation beta: number;
     */
     @!APILevel[
         22,
@@ -1402,8 +1214,6 @@ public class OrientationResponse <: Response {
 
     /**
     * The device rotates at an angle around the Y axis.
-    *
-    * @relation gamma: number;
     */
     @!APILevel[
         22,
@@ -1426,8 +1236,6 @@ public class OrientationResponse <: Response {
 
 /**
  * Pedometer sensor event data.
- *
- * @relation interface PedometerResponse extends Response.
  */
 @!APILevel[
     22,
@@ -1458,8 +1266,6 @@ public class PedometerResponse <: Response {
 
 /**
  * Pedometer detection sensor event data.
- *
- * @relation interface PedometerDetectionResponse extends Response.
  */
 @!APILevel[
     22,
@@ -1469,8 +1275,6 @@ public class PedometerDetectionResponse <: Response {
     /**
     * Indicates the pedometer detection status, 1 indicates that a walking action has occurred,
     * and 0 indicates that no movement has occurred.
-    *
-    * @relation scalar: number;
     */
     @!APILevel[
         22,
@@ -1491,8 +1295,6 @@ public class PedometerDetectionResponse <: Response {
 
 /**
  * Proximity sensor event data.
- *
- * @relation interface ProximityResponse extends Response.
  */
 @!APILevel[
     22,
@@ -1523,8 +1325,6 @@ public class ProximityResponse <: Response {
 
 /**
  * Rotation vector sensor event data.
- *
- * @relation interface RotationVectorResponse extends Response.
  */
 @!APILevel[
     22,
@@ -1533,8 +1333,6 @@ public class ProximityResponse <: Response {
 public class RotationVectorResponse <: Response {
     /**
     * Rotation vector x-axis component.
-    *
-    * @relation x: number;
     */
     @!APILevel[
         22,
@@ -1544,8 +1342,6 @@ public class RotationVectorResponse <: Response {
 
     /**
     * Rotation vector y-axis component.
-    *
-    * @relation y: number;
     */
     @!APILevel[
         22,
@@ -1555,8 +1351,6 @@ public class RotationVectorResponse <: Response {
 
     /**
     * Rotation vector z-axis component.
-    *
-    * @relation z: number;
     */
     @!APILevel[
         22,
@@ -1566,8 +1360,6 @@ public class RotationVectorResponse <: Response {
 
     /**
     * Scalar quantity.
-    *
-    * @relation w: number;
     */
     @!APILevel[
         22,
@@ -1592,8 +1384,6 @@ public class RotationVectorResponse <: Response {
 
 /**
  * Significant motion sensor event data.
- *
- * @relation interface SignificantMotionResponse extends Response.
  */
 @!APILevel[
     22,
@@ -1602,8 +1392,6 @@ public class RotationVectorResponse <: Response {
 public class SignificantMotionResponse <: Response {
     /**
     * Indicates the degree of proximity, event 0 indicates proximity, and greater than 0 indicates distance.
-    *
-    * @relation scalar: number;
     */
     @!APILevel[
         22,
@@ -1624,8 +1412,6 @@ public class SignificantMotionResponse <: Response {
 
 /**
  * Wear detection sensor event data.
- *
- * @relation interface WearDetectionResponse extends Response.
  */
 @!APILevel[
     22,
@@ -1634,8 +1420,6 @@ public class SignificantMotionResponse <: Response {
 public class WearDetectionResponse <: Response {
     /**
     * Indicates the status of wear detection, 1 for wearing, 0 for wearing not.
-    *
-    * @relation value: number;
     */
     @!APILevel[
         22,
@@ -1678,8 +1462,6 @@ func removeAllCallback(sensorType: SensorId): Int64 {
 
 /**
  * Indicates sensor information.
- *
- * @relation interface Sensor
  */
 @!APILevel[
     22,
@@ -1688,8 +1470,6 @@ func removeAllCallback(sensorType: SensorId): Int64 {
 public class Sensor {
     /**
      * Sensor name.
-     *
-     * @relation sensorName:string
      */
     @!APILevel[
         22,
@@ -1699,8 +1479,6 @@ public class Sensor {
 
     /**
      * Sensor vendor.
-     *
-     * @relation vendorName:string
      */
     @!APILevel[
         22,
@@ -1710,8 +1488,6 @@ public class Sensor {
 
     /**
      * Sensor firmware version.
-     *
-     * @relation firmwareVersion:string
      */
     @!APILevel[
         22,
@@ -1721,8 +1497,6 @@ public class Sensor {
 
     /**
      * Sensor hardware version.
-     *
-     * @relation hardwareVersion:string
      */
     @!APILevel[
         22,
@@ -1732,8 +1506,6 @@ public class Sensor {
 
     /**
      * Sensor type ID, {@code SensorType}.
-     *
-     * @relation sensorId:number
      */
     @!APILevel[
         22,
@@ -1743,8 +1515,6 @@ public class Sensor {
 
     /**
      * Maximum measurement range of the sensor.
-     *
-     * @relation maxRange:number
      */
     @!APILevel[
         22,
@@ -1754,8 +1524,6 @@ public class Sensor {
 
     /**
      * Minimum sample period allowed, in ns.
-     *
-     * @relation minSamplePeriod:number
      */
     @!APILevel[
         22,
@@ -1765,8 +1533,6 @@ public class Sensor {
 
     /**
      * Maximum sample period allowed, in ns.
-     *
-     * @relation maxSamplePeriod:number
      */
     @!APILevel[
         22,
@@ -1776,8 +1542,6 @@ public class Sensor {
 
     /**
      * Sensor accuracy.
-     *
-     * @relation precision:number
      */
     @!APILevel[
         22,
@@ -1787,8 +1551,6 @@ public class Sensor {
 
     /**
      * Sensor power.
-     *
-     * @relation power:number
      */
     @!APILevel[
         22,
@@ -1827,28 +1589,6 @@ public class Sensor {
 
 /**
 * Subscribe to sensor data.
-*
-* @relation on(type: SensorId.ACCELEROMETER, callback: Callback<AccelerometerResponse>, options?: Options): void;
-* @relation on(type: SensorId.ACCELEROMETER_UNCALIBRATED, callback: Callback<AccelerometerUncalibratedResponse>,options?: Options): void;
-* @relation on(type: SensorId.AMBIENT_LIGHT, callback: Callback<LightResponse>, options?: Options): void;
-* @relation on(type: SensorId.AMBIENT_TEMPERATURE, callback: Callback<AmbientTemperatureResponse>,options?: Options): void;
-* @relation on(type: SensorId.BAROMETER, callback: Callback<BarometerResponse>, options?: Options): void;
-* @relation on(type: SensorId.GRAVITY, callback: Callback<GravityResponse>, options?: Options): void;
-* @relation on(type: SensorId.GYROSCOPE, callback: Callback<GyroscopeResponse>, options?: Options): void;
-* @relation on(type: SensorId.GYROSCOPE_UNCALIBRATED, callback: Callback<GyroscopeUncalibratedResponse>, options?: Options): void;
-* @relation on(type: SensorId.HALL, callback: Callback<HallResponse>, options?: Options): void;
-* @relation on(type: SensorId.HEART_RATE, callback: Callback<HeartRateResponse>, options?: Options): void;
-* @relation on(type: SensorId.HUMIDITY, callback: Callback<HumidityResponse>, options?: Options): void;
-* @relation on(type: SensorId.LINEAR_ACCELEROMETER, callback: Callback<LinearAccelerometerResponse>, options?: Options): void;
-* @relation on(type: SensorId.MAGNETIC_FIELD, callback: Callback<MagneticFieldResponse>, options?: Options): void;
-* @relation on(type: SensorId.MAGNETIC_FIELD_UNCALIBRATED, callback: Callback<MagneticFieldUncalibratedResponse>, options?: Options): void;
-* @relation on(type: SensorId.ORIENTATION, callback: Callback<OrientationResponse>, options?: Options): void;
-* @relation on(type: SensorId.PEDOMETER, callback: Callback<PedometerResponse>, options?: Options): void;
-* @relation on(type: SensorId.PEDOMETER_DETECTION, callback: Callback<PedometerDetectionResponse>, options?: Options): void;
-* @relation on(type: SensorId.PROXIMITY, callback: Callback<ProximityResponse>, options?: Options): void;
-* @relation on(type: SensorId.ROTATION_VECTOR, callback: Callback<RotationVectorResponse>, options?: Options): void;
-* @relation on(type: SensorId.SIGNIFICANT_MOTION, callback: Callback<SignificantMotionResponse>, options?: Options): void;
-* @relation on(type: SensorId.WEAR_DETECTION, callback: Callback<WearDetectionResponse>, options?: Options): void;
 */
 @!APILevel[
     22,
@@ -1871,28 +1611,6 @@ public func on<T>(sensorType: SensorId, callback: Callback1Argument<T>, option!:
 
 /**
 * Subscribe to sensor data once.
-*
-* @relation once(type: SensorId.ACCELEROMETER, callback: Callback<AccelerometerResponse>): void;
-* @relation once(type: SensorId.ACCELEROMETER_UNCALIBRATED, callback: Callback<AccelerometerUncalibratedResponse>): void;
-* @relation once(type: SensorId.AMBIENT_LIGHT, callback: Callback<LightResponse>): void;
-* @relation once(type: SensorId.AMBIENT_TEMPERATURE, callback: Callback<AmbientTemperatureResponse>): void;
-* @relation once(type: SensorId.BAROMETER, callback: Callback<BarometerResponse>): void;
-* @relation once(type: SensorId.GRAVITY, callback: Callback<GravityResponse>): void;
-* @relation once(type: SensorId.GYROSCOPE, callback: Callback<GyroscopeResponse>): void;
-* @relation once(type: SensorId.GYROSCOPE_UNCALIBRATED, callback: Callback<GyroscopeUncalibratedResponse>): void;
-* @relation once(type: SensorId.HALL, callback: Callback<HallResponse>): void;
-* @relation once(type: SensorId.HEART_RATE, callback: Callback<HeartRateResponse>): void;
-* @relation once(type: SensorId.HUMIDITY, callback: Callback<HumidityResponse>): void;
-* @relation once(type: SensorId.LINEAR_ACCELEROMETER, callback: Callback<LinearAccelerometerResponse>): void;
-* @relation once(type: SensorId.MAGNETIC_FIELD, callback: Callback<MagneticFieldResponse>): void;
-* @relation once(type: SensorId.MAGNETIC_FIELD_UNCALIBRATED, callback: Callback<MagneticFieldUncalibratedResponse>): void;
-* @relation once(type: SensorId.ORIENTATION, callback: Callback<OrientationResponse>): void;
-* @relation once(type: SensorId.PEDOMETER, callback: Callback<PedometerResponse>): void;
-* @relation once(type: SensorId.PEDOMETER_DETECTION, callback: Callback<PedometerDetectionResponse>): void;
-* @relation once(type: SensorId.PROXIMITY, callback: Callback<ProximityResponse>): void;
-* @relation once(type: SensorId.ROTATION_VECTOR, callback: Callback<RotationVectorResponse>): void;
-* @relation once(type: SensorId.SIGNIFICANT_MOTION, callback: Callback<SignificantMotionResponse>): void;
-* @relation once(type: SensorId.WEAR_DETECTION, callback: Callback<WearDetectionResponse>): void;
 */
 @!APILevel[
     22,
@@ -1919,28 +1637,6 @@ public func once<T>(sensorType: SensorId, callback: Callback1Argument<T>): Unit 
 
 /**
 * Subscribe to sensor data once.
-*
-* @relation off(type: SensorId.ACCELEROMETER, callback?: Callback<AccelerometerResponse>): void;
-* @relation off(type: SensorId.ACCELEROMETER_UNCALIBRATED, callback?: Callback<AccelerometerUncalibratedResponse>): void;
-* @relation off(type: SensorId.AMBIENT_LIGHT, callback?: Callback<LightResponse>): void;
-* @relation off(type: SensorId.AMBIENT_TEMPERATURE, callback?: Callback<AmbientTemperatureResponse>): void;
-* @relation off(type: SensorId.BAROMETER, callback?: Callback<BarometerResponse>): void;
-* @relation off(type: SensorId.GRAVITY, callback?: Callback<GravityResponse>): void;
-* @relation off(type: SensorId.GYROSCOPE, callback?: Callback<GyroscopeResponse>): void;
-* @relation off(type: SensorId.GYROSCOPE_UNCALIBRATED, callback?: Callback<GyroscopeUncalibratedResponse>): void;
-* @relation off(type: SensorId.HALL, callback?: Callback<HallResponse>): void;
-* @relation off(type: SensorId.HEART_RATE, callback?: Callback<HeartRateResponse>): void;
-* @relation off(type: SensorId.HUMIDITY, callback?: Callback<HumidityResponse>): void;
-* @relation off(type: SensorId.LINEAR_ACCELEROMETER, callback?: Callback<LinearAccelerometerResponse>): void;
-* @relation off(type: SensorId.MAGNETIC_FIELD, callback?: Callback<MagneticFieldResponse>): void;
-* @relation off(type: SensorId.MAGNETIC_FIELD_UNCALIBRATED, callback?: Callback<MagneticFieldUncalibratedResponse>): void;
-* @relation off(type: SensorId.ORIENTATION, callback?: Callback<OrientationResponse>): void;
-* @relation off(type: SensorId.PEDOMETER, callback?: Callback<PedometerResponse>): void;
-* @relation off(type: SensorId.PEDOMETER_DETECTION, callback?: Callback<PedometerDetectionResponse>): void;
-* @relation off(type: SensorId.PROXIMITY, callback?: Callback<ProximityResponse>): void;
-* @relation off(type: SensorId.ROTATION_VECTOR, callback?: Callback<RotationVectorResponse>): void;
-* @relation off(type: SensorId.SIGNIFICANT_MOTION, callback?: Callback<SignificantMotionResponse>): void;
-* @relation off(type: SensorId.WEAR_DETECTION, callback?: Callback<WearDetectionResponse>): void;
 */
 @!APILevel[
     22,
@@ -1971,7 +1667,6 @@ public func off(sensorType: SensorId, callback!: ?CallbackObject = None): Unit {
  *
  * @throws { BusinessException } 14500101 - Service exception. Possible causes: 1. Sensor hdf service exception;
  * 2. Sensor service ipc exception;3. Sensor data channel exception.
- * @relation function getSensorListSync(): Array<Sensor>
  */
 @!APILevel[
     22,
@@ -1996,7 +1691,6 @@ public func getSensorList(): Array<Sensor> {
  * @throws { BusinessException } 14500101 - Service exception. Possible causes: 1. Sensor hdf service exception;
  * <br> 2. Sensor service ipc exception;3. Sensor data channel exception.
  * @throws { BusinessException } 14500102 - The sensor is not supported by the device.
- * @relation function getSingleSensorSync(type: SensorId): Sensor
  */
 @!APILevel[
     22,
