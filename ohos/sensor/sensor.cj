@@ -943,16 +943,16 @@ public class HallResponse <: Response {
         22,
         syscap: "SystemCapability.Sensors.Sensor"
     ]
-    public var status: Float32
+    public var status: UInt32
 
-    init(status: Float32) {
+    init(status: UInt32) {
         this.status = status
     }
 
     init(v: CSensorCallbackData) {
         super(v.timestamp, SensorAccuracy.parse(v.option))
         let data = Response.parseCResponseData<CHallResponse>(v.data, v.dataLen)
-        status = data.status
+        status = UInt32(data.status)
     }
 }
 
@@ -971,16 +971,16 @@ public class HeartRateResponse <: Response {
         22,
         syscap: "SystemCapability.Sensors.Sensor"
     ]
-    public var heartRate: Float32
+    public var heartRate: UInt32
 
-    init(heartRate: Float32) {
+    init(heartRate: UInt32) {
         this.heartRate = heartRate
     }
 
     init(v: CSensorCallbackData) {
         super(v.timestamp, SensorAccuracy.parse(v.option))
         let data = Response.parseCResponseData<CHeartRateResponse>(v.data, v.dataLen)
-        heartRate = data.heartRate
+        heartRate = UInt32(data.heartRate)
     }
 }
 
@@ -1280,16 +1280,16 @@ public class PedometerDetectionResponse <: Response {
         22,
         syscap: "SystemCapability.Sensors.Sensor"
     ]
-    public var scalar: Float32
+    public var scalar: UInt32
 
-    init(scalar: Float32) {
+    init(scalar: UInt32) {
         this.scalar = scalar
     }
 
     init(v: CSensorCallbackData) {
         super(v.timestamp, SensorAccuracy.parse(v.option))
         let data = Response.parseCResponseData<CPedometerDetectionResponse>(v.data, v.dataLen)
-        scalar = data.scalar
+        scalar = UInt32(data.scalar)
     }
 }
 
@@ -1397,16 +1397,16 @@ public class SignificantMotionResponse <: Response {
         22,
         syscap: "SystemCapability.Sensors.Sensor"
     ]
-    public var scalar: Float32
+    public var scalar: Int32
 
-    init(scalar: Float32) {
+    init(scalar: Int32) {
         this.scalar = scalar
     }
 
     init(v: CSensorCallbackData) {
         super(v.timestamp, SensorAccuracy.parse(v.option))
         let data = Response.parseCResponseData<CSignificantMotionResponse>(v.data, v.dataLen)
-        scalar = data.scalar
+        scalar = Int32(data.scalar)
     }
 }
 
@@ -1425,16 +1425,16 @@ public class WearDetectionResponse <: Response {
         22,
         syscap: "SystemCapability.Sensors.Sensor"
     ]
-    public var value: Float32
+    public var value: UInt32
 
-    init(value: Float32) {
+    init(value: UInt32) {
         this.value = value
     }
 
     init(v: CSensorCallbackData) {
         super(v.timestamp, SensorAccuracy.parse(v.option))
         let data = Response.parseCResponseData<CWearDetectionResponse>(v.data, v.dataLen)
-        value = data.value
+        value = UInt32(data.value)
     }
 }
 
