@@ -1,7 +1,7 @@
 {
   "name": "@ohos/sensors_cangjie_wrapper",
   "description": "Provides APIs for performing basic operations on sensors, including obtaining sensor data and subscribing to or unsubscribing from sensor data",
-  "version": "6.0",
+  "version": "6.1",
   "license": "Apache License 2.0",
   "segment": {
     "destPath": "base/sensors/sensors_cangjie_wrapper"
