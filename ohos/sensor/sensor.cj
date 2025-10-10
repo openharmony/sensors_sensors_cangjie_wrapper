@@ -290,7 +290,8 @@ public enum SensorAccuracy {
     ]
     AccuracyUnreliable
     /**
-     * The sensor data is at a low accuracy level. The data must be calibrated based on the environment before being used.
+     * The sensor data is at a low accuracy level. The data must be calibrated based on the environment before being
+     * used.
      */
     |
     @!APILevel[
@@ -299,7 +300,8 @@ public enum SensorAccuracy {
     ]
     AccuracyLow
     /**
-     * The sensor data is at a medium accuracy level. You are advised to calibrate the data based on the environment before using it.
+     * The sensor data is at a medium accuracy level. You are advised to calibrate the data based on the environment
+     * before using it.
      */
     |
     @!APILevel[
