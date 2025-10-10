@@ -1,8 +1,9 @@
-# Generic Sensor Service Cangjie Wrapper
+# Generic Sensor Service Cangjie Wrapper(beta feature)
 
 ## Introduction
 
 The Generic Sensor Service Cangjie Wrapper provides sensor-related capabilities for developers using the Cangjie language for application development on OpenHarmony. The Generic Sensor Service Cangjie Wrapper  provides the ability to obtain sensor data, including getting sensor attribute lists, subscribing to sensor data. The current Generic Sensor Service Cangjie wrapper interface supports standard devices.
+See [Sensor Type](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/Dev_Guide/source_en/device/sensor/cj-sensor-overview.md) for details.
 
 ## System Architecture
 
