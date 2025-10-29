@@ -17,9 +17,6 @@
 
 package ohos.sensor
 
-import ohos.business_exception.*
-import ohos.ffi.*
-
 @C
 struct CAccelerometerResponse {
     CAccelerometerResponse(

@@ -17,6 +17,6 @@
 
 package ohos.sensor
 
-import ohos.hilog.*
+import ohos.hilog.HilogChannel
 
 let SENSOR_LOG = HilogChannel(0, 0xD001C50, "CJ-Sensor")
