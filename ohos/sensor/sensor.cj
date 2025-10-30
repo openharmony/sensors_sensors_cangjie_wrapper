@@ -29,7 +29,7 @@ import ohos.labels.APILevel
  */
 @Derive[ToString, Equatable]
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Sensors.Sensor"
 ]
 public enum SensorId {
@@ -38,7 +38,7 @@ public enum SensorId {
      *
      */
     | @!APILevel[
-        22,
+        since: "22",
         permission: "ohos.permission.ACCELEROMETER",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
@@ -48,7 +48,7 @@ public enum SensorId {
      *
      */
     | @!APILevel[
-        22,
+        since: "22",
         permission: "ohos.permission.GYROSCOPE",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
@@ -58,7 +58,7 @@ public enum SensorId {
      *
      */
     | @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     AmbientLight
@@ -67,7 +67,7 @@ public enum SensorId {
      *
      */
     | @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     MagneticField
@@ -76,7 +76,7 @@ public enum SensorId {
      *
      */
     | @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     Barometer
@@ -85,7 +85,7 @@ public enum SensorId {
      *
      */
     | @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     Hall
@@ -94,7 +94,7 @@ public enum SensorId {
      *
      */
     | @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     Proximity
@@ -103,7 +103,7 @@ public enum SensorId {
      *
      */
     | @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     Humidity
@@ -112,7 +112,7 @@ public enum SensorId {
      *
      */
     | @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     Orientation
@@ -121,7 +121,7 @@ public enum SensorId {
      *
      */
     | @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     Gravity
@@ -130,7 +130,7 @@ public enum SensorId {
      *
      */
     | @!APILevel[
-        22,
+        since: "22",
         permission: "ohos.permission.ACCELEROMETER",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
@@ -140,7 +140,7 @@ public enum SensorId {
      *
      */
     | @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     RotationVector
@@ -149,7 +149,7 @@ public enum SensorId {
      *
      */
     | @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     AmbientTemperature
@@ -158,7 +158,7 @@ public enum SensorId {
      *
      */
     | @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     MagneticFieldUncalibrated
@@ -167,7 +167,7 @@ public enum SensorId {
      *
      */
     | @!APILevel[
-        22,
+        since: "22",
         permission: "ohos.permission.GYROSCOPE",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
@@ -177,7 +177,7 @@ public enum SensorId {
      *
      */
     | @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     SignificantMotion
@@ -186,7 +186,7 @@ public enum SensorId {
      *
      */
     | @!APILevel[
-        22,
+        since: "22",
         permission: "ohos.permission.ACTIVITY_MOTION",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
@@ -196,7 +196,7 @@ public enum SensorId {
      *
      */
     | @!APILevel[
-        22,
+        since: "22",
         permission: "ohos.permission.ACTIVITY_MOTION",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
@@ -206,7 +206,7 @@ public enum SensorId {
      *
      */
     | @!APILevel[
-        22,
+        since: "22",
         permission: "ohos.permission.READ_HEALTH_DATA",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
@@ -216,7 +216,7 @@ public enum SensorId {
      *
      */
     | @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     WearDetection
@@ -225,7 +225,7 @@ public enum SensorId {
      *
      */
     | @!APILevel[
-        22,
+        since: "22",
         permission: "ohos.permission.ACCELEROMETER",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
@@ -239,7 +239,7 @@ public enum SensorId {
      * @throws { BusinessException } 14500101 - Parameter error. The sensor type is not supported.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public func getValue(): Int32 {
@@ -303,7 +303,7 @@ public enum SensorId {
  */
 @Derive[ToString, Equatable]
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Sensors.Sensor"
 ]
 public enum SensorAccuracy {
@@ -312,7 +312,7 @@ public enum SensorAccuracy {
      *
      */
     | @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     AccuracyUnreliable
@@ -323,7 +323,7 @@ public enum SensorAccuracy {
      */
     |
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     AccuracyLow
@@ -334,7 +334,7 @@ public enum SensorAccuracy {
      */
     |
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     AccuracyMedium
@@ -344,7 +344,7 @@ public enum SensorAccuracy {
      */
     |
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     AccuracyHigh
@@ -378,7 +378,7 @@ public enum SensorAccuracy {
  */
 @Derive[ToString, Equatable]
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Sensors.Sensor"
 ]
 public enum IntervalOption {
@@ -386,7 +386,7 @@ public enum IntervalOption {
     * SensorNumber option.
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     SensorNumber(Int64)
@@ -394,7 +394,7 @@ public enum IntervalOption {
     * GameMode option.
     */
     | @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     GameMode
@@ -402,7 +402,7 @@ public enum IntervalOption {
     * UIMode option.
     */
     | @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     UIMode
@@ -410,7 +410,7 @@ public enum IntervalOption {
     * NormalMode option.
     */
     | @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     NormalMode
@@ -434,7 +434,7 @@ public enum IntervalOption {
 *
 */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Sensors.Sensor"
 ]
 public class SensorInfoParam {
@@ -444,7 +444,7 @@ public class SensorInfoParam {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var deviceId: Int32
@@ -454,7 +454,7 @@ public class SensorInfoParam {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var sensorIndex: Int32
@@ -463,7 +463,7 @@ public class SensorInfoParam {
     * Options constructor.
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public init(deviceId!: Int32 = -1, sensorIndex!: Int32 = 0) {
@@ -477,7 +477,7 @@ public class SensorInfoParam {
 *
 */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Sensors.Sensor"
 ]
 public class AccelerometerResponse <: Response {
@@ -486,7 +486,7 @@ public class AccelerometerResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var x: Float32
@@ -496,7 +496,7 @@ public class AccelerometerResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var y: Float32
@@ -505,7 +505,7 @@ public class AccelerometerResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var z: Float32
@@ -528,7 +528,7 @@ public class AccelerometerResponse <: Response {
  *
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Sensors.Sensor"
 ]
 public class Options {
@@ -537,7 +537,7 @@ public class Options {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var interval: IntervalOption
@@ -547,7 +547,7 @@ public class Options {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var sensorInfoParam: ?SensorInfoParam
@@ -556,7 +556,7 @@ public class Options {
     * Options constructor.
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public init(interval!: IntervalOption = NormalMode, sensorInfoParam!: ?SensorInfoParam = None) {
@@ -570,7 +570,7 @@ public class Options {
  *
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Sensors.Sensor"
 ]
 public open class Response {
@@ -579,7 +579,7 @@ public open class Response {
      *
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var timestamp: Int64
@@ -589,7 +589,7 @@ public open class Response {
      *
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var accuracy: SensorAccuracy
@@ -621,7 +621,7 @@ class ResponseImpl {}
  *
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Sensors.Sensor"
 ]
 public class AccelerometerUncalibratedResponse <: Response {
@@ -630,7 +630,7 @@ public class AccelerometerUncalibratedResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var x: Float32
@@ -640,7 +640,7 @@ public class AccelerometerUncalibratedResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var y: Float32
@@ -650,7 +650,7 @@ public class AccelerometerUncalibratedResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var z: Float32
@@ -660,7 +660,7 @@ public class AccelerometerUncalibratedResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var biasX: Float32
@@ -670,7 +670,7 @@ public class AccelerometerUncalibratedResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var biasY: Float32
@@ -679,7 +679,7 @@ public class AccelerometerUncalibratedResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var biasZ: Float32
@@ -706,7 +706,7 @@ public class AccelerometerUncalibratedResponse <: Response {
  * 
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Sensors.Sensor"
 ]
 public class LightResponse <: Response {
@@ -715,7 +715,7 @@ public class LightResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var intensity: Float32
@@ -725,7 +725,7 @@ public class LightResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var colorTemperature: ?Float32
@@ -735,7 +735,7 @@ public class LightResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var infraredLuminance: ?Float32
@@ -760,7 +760,7 @@ public class LightResponse <: Response {
  *
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Sensors.Sensor"
 ]
 public class AmbientTemperatureResponse <: Response {
@@ -769,7 +769,7 @@ public class AmbientTemperatureResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var temperature: Float32
@@ -790,7 +790,7 @@ public class AmbientTemperatureResponse <: Response {
  *
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Sensors.Sensor"
 ]
 public class BarometerResponse <: Response {
@@ -799,7 +799,7 @@ public class BarometerResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var pressure: Float32
@@ -820,7 +820,7 @@ public class BarometerResponse <: Response {
  *
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Sensors.Sensor"
 ]
 public class GravityResponse <: Response {
@@ -829,7 +829,7 @@ public class GravityResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var x: Float32
@@ -838,7 +838,7 @@ public class GravityResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var y: Float32
@@ -847,7 +847,7 @@ public class GravityResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var z: Float32
@@ -870,7 +870,7 @@ public class GravityResponse <: Response {
  *
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Sensors.Sensor"
 ]
 public class GyroscopeResponse <: Response {
@@ -879,7 +879,7 @@ public class GyroscopeResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var x: Float32
@@ -889,7 +889,7 @@ public class GyroscopeResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var y: Float32
@@ -899,7 +899,7 @@ public class GyroscopeResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var z: Float32
@@ -922,7 +922,7 @@ public class GyroscopeResponse <: Response {
  *
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Sensors.Sensor"
 ]
 public class GyroscopeUncalibratedResponse <: Response {
@@ -931,7 +931,7 @@ public class GyroscopeUncalibratedResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var x: Float32
@@ -941,7 +941,7 @@ public class GyroscopeUncalibratedResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var y: Float32
@@ -951,7 +951,7 @@ public class GyroscopeUncalibratedResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var z: Float32
@@ -961,7 +961,7 @@ public class GyroscopeUncalibratedResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var biasX: Float32
@@ -971,7 +971,7 @@ public class GyroscopeUncalibratedResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var biasY: Float32
@@ -981,7 +981,7 @@ public class GyroscopeUncalibratedResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var biasZ: Float32
@@ -1008,7 +1008,7 @@ public class GyroscopeUncalibratedResponse <: Response {
  *
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Sensors.Sensor"
 ]
 public class HallResponse <: Response {
@@ -1017,7 +1017,7 @@ public class HallResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var status: UInt32
@@ -1038,7 +1038,7 @@ public class HallResponse <: Response {
  *
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Sensors.Sensor"
 ]
 public class HeartRateResponse <: Response {
@@ -1047,7 +1047,7 @@ public class HeartRateResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var heartRate: UInt32
@@ -1068,7 +1068,7 @@ public class HeartRateResponse <: Response {
  *
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Sensors.Sensor"
 ]
 public class HumidityResponse <: Response {
@@ -1077,7 +1077,7 @@ public class HumidityResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var humidity: Float32
@@ -1098,7 +1098,7 @@ public class HumidityResponse <: Response {
  *
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Sensors.Sensor"
 ]
 public class LinearAccelerometerResponse <: Response {
@@ -1107,7 +1107,7 @@ public class LinearAccelerometerResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var x: Float32
@@ -1117,7 +1117,7 @@ public class LinearAccelerometerResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var y: Float32
@@ -1127,7 +1127,7 @@ public class LinearAccelerometerResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var z: Float32
@@ -1150,7 +1150,7 @@ public class LinearAccelerometerResponse <: Response {
  *
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Sensors.Sensor"
 ]
 public class MagneticFieldResponse <: Response {
@@ -1159,7 +1159,7 @@ public class MagneticFieldResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var x: Float32
@@ -1169,7 +1169,7 @@ public class MagneticFieldResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var y: Float32
@@ -1178,7 +1178,7 @@ public class MagneticFieldResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var z: Float32
@@ -1201,7 +1201,7 @@ public class MagneticFieldResponse <: Response {
  *
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Sensors.Sensor"
 ]
 public class MagneticFieldUncalibratedResponse <: Response {
@@ -1210,7 +1210,7 @@ public class MagneticFieldUncalibratedResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var x: Float32
@@ -1220,7 +1220,7 @@ public class MagneticFieldUncalibratedResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var y: Float32
@@ -1230,7 +1230,7 @@ public class MagneticFieldUncalibratedResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var z: Float32
@@ -1240,7 +1240,7 @@ public class MagneticFieldUncalibratedResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var biasX: Float32
@@ -1250,7 +1250,7 @@ public class MagneticFieldUncalibratedResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var biasY: Float32
@@ -1260,7 +1260,7 @@ public class MagneticFieldUncalibratedResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var biasZ: Float32
@@ -1287,7 +1287,7 @@ public class MagneticFieldUncalibratedResponse <: Response {
  *
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Sensors.Sensor"
 ]
 public class OrientationResponse <: Response {
@@ -1296,7 +1296,7 @@ public class OrientationResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var alpha: Float32
@@ -1306,7 +1306,7 @@ public class OrientationResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var beta: Float32
@@ -1316,7 +1316,7 @@ public class OrientationResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var gamma: Float32
@@ -1339,7 +1339,7 @@ public class OrientationResponse <: Response {
  *
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Sensors.Sensor"
 ]
 public class PedometerResponse <: Response {
@@ -1349,7 +1349,7 @@ public class PedometerResponse <: Response {
     * relation steps: number;
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var steps: Int64
@@ -1370,7 +1370,7 @@ public class PedometerResponse <: Response {
  *
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Sensors.Sensor"
 ]
 public class PedometerDetectionResponse <: Response {
@@ -1380,7 +1380,7 @@ public class PedometerDetectionResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var scalar: UInt32
@@ -1401,7 +1401,7 @@ public class PedometerDetectionResponse <: Response {
  *
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Sensors.Sensor"
 ]
 public class ProximityResponse <: Response {
@@ -1411,7 +1411,7 @@ public class ProximityResponse <: Response {
     * relation distance: number;
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var distance: Float32
@@ -1432,7 +1432,7 @@ public class ProximityResponse <: Response {
  *
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Sensors.Sensor"
 ]
 public class RotationVectorResponse <: Response {
@@ -1441,7 +1441,7 @@ public class RotationVectorResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var x: Float32
@@ -1451,7 +1451,7 @@ public class RotationVectorResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var y: Float32
@@ -1461,7 +1461,7 @@ public class RotationVectorResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var z: Float32
@@ -1471,7 +1471,7 @@ public class RotationVectorResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var w: Float32
@@ -1496,7 +1496,7 @@ public class RotationVectorResponse <: Response {
  *
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Sensors.Sensor"
 ]
 public class SignificantMotionResponse <: Response {
@@ -1505,7 +1505,7 @@ public class SignificantMotionResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var scalar: Int32
@@ -1526,7 +1526,7 @@ public class SignificantMotionResponse <: Response {
  *
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Sensors.Sensor"
 ]
 public class WearDetectionResponse <: Response {
@@ -1535,7 +1535,7 @@ public class WearDetectionResponse <: Response {
     *
     */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var value: UInt32
@@ -1578,7 +1578,7 @@ func removeAllCallback(sensorType: SensorId): Int64 {
  *
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Sensors.Sensor"
 ]
 public class Sensor {
@@ -1587,7 +1587,7 @@ public class Sensor {
      *
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var sensorName: String
@@ -1597,7 +1597,7 @@ public class Sensor {
      *
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var vendorName: String
@@ -1607,7 +1607,7 @@ public class Sensor {
      *
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var firmwareVersion: String
@@ -1617,7 +1617,7 @@ public class Sensor {
      *
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var hardwareVersion: String
@@ -1627,7 +1627,7 @@ public class Sensor {
      *
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var sensorId: Int32
@@ -1637,7 +1637,7 @@ public class Sensor {
      *
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var maxRange: Float32
@@ -1647,7 +1647,7 @@ public class Sensor {
      *
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var minSamplePeriod: Int64
@@ -1657,7 +1657,7 @@ public class Sensor {
      *
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var maxSamplePeriod: Int64
@@ -1667,7 +1667,7 @@ public class Sensor {
      *
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var precision: Float32
@@ -1677,7 +1677,7 @@ public class Sensor {
      *
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var power: Float32
@@ -1724,7 +1724,7 @@ public class Sensor {
  * @throws { BusinessException } 14500101 - Service exception.
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Sensors.Sensor"
 ]
 public func on<T>(sensorType: SensorId, callback: Callback1Argument<T>, option!: ?Options = None): Unit where T <: Response {
@@ -1754,7 +1754,7 @@ public func on<T>(sensorType: SensorId, callback: Callback1Argument<T>, option!:
  * @throws { BusinessException } 14500101 - Service exception.
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Sensors.Sensor"
 ]
 public func once<T>(sensorType: SensorId, callback: Callback1Argument<T>): Unit where T <: Response {
@@ -1788,7 +1788,7 @@ public func once<T>(sensorType: SensorId, callback: Callback1Argument<T>): Unit 
  * 2. Incorrect parameter types; 3. Parameter verification failed.
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Sensors.Sensor"
 ]
 public func off(sensorType: SensorId, callback!: ?CallbackObject = None): Unit {
@@ -1819,7 +1819,7 @@ public func off(sensorType: SensorId, callback!: ?CallbackObject = None): Unit {
  * Sensor service ipc exception; 3. Sensor data channel exception.
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Sensors.Sensor"
 ]
 public func getSensorList(): Array<Sensor> {
@@ -1847,7 +1847,7 @@ public func getSensorList(): Array<Sensor> {
  * @throws { BusinessException } 14500102 - The sensor is not supported by the device.
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Sensors.Sensor"
 ]
 public func getSingleSensor(sensorType: SensorId): Sensor {
