@@ -107,6 +107,12 @@ public enum SensorId {
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     Humidity
+    |
+    @!Hide
+    Color
+    |
+    @!Hide
+    Sar
     /**
      * Orientation sensor.
      *
@@ -1681,6 +1687,18 @@ public class Sensor {
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var power: Float32
+
+    @!Hide
+    internal var sensorIndex: ?Int32 = Option<Int32>.None
+
+    @!Hide
+    internal var deviceId: ?Int32 = Option<Int32>.None
+
+    @!Hide
+    internal var deviceName: ?String = Option<String>.None
+
+    @!Hide
+    internal var isLocalSensor: ?Bool = Option<Bool>.None
 
     init(sensorName: String, vendorName: String, firmwareVersion: String,
         hardwareVersion: String, sensorId: Int32, maxRange: Float32, minSamplePeriod: Int64,
