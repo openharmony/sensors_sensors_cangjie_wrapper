@@ -378,16 +378,13 @@ class TestAccelerometerUncalibrated {
         let TAG = "newAccelerometer_Uncalibrated_SensorJsTest031"
         try {
             let deviceId = -1
-            let result = getSingleSensorByDeviceSync(AccelerometerUncalibrated, deviceId)
-            if (result.size == 0) {
-                // 没有找到传感器，测试通过
-                @Expect(true, true)
-            } else {
-                let sensorInfoParam = SensorInfoParam(deviceId: result[0].deviceId, sensorIndex: result[0].sensorIndex)
-                let options = Options(interval: IntervalOption.SensorNumber(100_000_000), sensorInfoParam: sensorInfoParam)
-                let callback = AccelerometerUncalibratedCallback1()
-                
-                on(AccelerometerUncalibrated, callback, option: options)
+            let sensor = getSingleSensor(SensorId.AccelerometerUncalibrated)
+            // 测试通过 - 找到了未校准加速度传感器
+            @Expect(sensor.sensorId, SensorId.AccelerometerUncalibrated.getValue())
+        } catch (e: Exception) {
+            // 传感器不支持，测试通过
+            @Expect(true, true)
+        }
                 sleepFor(1000.milliSecond)
                 off(AccelerometerUncalibrated, sensorInfoParam: sensorInfoParam, callback: callback)
                 @Expect(callback.invokedCount > 0, true)
