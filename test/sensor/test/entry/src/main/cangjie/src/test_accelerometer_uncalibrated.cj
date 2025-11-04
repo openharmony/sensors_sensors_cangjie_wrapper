@@ -166,7 +166,8 @@ class TestAccelerometerUncalibrated {
         //let invalidSensorId = -1
         try {
             expectBusinessExceptionAccelerometer(401) {
-                off(Pedometer, callback: AccelerometerUncalibratedCallback1())
+                once(Pedometer, AccelerometerUncalibratedCallback1())
+                off(Pedometer)
             }
         } catch (e: BusinessException) {
             @Expect(e.code, 401)
