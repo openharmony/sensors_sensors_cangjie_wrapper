@@ -48,8 +48,8 @@ class AccelerometerUncalibratedCallback <: Callback1Argument<AccelerometerUncali
 @Test
 class TestAccelerometerUncalibrated {
     
-    const PARAMETER_ERROR_CODE = 401
-    const INVALID_SENSOR_ID = -1
+    static const PARAMETER_ERROR_CODE = 401
+    static const INVALID_SENSOR_ID = -1
     
     // Test 014: Basic on/off functionality
     @TestCase
@@ -127,30 +127,17 @@ class TestAccelerometerUncalibrated {
     func newAccelerometer_Uncalibrated_SensorJsTest017(): Unit {
         Hilog.info(0, "testtag", "---------newAccelerometer_Uncalibrated_SensorJsTest017--------------")
         
-        // Create a callback that validates data types like in JS
-        class Test017Callback <: Callback1Argument<AccelerometerUncalibratedResponse> {
-            public var invokedCount = 0
-            public init() {}
-            public func invoke(err: ?BusinessException, arg: AccelerometerUncalibratedResponse): Unit {
-                invokedCount++
-                Hilog.info(0, "testtag", "Test017 callback in")
-                // In Cangjie, type checking is compile-time, so we just log
-                Hilog.info(0, "testtag", "Data validation: x=${arg.x}, y=${arg.y}, z=${arg.z}, biasX=${arg.biasX}, biasY=${arg.biasY}, biasZ=${arg.biasZ}, timestamp=${arg.timestamp}")
-            }
-        }
-        
-        let callback = Test017Callback()
+        let callback = AccelerometerUncalibratedCallback()
         
         try {
             // Try to call with extra parameter (like JS test with 4 parameters)
             on(AccelerometerUncalibrated, callback, option: Options(interval: IntervalOption.SensorNumber(100000000)))
             
             // If we get here without exception, wait and cleanup
-            setTimeout(() => {
-                Hilog.info(0, "testtag", "---------newAccelerometer_Uncalibrated_SensorJsTest017 off in--------------")
-                off(AccelerometerUncalibrated)
-                Hilog.info(0, "testtag", "---------newAccelerometer_Uncalibrated_SensorJsTest017 off end--------------")
-            }, 500)
+            sleepFor(500.milliSecond)
+            Hilog.info(0, "testtag", "---------newAccelerometer_Uncalibrated_SensorJsTest017 off in--------------")
+            off(AccelerometerUncalibrated)
+            Hilog.info(0, "testtag", "---------newAccelerometer_Uncalibrated_SensorJsTest017 off end--------------")
             
             // Note: Cangjie API may handle parameters differently than JS
             // This test assumes the API will work with normal parameters
@@ -210,18 +197,7 @@ class TestAccelerometerUncalibrated {
     func newAccelerometer_Uncalibrated_SensorJsTest020(): Unit {
         Hilog.info(0, "testtag", "---------newAccelerometer_Uncalibrated_SensorJsTest020--------------")
         
-        class Test020Callback <: Callback1Argument<AccelerometerUncalibratedResponse> {
-            public var invokedCount = 0
-            public init() {}
-            public func invoke(err: ?BusinessException, arg: AccelerometerUncalibratedResponse): Unit {
-                invokedCount++
-                Hilog.info(0, "testtag", "Test020 callback in")
-                // Validate data types (equivalent to JS expect(typeof (data.x)).assertEqual("number"))
-                Hilog.info(0, "testtag", "Data validation: x=${arg.x}, y=${arg.y}, z=${arg.z}, biasX=${arg.biasX}, biasY=${arg.biasY}, biasZ=${arg.biasZ}, timestamp=${arg.timestamp}")
-            }
-        }
-        
-        let callback = Test020Callback()
+        let callback = AccelerometerUncalibratedCallback()
         
         try {
             // Normal once call (JS test had extra parameter that should cause error)
