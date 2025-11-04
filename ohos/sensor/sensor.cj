@@ -21,7 +21,7 @@ import ohos.business_exception.{BusinessException, ERR_PARAMETER_ERROR, ERR_NO_P
 import ohos.callback_invoke.{CallbackObject, Callback1Argument}
 import ohos.ffi.{Callback1Param, SUCCESS_CODE}
 import std.deriving.Derive
-import ohos.labels.APILevel
+import ohos.labels.{APILevel, Hide}
 
 /**
  * Enum for obtain the type of sensor.
