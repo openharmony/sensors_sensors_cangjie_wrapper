@@ -36,12 +36,13 @@ class AccelerometerUncalibratedCallback1 <: Callback1Argument<AccelerometerUncal
     
     public func invoke(err: ?BusinessException, arg: AccelerometerUncalibratedResponse): Unit {
         invokedCount++
-        if (err == None) {
-            // 验证数据类型和基本结构
-            testPassed = true
-            Hilog.info(0, "testtag", "AccelerometerUncalibratedCallback1: x=${arg.x}, y=${arg.y}, z=${arg.z}, biasX=${arg.biasX}, biasY=${arg.biasY}, biasZ=${arg.biasZ}, timestamp=${arg.timestamp}")
-        } else {
-            Hilog.error(0, "testtag", "AccelerometerUncalibratedCallback1 error: ${err}")
+        match (err) {
+            case None => 
+                // 验证数据类型和基本结构
+                testPassed = true
+                Hilog.info(0, "testtag", "AccelerometerUncalibratedCallback1: x=${arg.x}, y=${arg.y}, z=${arg.z}, biasX=${arg.biasX}, biasY=${arg.biasY}, biasZ=${arg.biasZ}, timestamp=${arg.timestamp}")
+            case Some(e) => 
+                Hilog.error(0, "testtag", "AccelerometerUncalibratedCallback1 error: ${e}")
         }
     }
 }
@@ -54,11 +55,12 @@ class AccelerometerUncalibratedCallback2 <: Callback1Argument<AccelerometerUncal
     
     public func invoke(err: ?BusinessException, arg: AccelerometerUncalibratedResponse): Unit {
         invokedCount++
-        if (err == None) {
-            testPassed = true
-            Hilog.info(0, "testtag", "AccelerometerUncalibratedCallback2: x=${arg.x}, y=${arg.y}, z=${arg.z}, biasX=${arg.biasX}, biasY=${arg.biasY}, biasZ=${arg.biasZ}, timestamp=${arg.timestamp}")
-        } else {
-            Hilog.error(0, "testtag", "AccelerometerUncalibratedCallback2 error: ${err}")
+        match (err) {
+            case None => 
+                testPassed = true
+                Hilog.info(0, "testtag", "AccelerometerUncalibratedCallback2: x=${arg.x}, y=${arg.y}, z=${arg.z}, biasX=${arg.biasX}, biasY=${arg.biasY}, biasZ=${arg.biasZ}, timestamp=${arg.timestamp}")
+            case Some(e) => 
+                Hilog.error(0, "testtag", "AccelerometerUncalibratedCallback2 error: ${e}")
         }
     }
 }
@@ -378,20 +380,12 @@ class TestAccelerometerUncalibrated {
         let TAG = "newAccelerometer_Uncalibrated_SensorJsTest031"
         try {
             let deviceId = -1
-            let sensor = getSingleSensor(SensorId.AccelerometerUncalibrated)
+            // 错误的枚举使用 - 会触发编译错误：expected 'Enum-SensorId', found 'Int64'
+            let sensor = getSingleSensor(AccelerometerUncalibrated)
             // 测试通过 - 找到了未校准加速度传感器
             @Expect(sensor.sensorId, SensorId.AccelerometerUncalibrated.getValue())
         } catch (e: Exception) {
             // 传感器不支持，测试通过
-            @Expect(true, true)
-        }
-                sleepFor(1000.milliSecond)
-                off(AccelerometerUncalibrated, sensorInfoParam: sensorInfoParam, callback: callback)
-                @Expect(callback.invokedCount > 0, true)
-            }
-        } catch (e: BusinessException) {
-            Hilog.info(0, "testtag", "${TAG} fail, errCode:${e.code} ,msg:${e.message}")
-            // 期望某些设备可能不支持
             @Expect(true, true)
         }
     }
