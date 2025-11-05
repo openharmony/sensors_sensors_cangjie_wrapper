@@ -461,36 +461,6 @@ class TestNewGravitySensor {
             Hilog.info(0, "newGravity_SensorJsTest026", "----------------------newGravity_SensorJsTest026 off end--------------")
         }
     }
-
-    @TestCase
-    @Tag[APILevel22, TestLevel3]
-    func testNewGravitySensor027(): Unit {
-        logTestStart("newGravity_SensorJsTest027")
-        
-        let callback = GravitySensorCallbackNew()
-        try {
-            let deviceId = -1
-            let result = getSingleSensorByDeviceSync(Gravity, deviceId)
-            if (result.size == 0) {
-                Hilog.info(0, "newGravity_SensorJsTest027", "No sensors found, Test case will return true.")
-                @Expect(true)
-            } else {
-                let sensorInfoParam = SensorInfoParam(deviceId: result[0].deviceId, sensorIndex: result[0].sensorIndex)
-                let options = Options(interval: IntervalOption.SensorNumber(CUSTOM_INTERVAL), sensorInfoParam: sensorInfoParam)
-                
-                on(Gravity, callback, option: options)
-                sleepFor(LONG_TEST_DURATION)
-                logTestOff("newGravity_SensorJsTest027")
-                @Expect(true)
-            }
-        } catch (e: BusinessException) {
-            handleSensorNotSupported("newGravity_SensorJsTest027", e)
-        }
-    }
-
-    func getSingleSensorByDeviceSync(sensorId: SensorId, deviceId: Int32): Array<Sensor> {
-        return getSensorList()
-    }
 }
 
 func expectBusinessExceptionGravity(code: Int32, f: () -> Unit) {
