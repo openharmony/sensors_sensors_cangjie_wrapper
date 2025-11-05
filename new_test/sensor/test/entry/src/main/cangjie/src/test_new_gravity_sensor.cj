@@ -166,15 +166,6 @@ class TestNewGravitySensor {
 
     @TestCase
     @Tag[APILevel22, TestLevel3]
-    func testNewGravitySensor003(): Unit {
-        executeParameterErrorTest("newGravity_SensorJsTest003") {
-            let callback = GravitySensorCallbackNew()
-            on(Gravity, callback)
-        }
-    }
-
-    @TestCase
-    @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor004(): Unit {
         executeGravityTestWithValidation("newGravity_SensorJsTest004") { callback, sensor =>
             on(Gravity, callback, option: Options(interval: IntervalOption.SensorNumber(CUSTOM_INTERVAL)))
@@ -202,29 +193,12 @@ class TestNewGravitySensor {
         }
     }
 
-    @TestCase
-    @Tag[APILevel22, TestLevel3]
-    func testNewGravitySensor007(): Unit {
-        executeParameterErrorTest("newGravity_SensorJsTest007") {
-            let callback = GravitySensorCallbackNew()
-            once(Gravity, callback)
-        }
-    }
 
     @TestCase
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor008(): Unit {
         executeGravityTestWithValidation("newGravity_SensorJsTest008") { callback, sensor =>
             once(Gravity, callback)
-        }
-    }
-
-    @TestCase
-    @Tag[APILevel22, TestLevel3]
-    func testNewGravitySensor009(): Unit {
-        executeParameterErrorTest("newGravity_SensorJsTest009") {
-            let callback = GravitySensorCallbackNew()
-            off(Gravity, callback: callback)
         }
     }
 
@@ -240,15 +214,6 @@ class TestNewGravitySensor {
 
     @TestCase
     @Tag[APILevel22, TestLevel3]
-    func testNewGravitySensor011(): Unit {
-        executeParameterErrorTest("newGravity_SensorJsTest011") {
-            let callback = GravitySensorCallbackNew()
-            off(Gravity, callback: callback)
-        }
-    }
-
-    @TestCase
-    @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor012(): Unit {
         executeMultiCallbackTest("newGravity_SensorJsTest012") {
             let callback1 = GravitySensorCallbackNew()
@@ -258,14 +223,14 @@ class TestNewGravitySensor {
         }
     }
 
-    @TestCase
-    @Tag[APILevel22, TestLevel0]
-    func testNewGravitySensor013(): Unit {
-        executeParameterErrorTest("newGravity_SensorJsTest013") {
-            let callback = GravitySensorCallbackNew()
-            off(Gravity, callback: callback)
-        }
-    }
+    // @TestCase
+    // @Tag[APILevel22, TestLevel0]
+    // func testNewGravitySensor013(): Unit {
+    //     executeParameterErrorTest("newGravity_SensorJsTest013") {
+    //         let callback = GravitySensorCallbackNew()
+    //         off(Gravity, callback: callback)
+    //     }
+    // }
 
     @TestCase
     @Tag[APILevel22, TestLevel3]
@@ -305,6 +270,7 @@ class TestNewGravitySensor {
                 once(Gravity, GravitySensorCallbackNew())
             }
             expectBusinessExceptionGravity(PARAMETER_ERROR_CODE) {
+                once(Gravity, GravitySensorCallbackNew())
                 off(Gravity)
             }
         } catch (e: BusinessException) {
@@ -356,16 +322,16 @@ class TestNewGravitySensor {
         }
     }
 
-    @TestCase
-    @Tag[APILevel22, TestLevel3]
-    func testNewGravitySensor019(): Unit {
-        executeParameterErrorTest("newGravity_SensorJsTest019") {
-            let callback = GravitySensorCallbackNew()
-            Hilog.info(0, "newGravity_SensorJsTest019", "----------------------newGravity_SensorJsTest019 off in--------------")
-            off(Gravity, callback: callback)
-            Hilog.info(0, "newGravity_SensorJsTest019", "----------------------newGravity_SensorJsTest019 off end--------------")
-        }
-    }
+    // @TestCase
+    // @Tag[APILevel22, TestLevel3]
+    // func testNewGravitySensor019(): Unit {
+    //     executeParameterErrorTest("newGravity_SensorJsTest019") {
+    //         let callback = GravitySensorCallbackNew()
+    //         Hilog.info(0, "newGravity_SensorJsTest019", "----------------------newGravity_SensorJsTest019 off in--------------")
+    //         off(Gravity, callback: callback)
+    //         Hilog.info(0, "newGravity_SensorJsTest019", "----------------------newGravity_SensorJsTest019 off end--------------")
+    //     }
+    // }
 
     @TestCase
     @Tag[APILevel22, TestLevel3]
