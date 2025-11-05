@@ -42,9 +42,9 @@ class GravitySensorCallback <: Callback1Argument<GravityResponse> {
 
 @Test
 class TestNewGravitySensor {
-    private let PARAMETER_ERROR_CODE = 401
-    private let SERVICE_EXCEPTION_CODE = 14500101
-    private let SENSOR_NO_SUPPORT_CODE = 14500102
+    private let PARAMETER_ERROR_CODE: Int32 = 401
+    private let SERVICE_EXCEPTION_CODE: Int32 = 14500101
+    private let SENSOR_NO_SUPPORT_CODE: Int32 = 14500102
     private let INVALID_SENSOR_ID = -1
     
     private let DEFAULT_TEST_DURATION = 500.milliSecond
@@ -100,7 +100,7 @@ class TestNewGravitySensor {
             let sensor = getSingleSensor(SensorId.Gravity)
             @Expect(sensor.sensorId, Gravity.getValue())
             
-            expectBusinessException(PARAMETER_ERROR_CODE) {
+            expectBusinessExceptionGravity(PARAMETER_ERROR_CODE) {
                 testLogic()
             }
         } catch (e: BusinessException) {
@@ -115,7 +115,7 @@ class TestNewGravitySensor {
             let sensor = getSingleSensor(SensorId.Gravity)
             @Expect(sensor.sensorId, Gravity.getValue())
             
-            expectBusinessException(SERVICE_EXCEPTION_CODE) {
+            expectBusinessExceptionGravity(SERVICE_EXCEPTION_CODE) {
                 testLogic()
             }
         } catch (e: BusinessException) {
@@ -298,13 +298,13 @@ class TestNewGravitySensor {
             let sensor = getSingleSensor(SensorId.Gravity)
             @Expect(sensor.sensorId, Gravity.getValue())
             
-            expectBusinessException(PARAMETER_ERROR_CODE) {
+            expectBusinessExceptionGravity(PARAMETER_ERROR_CODE) {
                 on()
             }
-            expectBusinessException(PARAMETER_ERROR_CODE) {
+            expectBusinessExceptionGravity(PARAMETER_ERROR_CODE) {
                 once()
             }
-            expectBusinessException(PARAMETER_ERROR_CODE) {
+            expectBusinessExceptionGravity(PARAMETER_ERROR_CODE) {
                 off()
             }
         } catch (e: BusinessException) {
@@ -393,8 +393,8 @@ class TestNewGravitySensor {
             on(Gravity, callback, option: Options())
             try {
                 on(Gravity, callback, option: Options(interval: IntervalOption.SensorNumber(0)))
-            } catch (error) {
-                Hilog.info(0, "newGravity_SensorJsTest022", "catch error:${error}")
+            } catch (e: Exception) {
+                Hilog.info(0, "newGravity_SensorJsTest022", "catch error:${e}")
             }
             
             sleepFor(LONG_TEST_DURATION)
@@ -409,8 +409,8 @@ class TestNewGravitySensor {
             on(Gravity, callback, option: Options())
             try {
                 on(Gravity, callback, option: Options(interval: IntervalOption.SensorNumber(0)))
-            } catch (error) {
-                Hilog.info(0, "newGravity_SensorJsTest023", "catch error:${error}")
+            } catch (e: Exception) {
+                Hilog.info(0, "newGravity_SensorJsTest023", "catch error:${e}")
             }
             
             sleepFor(LONG_TEST_DURATION)
@@ -435,8 +435,8 @@ class TestNewGravitySensor {
             on(Gravity, callback, option: Options(interval: IntervalOption.SensorNumber(CUSTOM_INTERVAL)))
             try {
                 on(Gravity, callback, option: Options(interval: IntervalOption.SensorNumber(CUSTOM_INTERVAL)))
-            } catch (error) {
-                Hilog.info(0, "newGravity_SensorJsTest025", "catch error:${error}")
+            } catch (e: Exception) {
+                Hilog.info(0, "newGravity_SensorJsTest025", "catch error:${e}")
             }
             
             sleepFor(LONG_TEST_DURATION)
@@ -489,7 +489,7 @@ class TestNewGravitySensor {
     }
 }
 
-func expectBusinessException(code: Int32, f: () -> Unit) {
+func expectBusinessExceptionGravity(code: Int32, f: () -> Unit) {
     try {
         f()
         @Expect(false)
