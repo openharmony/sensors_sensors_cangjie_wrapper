@@ -207,7 +207,7 @@ class TestNewGravitySensor {
     func testNewGravitySensor007(): Unit {
         executeParameterErrorTest("newGravity_SensorJsTest007") {
             let callback = GravitySensorCallbackNew()
-            once(SensorId.parse(INVALID_SENSOR_ID), callback)
+            once(Gravity, callback)
         }
     }
 
@@ -224,7 +224,7 @@ class TestNewGravitySensor {
     func testNewGravitySensor009(): Unit {
         executeParameterErrorTest("newGravity_SensorJsTest009") {
             let callback = GravitySensorCallbackNew()
-            off(SensorId.parse(INVALID_SENSOR_ID), callback: callback)
+            off(Gravity, callback: callback)
         }
     }
 
@@ -243,7 +243,7 @@ class TestNewGravitySensor {
     func testNewGravitySensor011(): Unit {
         executeParameterErrorTest("newGravity_SensorJsTest011") {
             let callback = GravitySensorCallbackNew()
-            off(SensorId.parse(1000000), callback: callback)
+            off(Gravity, callback: callback)
         }
     }
 
@@ -362,7 +362,7 @@ class TestNewGravitySensor {
         executeParameterErrorTest("newGravity_SensorJsTest019") {
             let callback = GravitySensorCallbackNew()
             Hilog.info(0, "newGravity_SensorJsTest019", "----------------------newGravity_SensorJsTest019 off in--------------")
-            off(SensorId.parse(-1), callback: callback)
+            off(Gravity, callback: callback)
             Hilog.info(0, "newGravity_SensorJsTest019", "----------------------newGravity_SensorJsTest019 off end--------------")
         }
     }
