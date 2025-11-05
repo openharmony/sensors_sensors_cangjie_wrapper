@@ -27,16 +27,16 @@ import ohos.business_exception.*
 import ohos.callback_invoke.*
 import ohos.hilog.*
 
-class GravitySensorCallback <: Callback1Argument<GravityResponse> {
+class GravitySensorCallbackNew <: Callback1Argument<GravityResponse> {
     public var invokedCount: Int64 = 0
     public var lastData: ?GravityResponse = None
     
-    public GravitySensorCallback() {}
+    public GravitySensorCallbackNew() {}
     
     public func invoke(err: ?BusinessException, arg: GravityResponse): Unit {
         invokedCount++
         lastData = Some(arg)
-        Hilog.info(0, "testtag", "GravitySensorCallback execute: x=${arg.x}, y=${arg.y}, z=${arg.z}, accuracy=${arg.accuracy}, timestamp=${arg.timestamp}")
+        Hilog.info(0, "testtag", "GravitySensorCallbackNew execute: x=${arg.x}, y=${arg.y}, z=${arg.z}, accuracy=${arg.accuracy}, timestamp=${arg.timestamp}")
     }
 }
 
@@ -66,9 +66,9 @@ class TestNewGravitySensor {
         @Expect(e.code, SENSOR_NO_SUPPORT_CODE)
     }
     
-    private func executeBasicGravityTest(testName: String, testLogic: (GravitySensorCallback) -> Unit): Unit {
+    private func executeBasicGravityTest(testName: String, testLogic: (GravitySensorCallbackNew) -> Unit): Unit {
         logTestStart(testName)
-        let callback = GravitySensorCallback()
+        let callback = GravitySensorCallbackNew()
         
         try {
             let sensor = getSingleSensor(SensorId.Gravity)
@@ -79,9 +79,9 @@ class TestNewGravitySensor {
         }
     }
     
-    private func executeGravityTestWithValidation(testName: String, testLogic: (GravitySensorCallback, Sensor) -> Unit): Unit {
+    private func executeGravityTestWithValidation(testName: String, testLogic: (GravitySensorCallbackNew, Sensor) -> Unit): Unit {
         logTestStart(testName)
-        let callback = GravitySensorCallback()
+        let callback = GravitySensorCallbackNew()
         
         try {
             let sensor = getSingleSensor(SensorId.Gravity)
@@ -171,7 +171,7 @@ class TestNewGravitySensor {
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor003(): Unit {
         executeParameterErrorTest("newGravity_SensorJsTest003") {
-            let callback = GravitySensorCallback()
+            let callback = GravitySensorCallbackNew()
             on(INVALID_SENSOR_ID, callback)
         }
     }
@@ -209,7 +209,7 @@ class TestNewGravitySensor {
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor007(): Unit {
         executeParameterErrorTest("newGravity_SensorJsTest007") {
-            let callback = GravitySensorCallback()
+            let callback = GravitySensorCallbackNew()
             once(INVALID_SENSOR_ID, callback)
         }
     }
@@ -226,7 +226,7 @@ class TestNewGravitySensor {
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor009(): Unit {
         executeParameterErrorTest("newGravity_SensorJsTest009") {
-            let callback = GravitySensorCallback()
+            let callback = GravitySensorCallbackNew()
             off(INVALID_SENSOR_ID, callback: callback)
         }
     }
@@ -245,7 +245,7 @@ class TestNewGravitySensor {
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor011(): Unit {
         executeParameterErrorTest("newGravity_SensorJsTest011") {
-            let callback = GravitySensorCallback()
+            let callback = GravitySensorCallbackNew()
             off(1000000, callback: callback)
         }
     }
@@ -263,7 +263,7 @@ class TestNewGravitySensor {
     @Tag[APILevel22, TestLevel0]
     func testNewGravitySensor013(): Unit {
         executeParameterErrorTest("newGravity_SensorJsTest013") {
-            let callback = GravitySensorCallback()
+            let callback = GravitySensorCallbackNew()
             off(Gravity, 5)
         }
     }
@@ -360,7 +360,7 @@ class TestNewGravitySensor {
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor019(): Unit {
         executeParameterErrorTest("newGravity_SensorJsTest019") {
-            let callback = GravitySensorCallback()
+            let callback = GravitySensorCallbackNew()
             Hilog.info(0, "newGravity_SensorJsTest019", "----------------------newGravity_SensorJsTest019 off in--------------")
             off(-1, callback: callback)
             Hilog.info(0, "newGravity_SensorJsTest019", "----------------------newGravity_SensorJsTest019 off end--------------")
@@ -371,7 +371,7 @@ class TestNewGravitySensor {
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor020(): Unit {
         executeServiceExceptionTest("newGravity_SensorJsTest020") {
-            let callback = GravitySensorCallback()
+            let callback = GravitySensorCallbackNew()
             on(Gravity, callback, option: Options(interval: IntervalOption.SensorNumber(INVALID_INTERVAL)))
         }
     }
@@ -467,7 +467,7 @@ class TestNewGravitySensor {
     func testNewGravitySensor027(): Unit {
         logTestStart("newGravity_SensorJsTest027")
         
-        let callback = GravitySensorCallback()
+        let callback = GravitySensorCallbackNew()
         try {
             let deviceId = -1
             let result = getSingleSensorByDeviceSync(Gravity, deviceId)
