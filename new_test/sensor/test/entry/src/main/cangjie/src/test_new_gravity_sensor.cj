@@ -169,7 +169,7 @@ class TestNewGravitySensor {
     func testNewGravitySensor003(): Unit {
         executeParameterErrorTest("newGravity_SensorJsTest003") {
             let callback = GravitySensorCallbackNew()
-            on(SensorId.parse(INVALID_SENSOR_ID), callback)
+            on(Gravity, callback)
         }
     }
 
