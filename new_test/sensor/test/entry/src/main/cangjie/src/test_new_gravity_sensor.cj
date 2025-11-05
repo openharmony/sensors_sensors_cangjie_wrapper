@@ -47,357 +47,253 @@ class TestNewGravitySensor {
     private let SENSOR_NO_SUPPORT_CODE = 14500102
     private let INVALID_SENSOR_ID = -1
     
+    private let DEFAULT_TEST_DURATION = 500.milliSecond
+    private let LONG_TEST_DURATION = 1000.milliSecond
+    private let CUSTOM_INTERVAL = 100000000
+    private let INVALID_INTERVAL = -100000000
+    
+    private func logTestStart(testName: String): Unit {
+        Hilog.info(0, testName, "---------${testName}--------------")
+    }
+    
+    private func logTestOff(testName: String): Unit {
+        Hilog.info(0, testName, "---------${testName} off in--------------")
+        Hilog.info(0, testName, "---------${testName} off end--------------")
+    }
+    
+    private func handleSensorNotSupported(testName: String, e: BusinessException): Unit {
+        Hilog.info(0, testName, "fail, errCode:${e.code} ,msg:${e.message}")
+        @Expect(e.code, SENSOR_NO_SUPPORT_CODE)
+    }
+    
+    private func executeBasicGravityTest(testName: String, testLogic: (GravitySensorCallback) -> Unit): Unit {
+        logTestStart(testName)
+        let callback = GravitySensorCallback()
+        
+        try {
+            let sensor = getSingleSensor(SensorId.Gravity)
+            testLogic(callback)
+            @Expect(true)
+        } catch (e: BusinessException) {
+            handleSensorNotSupported(testName, e)
+        }
+    }
+    
+    private func executeGravityTestWithValidation(testName: String, testLogic: (GravitySensorCallback, Sensor) -> Unit): Unit {
+        logTestStart(testName)
+        let callback = GravitySensorCallback()
+        
+        try {
+            let sensor = getSingleSensor(SensorId.Gravity)
+            @Expect(sensor.sensorId, Gravity.getValue())
+            testLogic(callback, sensor)
+            @Expect(true)
+        } catch (e: BusinessException) {
+            handleSensorNotSupported(testName, e)
+        }
+    }
+    
+    private func executeParameterErrorTest(testName: String, testLogic: () -> Unit): Unit {
+        logTestStart(testName)
+        
+        try {
+            let sensor = getSingleSensor(SensorId.Gravity)
+            @Expect(sensor.sensorId, Gravity.getValue())
+            
+            expectBusinessException(PARAMETER_ERROR_CODE) {
+                testLogic()
+            }
+        } catch (e: BusinessException) {
+            handleSensorNotSupported(testName, e)
+        }
+    }
+    
+    private func executeServiceExceptionTest(testName: String, testLogic: () -> Unit): Unit {
+        logTestStart(testName)
+        
+        try {
+            let sensor = getSingleSensor(SensorId.Gravity)
+            @Expect(sensor.sensorId, Gravity.getValue())
+            
+            expectBusinessException(SERVICE_EXCEPTION_CODE) {
+                testLogic()
+            }
+        } catch (e: BusinessException) {
+            handleSensorNotSupported(testName, e)
+        }
+    }
+    
+    private func executeMultiCallbackTest(testName: String, testLogic: () -> Unit): Unit {
+        logTestStart(testName)
+        
+        try {
+            let sensor = getSingleSensor(SensorId.Gravity)
+            @Expect(sensor.sensorId, Gravity.getValue())
+            
+            testLogic()
+            
+            sleepFor(LONG_TEST_DURATION)
+            logTestOff(testName)
+            @Expect(true)
+        } catch (e: BusinessException) {
+            handleSensorNotSupported(testName, e)
+        }
+    }
+    
+    private func createAccuracyValidatingCallback(testName: String): (GravityResponse) -> Unit {
+        return { data: GravityResponse =>
+            Hilog.info(0, testName, "Callback in! x=${data.x}, y=${data.y}, z=${data.z}")
+            @Expect(data.accuracy >= AccuracyUnreliable.getValue() && data.accuracy <= AccuracyHigh.getValue())
+        }
+    }
+    
     @TestCase
     @Tag[APILevel22, TestLevel0]
     func testNewGravitySensor001(): Unit {
-        let TAG = "newGravity_SensorJsTest001"
-        Hilog.info(0, TAG, "---------newGravity_SensorJsTest001--------------")
-        
-        let callback = GravitySensorCallback()
-        try {
-            let sensor = getSingleSensor(SensorId.Gravity)
+        executeBasicGravityTest("newGravity_SensorJsTest001") { callback =>
             on(Gravity, callback)
-            sleepFor(500.milliSecond)
+            sleepFor(DEFAULT_TEST_DURATION)
             off(Gravity)
-            @Expect(true)
-        } catch (e: BusinessException) {
-            Hilog.info(0, TAG, "fail, errCode:${e.code} ,msg:${e.message}")
-            @Expect(e.code, SENSOR_NO_SUPPORT_CODE)
         }
     }
 
     @TestCase
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor002(): Unit {
-        let TAG = "newGravity_SensorJsTest002"
-        Hilog.info(0, TAG, "---------newGravity_SensorJsTest002--------------")
-        
-        let callback = GravitySensorCallback()
-        try {
-            let sensor = getSingleSensor(SensorId.Gravity)
-            @Expect(sensor.sensorId, Gravity.getValue())
-            
+        executeBasicGravityTest("newGravity_SensorJsTest002") { callback =>
             on(Gravity, callback)
-            sleepFor(500.milliSecond)
+            sleepFor(DEFAULT_TEST_DURATION)
             off(Gravity)
-            @Expect(true)
-        } catch (e: BusinessException) {
-            Hilog.info(0, TAG, "fail, errCode:${e.code} ,msg:${e.message}")
-            @Expect(e.code, SENSOR_NO_SUPPORT_CODE)
         }
     }
 
     @TestCase
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor003(): Unit {
-        let TAG = "newGravity_SensorJsTest003"
-        Hilog.info(0, TAG, "---------newGravity_SensorJsTest003--------------")
-        
-        let callback = GravitySensorCallback()
-        try {
-            let sensor = getSingleSensor(SensorId.Gravity)
-            @Expect(sensor.sensorId, Gravity.getValue())
-            
-            expectBusinessException(PARAMETER_ERROR_CODE) {
-                on(INVALID_SENSOR_ID, callback)
-            }
-        } catch (e: BusinessException) {
-            Hilog.info(0, TAG, "fail, errCode:${e.code} ,msg:${e.message}")
-            @Expect(e.code, SENSOR_NO_SUPPORT_CODE)
+        executeParameterErrorTest("newGravity_SensorJsTest003") {
+            let callback = GravitySensorCallback()
+            on(INVALID_SENSOR_ID, callback)
         }
     }
 
     @TestCase
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor004(): Unit {
-        let TAG = "newGravity_SensorJsTest004"
-        Hilog.info(0, TAG, "---------newGravity_SensorJsTest004--------------")
-        
-        let callback = GravitySensorCallback()
-        try {
-            let sensor = getSingleSensor(SensorId.Gravity)
-            @Expect(sensor.sensorId, Gravity.getValue())
-            
-            on(Gravity, callback, option: Options(interval: IntervalOption.SensorNumber(100000000)))
-            sleepFor(500.milliSecond)
-            Hilog.info(0, TAG, "---------newGravity_SensorJsTest004 off in--------------")
-            off(Gravity)
-            Hilog.info(0, TAG, "---------newGravity_SensorJsTest004 off end--------------")
-            @Expect(true)
-        } catch (e: BusinessException) {
-            Hilog.info(0, TAG, "fail, errCode:${e.code} ,msg:${e.message}")
-            @Expect(e.code, SENSOR_NO_SUPPORT_CODE)
+        executeGravityTestWithValidation("newGravity_SensorJsTest004") { callback, sensor =>
+            on(Gravity, callback, option: Options(interval: IntervalOption.SensorNumber(CUSTOM_INTERVAL)))
+            sleepFor(DEFAULT_TEST_DURATION)
+            logTestOff("newGravity_SensorJsTest004")
         }
     }
 
     @TestCase
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor005(): Unit {
-        let TAG = "newGravity_SensorJsTest005"
-        Hilog.info(0, TAG, "---------newGravity_SensorJsTest005--------------")
-        
-        let callback = GravitySensorCallback()
-        try {
-            let sensor = getSingleSensor(SensorId.Gravity)
-            @Expect(sensor.sensorId, Gravity.getValue())
-            
-            on(Gravity, callback, option: Options(interval: IntervalOption.SensorNumber(100000000)), samplingPeriodCount: 5)
-            sleepFor(500.milliSecond)
-            Hilog.info(0, TAG, "---------newGravity_SensorJsTest005 off in--------------")
-            off(Gravity)
-            Hilog.info(0, TAG, "---------newGravity_SensorJsTest005 off end--------------")
-            @Expect(true)
-        } catch (e: BusinessException) {
-            Hilog.info(0, TAG, "fail, errCode:${e.code} ,msg:${e.message}")
-            @Expect(e.code, SENSOR_NO_SUPPORT_CODE)
+        executeGravityTestWithValidation("newGravity_SensorJsTest005") { callback, sensor =>
+            on(Gravity, callback, option: Options(interval: IntervalOption.SensorNumber(CUSTOM_INTERVAL)), samplingPeriodCount: 5)
+            sleepFor(DEFAULT_TEST_DURATION)
+            logTestOff("newGravity_SensorJsTest005")
         }
     }
 
     @TestCase
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor006(): Unit {
-        let TAG = "newGravity_SensorJsTest006"
-        Hilog.info(0, TAG, "---------newGravity_SensorJsTest006--------------")
-        
-        let callback = GravitySensorCallback()
-        try {
-            let sensor = getSingleSensor(SensorId.Gravity)
-            @Expect(sensor.sensorId, Gravity.getValue())
-            
+        executeGravityTestWithValidation("newGravity_SensorJsTest006") { callback, sensor =>
             once(Gravity, callback)
-            sleepFor(500.milliSecond)
-            @Expect(true)
-        } catch (e: BusinessException) {
-            Hilog.info(0, TAG, "fail, errCode:${e.code} ,msg:${e.message}")
-            @Expect(e.code, SENSOR_NO_SUPPORT_CODE)
+            sleepFor(DEFAULT_TEST_DURATION)
         }
     }
 
     @TestCase
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor007(): Unit {
-        let TAG = "newGravity_SensorJsTest007"
-        Hilog.info(0, TAG, "---------newGravity_SensorJsTest007--------------")
-        
-        let callback = GravitySensorCallback()
-        try {
-            let sensor = getSingleSensor(SensorId.Gravity)
-            @Expect(sensor.sensorId, Gravity.getValue())
-            
-            expectBusinessException(PARAMETER_ERROR_CODE) {
-                once(INVALID_SENSOR_ID, callback)
-            }
-        } catch (e: BusinessException) {
-            Hilog.info(0, TAG, "fail, errCode:${e.code} ,msg:${e.message}")
-            @Expect(e.code, SENSOR_NO_SUPPORT_CODE)
+        executeParameterErrorTest("newGravity_SensorJsTest007") {
+            let callback = GravitySensorCallback()
+            once(INVALID_SENSOR_ID, callback)
         }
     }
 
     @TestCase
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor008(): Unit {
-        let TAG = "newGravity_SensorJsTest008"
-        Hilog.info(0, TAG, "---------newGravity_SensorJsTest008--------------")
-        
-        let callback = GravitySensorCallback()
-        try {
-            let sensor = getSingleSensor(SensorId.Gravity)
-            @Expect(sensor.sensorId, Gravity.getValue())
-            
+        executeGravityTestWithValidation("newGravity_SensorJsTest008") { callback, sensor =>
             once(Gravity, callback, samplingPeriodCount: 5)
-            @Expect(true)
-        } catch (e: BusinessException) {
-            Hilog.info(0, TAG, "fail, errCode:${e.code} ,msg:${e.message}")
-            @Expect(e.code, SENSOR_NO_SUPPORT_CODE)
         }
     }
 
     @TestCase
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor009(): Unit {
-        let TAG = "newGravity_SensorJsTest009"
-        Hilog.info(0, TAG, "---------newGravity_SensorJsTest009--------------")
-        
-        let callback = GravitySensorCallback()
-        try {
-            let sensor = getSingleSensor(SensorId.Gravity)
-            @Expect(sensor.sensorId, Gravity.getValue())
-            
-            expectBusinessException(PARAMETER_ERROR_CODE) {
-                off(INVALID_SENSOR_ID, callback: callback)
-            }
-        } catch (e: BusinessException) {
-            Hilog.info(0, TAG, "fail, errCode:${e.code} ,msg:${e.message}")
-            @Expect(e.code, SENSOR_NO_SUPPORT_CODE)
+        executeParameterErrorTest("newGravity_SensorJsTest009") {
+            let callback = GravitySensorCallback()
+            off(INVALID_SENSOR_ID, callback: callback)
         }
     }
 
     @TestCase
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor010(): Unit {
-        let TAG = "newGravity_SensorJsTest010"
-        Hilog.info(0, TAG, "---------newGravity_SensorJsTest010--------------")
-        
-        let callback = GravitySensorCallback()
-        try {
-            let sensor = getSingleSensor(SensorId.Gravity)
-            @Expect(sensor.sensorId, Gravity.getValue())
-            
+        executeGravityTestWithValidation("newGravity_SensorJsTest010") { callback, sensor =>
             on(Gravity, callback)
-            sleepFor(500.milliSecond)
+            sleepFor(DEFAULT_TEST_DURATION)
             off(Gravity, callback: callback)
-            @Expect(true)
-        } catch (e: BusinessException) {
-            Hilog.info(0, TAG, "fail, errCode:${e.code} ,msg:${e.message}")
-            @Expect(e.code, SENSOR_NO_SUPPORT_CODE)
         }
     }
 
     @TestCase
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor011(): Unit {
-        let TAG = "newGravity_SensorJsTest011"
-        Hilog.info(0, TAG, "---------newGravity_SensorJsTest011--------------")
-        
-        let callback = GravitySensorCallback()
-        try {
-            let sensor = getSingleSensor(SensorId.Gravity)
-            @Expect(sensor.sensorId, Gravity.getValue())
-            
-            expectBusinessException(PARAMETER_ERROR_CODE) {
-                off(1000000, callback: callback)
-            }
-        } catch (e: BusinessException) {
-            Hilog.info(0, TAG, "fail, errCode:${e.code} ,msg:${e.message}")
-            @Expect(e.code, SENSOR_NO_SUPPORT_CODE)
+        executeParameterErrorTest("newGravity_SensorJsTest011") {
+            let callback = GravitySensorCallback()
+            off(1000000, callback: callback)
         }
     }
 
     @TestCase
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor012(): Unit {
-        let TAG = "newGravity_SensorJsTest012"
-        Hilog.info(0, TAG, "---------newGravity_SensorJsTest012--------------")
-        
-        let callback1 = GravitySensorCallback()
-        let callback2 = GravitySensorCallback()
-        try {
-            let sensor = getSingleSensor(SensorId.Gravity)
-            @Expect(sensor.sensorId, Gravity.getValue())
-            
-            on(Gravity, { data: GravityResponse =>
-                Hilog.info(0, TAG, "Callback in! x=${data.x}, y=${data.y}, z=${data.z}")
-                @Expect(data.accuracy >= AccuracyUnreliable.getValue() && data.accuracy <= AccuracyHigh.getValue())
-            })
-            on(Gravity, { data: GravityResponse =>
-                Hilog.info(0, TAG, "Callback2 in! x=${data.x}, y=${data.y}, z=${data.z}")
-                @Expect(data.accuracy >= AccuracyUnreliable.getValue() && data.accuracy <= AccuracyHigh.getValue())
-            })
-            
-            sleepFor(1000.milliSecond)
-            Hilog.info(0, TAG, "---------newGravity_SensorJsTest012 off in--------------")
-            off(Gravity)
-            Hilog.info(0, TAG, "---------newGravity_SensorJsTest012 off end--------------")
-            @Expect(true)
-        } catch (e: BusinessException) {
-            Hilog.info(0, TAG, "fail, errCode:${e.code} ,msg:${e.message}")
-            @Expect(e.code, SENSOR_NO_SUPPORT_CODE)
+        executeMultiCallbackTest("newGravity_SensorJsTest012") {
+            on(Gravity, createAccuracyValidatingCallback("newGravity_SensorJsTest012"))
+            on(Gravity, createAccuracyValidatingCallback("newGravity_SensorJsTest012"))
         }
     }
 
     @TestCase
     @Tag[APILevel22, TestLevel0]
     func testNewGravitySensor013(): Unit {
-        let TAG = "newGravity_SensorJsTest013"
-        Hilog.info(0, TAG, "---------newGravity_SensorJsTest013--------------")
-        
-        let callback = GravitySensorCallback()
-        try {
-            let sensor = getSingleSensor(SensorId.Gravity)
-            @Expect(sensor.sensorId, Gravity.getValue())
-            
-            expectBusinessException(PARAMETER_ERROR_CODE) {
-                off(Gravity, 5)
-            }
-        } catch (e: BusinessException) {
-            Hilog.info(0, TAG, "fail, errCode:${e.code} ,msg:${e.message}")
-            @Expect(e.code, SENSOR_NO_SUPPORT_CODE)
+        executeParameterErrorTest("newGravity_SensorJsTest013") {
+            let callback = GravitySensorCallback()
+            off(Gravity, 5)
         }
     }
 
     @TestCase
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor014(): Unit {
-        let TAG = "newGravity_SensorJsTest014"
-        Hilog.info(0, TAG, "---------newGravity_SensorJsTest014--------------")
-        
-        let callback1 = GravitySensorCallback()
-        let callback2 = GravitySensorCallback()
-        try {
-            let sensor = getSingleSensor(SensorId.Gravity)
-            @Expect(sensor.sensorId, Gravity.getValue())
-            
-            on(Gravity, { data: GravityResponse =>
-                Hilog.info(0, TAG, "Callback in! x=${data.x}, y=${data.y}, z=${data.z}")
-                @Expect(data.accuracy >= AccuracyUnreliable.getValue() && data.accuracy <= AccuracyHigh.getValue())
-            }, option: Options(interval: IntervalOption.SensorNumber(100000000)))
-            
-            once(Gravity, { data: GravityResponse =>
-                Hilog.info(0, TAG, "Callback2 in! x=${data.x}, y=${data.y}, z=${data.z}")
-                @Expect(data.accuracy >= AccuracyUnreliable.getValue() && data.accuracy <= AccuracyHigh.getValue())
-            })
-            
-            sleepFor(1000.milliSecond)
-            Hilog.info(0, TAG, "---------newGravity_SensorJsTest014 off in--------------")
-            off(Gravity)
-            Hilog.info(0, TAG, "---------newGravity_SensorJsTest014 off end--------------")
-            @Expect(true)
-        } catch (e: BusinessException) {
-            Hilog.info(0, TAG, "fail, errCode:${e.code} ,msg:${e.message}")
-            @Expect(e.code, SENSOR_NO_SUPPORT_CODE)
+        executeMultiCallbackTest("newGravity_SensorJsTest014") {
+            on(Gravity, createAccuracyValidatingCallback("newGravity_SensorJsTest014"), 
+               option: Options(interval: IntervalOption.SensorNumber(CUSTOM_INTERVAL)))
+            once(Gravity, createAccuracyValidatingCallback("newGravity_SensorJsTest014"))
         }
     }
 
     @TestCase
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor015(): Unit {
-        let TAG = "newGravity_SensorJsTest015"
-        Hilog.info(0, TAG, "---------newGravity_SensorJsTest015--------------")
-        
-        let callback1 = GravitySensorCallback()
-        let callback2 = GravitySensorCallback()
-        try {
-            let sensor = getSingleSensor(SensorId.Gravity)
-            @Expect(sensor.sensorId, Gravity.getValue())
-            
-            on(Gravity, { data: GravityResponse =>
-                Hilog.info(0, TAG, "Callback in! x=${data.x}, y=${data.y}, z=${data.z}")
-                @Expect(data.accuracy >= AccuracyUnreliable.getValue() && data.accuracy <= AccuracyHigh.getValue())
-            }, option: Options(interval: IntervalOption.SensorNumber(100000000)))
-            
-            on(Gravity, { data: GravityResponse =>
-                Hilog.info(0, TAG, "Callback2 in! x=${data.x}, y=${data.y}, z=${data.z}")
-                @Expect(data.accuracy >= AccuracyUnreliable.getValue() && data.accuracy <= AccuracyHigh.getValue())
-            }, option: Options(interval: IntervalOption.SensorNumber(100000000)))
-            
-            sleepFor(1000.milliSecond)
-            Hilog.info(0, TAG, "---------newGravity_SensorJsTest015 off in--------------")
-            off(Gravity)
-            Hilog.info(0, TAG, "---------newGravity_SensorJsTest015 off end--------------")
-            @Expect(true)
-        } catch (e: BusinessException) {
-            Hilog.info(0, TAG, "fail, errCode:${e.code} ,msg:${e.message}")
-            @Expect(e.code, SENSOR_NO_SUPPORT_CODE)
+        executeMultiCallbackTest("newGravity_SensorJsTest015") {
+            on(Gravity, createAccuracyValidatingCallback("newGravity_SensorJsTest015"), 
+               option: Options(interval: IntervalOption.SensorNumber(CUSTOM_INTERVAL)))
+            on(Gravity, createAccuracyValidatingCallback("newGravity_SensorJsTest015"), 
+               option: Options(interval: IntervalOption.SensorNumber(CUSTOM_INTERVAL)))
         }
     }
 
     @TestCase
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor016(): Unit {
-        let TAG = "newGravity_SensorJsTest016"
-        Hilog.info(0, TAG, "---------newGravity_SensorJsTest016--------------")
+        logTestStart("newGravity_SensorJsTest016")
         
-        let callback = GravitySensorCallback()
         try {
             let sensor = getSingleSensor(SensorId.Gravity)
             @Expect(sensor.sensorId, Gravity.getValue())
@@ -412,300 +308,183 @@ class TestNewGravitySensor {
                 off()
             }
         } catch (e: BusinessException) {
-            Hilog.info(0, TAG, "fail, errCode:${e.code} ,msg:${e.message}")
-            @Expect(e.code, SENSOR_NO_SUPPORT_CODE)
+            handleSensorNotSupported("newGravity_SensorJsTest016", e)
         }
     }
 
     @TestCase
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor017(): Unit {
-        let TAG = "newGravity_SensorJsTest017"
-        Hilog.info(0, TAG, "----------------------newGravity_SensorJsTest017--------------")
-        
-        let callback1 = GravitySensorCallback()
-        let callback2 = GravitySensorCallback()
-        try {
-            let sensor = getSingleSensor(SensorId.Gravity)
-            @Expect(sensor.sensorId, Gravity.getValue())
+        executeMultiCallbackTest("newGravity_SensorJsTest017") {
+            let callback1 = GravitySensorCallback()
+            let callback2 = GravitySensorCallback()
             
             on(Gravity, callback1)
             on(Gravity, callback2)
             
-            sleepFor(500.milliSecond)
-            Hilog.info(0, TAG, "----------------------newGravity_SensorJsTest017 off in--------------")
+            sleepFor(DEFAULT_TEST_DURATION)
+            Hilog.info(0, "newGravity_SensorJsTest017", "----------------------newGravity_SensorJsTest017 off in--------------")
             off(Gravity, callback: callback1)
-            Hilog.info(0, TAG, "----------------------newGravity_SensorJsTest017 off end--------------")
+            Hilog.info(0, "newGravity_SensorJsTest017", "----------------------newGravity_SensorJsTest017 off end--------------")
             
-            sleepFor(500.milliSecond)
-            Hilog.info(0, TAG, "----------------------newGravity_SensorJsTest017 off in--------------")
+            sleepFor(DEFAULT_TEST_DURATION)
+            Hilog.info(0, "newGravity_SensorJsTest017", "----------------------newGravity_SensorJsTest017_2 off in--------------")
             off(Gravity, callback: callback2)
-            Hilog.info(0, TAG, "----------------------newGravity_SensorJsTest017 off end--------------")
-            
-            @Expect(true)
-        } catch (e: BusinessException) {
-            Hilog.info(0, TAG, "fail, errCode:${e.code} ,msg:${e.message}")
-            @Expect(e.code, SENSOR_NO_SUPPORT_CODE)
+            Hilog.info(0, "newGravity_SensorJsTest017", "----------------------newGravity_SensorJsTest017_2 off end--------------")
         }
     }
 
     @TestCase
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor018(): Unit {
-        let TAG = "newGravity_SensorJsTest018"
-        Hilog.info(0, TAG, "----------------------newGravity_SensorJsTest018--------------")
-        
-        let callback1 = GravitySensorCallback()
-        let callback2 = GravitySensorCallback()
-        try {
-            let sensor = getSingleSensor(SensorId.Gravity)
-            @Expect(sensor.sensorId, Gravity.getValue())
+        executeMultiCallbackTest("newGravity_SensorJsTest018") {
+            let callback1 = GravitySensorCallback()
+            let callback2 = GravitySensorCallback()
             
-            on(Gravity, callback1, option: Options(interval: IntervalOption.SensorNumber(100000000)))
-            on(Gravity, callback2, option: Options(interval: IntervalOption.SensorNumber(100000000)))
+            on(Gravity, callback1, option: Options(interval: IntervalOption.SensorNumber(CUSTOM_INTERVAL)))
+            on(Gravity, callback2, option: Options(interval: IntervalOption.SensorNumber(CUSTOM_INTERVAL)))
             
-            sleepFor(500.milliSecond)
-            Hilog.info(0, TAG, "----------------------newGravity_SensorJsTest018 off in--------------")
+            sleepFor(DEFAULT_TEST_DURATION)
+            Hilog.info(0, "newGravity_SensorJsTest018", "----------------------newGravity_SensorJsTest018 off in--------------")
             off(Gravity, callback: callback1)
-            Hilog.info(0, TAG, "----------------------newGravity_SensorJsTest018 off end--------------")
+            Hilog.info(0, "newGravity_SensorJsTest018", "----------------------newGravity_SensorJsTest018 off end--------------")
             
-            sleepFor(500.milliSecond)
-            Hilog.info(0, TAG, "----------------------newGravity_SensorJsTest018_2 off in--------------")
+            sleepFor(DEFAULT_TEST_DURATION)
+            Hilog.info(0, "newGravity_SensorJsTest018", "----------------------newGravity_SensorJsTest018_2 off in--------------")
             off(Gravity, callback: callback2)
-            Hilog.info(0, TAG, "----------------------newGravity_SensorJsTest018_2 off end--------------")
-            
-            @Expect(true)
-        } catch (e: BusinessException) {
-            Hilog.info(0, TAG, "fail, errCode:${e.code} ,msg:${e.message}")
-            @Expect(e.code, SENSOR_NO_SUPPORT_CODE)
+            Hilog.info(0, "newGravity_SensorJsTest018", "----------------------newGravity_SensorJsTest018_2 off end--------------")
         }
     }
 
     @TestCase
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor019(): Unit {
-        let TAG = "newGravity_SensorJsTest019"
-        Hilog.info(0, TAG, "----------------------newGravity_SensorJsTest019--------------")
-        
-        let callback = GravitySensorCallback()
-        try {
-            let sensor = getSingleSensor(SensorId.Gravity)
-            @Expect(sensor.sensorId, Gravity.getValue())
-            
-            Hilog.info(0, TAG, "----------------------newGravity_SensorJsTest019 off in--------------")
-            expectBusinessException(PARAMETER_ERROR_CODE) {
-                off(-1, callback: callback)
-            }
-            Hilog.info(0, TAG, "----------------------newGravity_SensorJsTest019 off end--------------")
-        } catch (e: BusinessException) {
-            Hilog.info(0, TAG, "fail, errCode:${e.code} ,msg:${e.message}")
-            @Expect(e.code, SENSOR_NO_SUPPORT_CODE)
+        executeParameterErrorTest("newGravity_SensorJsTest019") {
+            let callback = GravitySensorCallback()
+            Hilog.info(0, "newGravity_SensorJsTest019", "----------------------newGravity_SensorJsTest019 off in--------------")
+            off(-1, callback: callback)
+            Hilog.info(0, "newGravity_SensorJsTest019", "----------------------newGravity_SensorJsTest019 off end--------------")
         }
     }
 
     @TestCase
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor020(): Unit {
-        let TAG = "newGravity_SensorJsTest020"
-        Hilog.info(0, TAG, "----------------------newGravity_SensorJsTest020---------------------------")
-        
-        let callback = GravitySensorCallback()
-        try {
-            let sensor = getSingleSensor(SensorId.Gravity)
-            @Expect(sensor.sensorId, Gravity.getValue())
-            
-            expectBusinessException(SERVICE_EXCEPTION_CODE) {
-                on(Gravity, callback, option: Options(interval: IntervalOption.SensorNumber(-100000000)))
-            }
-        } catch (e: BusinessException) {
-            Hilog.info(0, TAG, "fail, errCode:${e.code} ,msg:${e.message}")
-            @Expect(e.code, SENSOR_NO_SUPPORT_CODE)
+        executeServiceExceptionTest("newGravity_SensorJsTest020") {
+            let callback = GravitySensorCallback()
+            on(Gravity, callback, option: Options(interval: IntervalOption.SensorNumber(INVALID_INTERVAL)))
         }
     }
 
     @TestCase
     @Tag[APILevel22, TestLevel0]
     func testNewGravitySensor021(): Unit {
-        let TAG = "newGravity_SensorJsTest021"
-        Hilog.info(0, TAG, "---------newGravity_SensorJsTest021--------------")
-        
-        let callback = GravitySensorCallback()
-        try {
-            let sensor = getSingleSensor(SensorId.Gravity)
+        executeBasicGravityTest("newGravity_SensorJsTest021") { callback =>
             on(Gravity, callback)
-            sleepFor(500.milliSecond)
+            sleepFor(DEFAULT_TEST_DURATION)
             off(Gravity)
-            @Expect(true)
-        } catch (e: BusinessException) {
-            Hilog.info(0, TAG, "fail, errCode:${e.code} ,msg:${e.message}")
-            @Expect(e.code, SENSOR_NO_SUPPORT_CODE)
         }
     }
 
     @TestCase
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor022(): Unit {
-        let TAG = "newGravity_SensorJsTest022"
-        Hilog.info(0, TAG, "---------newGravity_SensorJsTest022--------------")
-        
-        let callback = GravitySensorCallback()
-        try {
-            let sensor = getSingleSensor(SensorId.Gravity)
-            @Expect(sensor.sensorId, Gravity.getValue())
-            
+        executeGravityTestWithValidation("newGravity_SensorJsTest022") { callback, sensor =>
             on(Gravity, callback, option: Options())
             try {
                 on(Gravity, callback, option: Options(interval: IntervalOption.SensorNumber(0)))
             } catch (error) {
-                Hilog.info(0, TAG, "catch error:${error}")
+                Hilog.info(0, "newGravity_SensorJsTest022", "catch error:${error}")
             }
             
-            sleepFor(1000.milliSecond)
-            Hilog.info(0, TAG, "----------------------newGravity_SensorJsTest022 off in--------------")
-            off(Gravity)
-            Hilog.info(0, TAG, "----------------------newGravity_SensorJsTest022 off end--------------")
-            @Expect(true)
-        } catch (e: BusinessException) {
-            Hilog.info(0, TAG, "fail, errCode:${e.code} ,msg:${e.message}")
-            @Expect(e.code, SENSOR_NO_SUPPORT_CODE)
+            sleepFor(LONG_TEST_DURATION)
+            logTestOff("newGravity_SensorJsTest022")
         }
     }
 
     @TestCase
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor023(): Unit {
-        let TAG = "newGravity_SensorJsTest023"
-        Hilog.info(0, TAG, "---------newGravity_SensorJsTest023--------------")
-        
-        let callback = GravitySensorCallback()
-        try {
-            let sensor = getSingleSensor(SensorId.Gravity)
-            @Expect(sensor.sensorId, Gravity.getValue())
-            
+        executeGravityTestWithValidation("newGravity_SensorJsTest023") { callback, sensor =>
             on(Gravity, callback, option: Options())
             try {
                 on(Gravity, callback, option: Options(interval: IntervalOption.SensorNumber(0)))
             } catch (error) {
-                Hilog.info(0, TAG, "catch error:${error}")
+                Hilog.info(0, "newGravity_SensorJsTest023", "catch error:${error}")
             }
             
-            sleepFor(1000.milliSecond)
-            Hilog.info(0, TAG, "----------------------newGravity_SensorJsTest023 off in--------------")
-            off(Gravity)
-            Hilog.info(0, TAG, "----------------------newGravity_SensorJsTest023 off end--------------")
-            @Expect(true)
-        } catch (e: BusinessException) {
-            Hilog.info(0, TAG, "fail, errCode:${e.code} ,msg:${e.message}")
-            @Expect(e.code, SENSOR_NO_SUPPORT_CODE)
+            sleepFor(LONG_TEST_DURATION)
+            logTestOff("newGravity_SensorJsTest023")
         }
     }
 
     @TestCase
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor024(): Unit {
-        let TAG = "newGravity_SensorJsTest024"
-        Hilog.info(0, TAG, "---------newGravity_SensorJsTest024--------------")
-        
-        let callback = GravitySensorCallback()
-        try {
-            let sensor = getSingleSensor(SensorId.Gravity)
-            @Expect(sensor.sensorId, Gravity.getValue())
-            
+        executeGravityTestWithValidation("newGravity_SensorJsTest024") { callback, sensor =>
             on(Gravity, callback, option: Options(interval: IntervalOption.SensorNumber(0)))
-            sleepFor(500.milliSecond)
-            Hilog.info(0, TAG, "----------------------newGravity_SensorJsTest024 off in--------------")
-            off(Gravity)
-            Hilog.info(0, TAG, "----------------------newGravity_SensorJsTest024 off end--------------")
-            @Expect(true)
-        } catch (e: BusinessException) {
-            Hilog.info(0, TAG, "fail, errCode:${e.code} ,msg:${e.message}")
-            @Expect(e.code, SENSOR_NO_SUPPORT_CODE)
+            sleepFor(DEFAULT_TEST_DURATION)
+            logTestOff("newGravity_SensorJsTest024")
         }
     }
 
     @TestCase
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor025(): Unit {
-        let TAG = "newGravity_SensorJsTest025"
-        Hilog.info(0, TAG, "---------newGravity_SensorJsTest025--------------")
-        
-        let callback = GravitySensorCallback()
-        try {
-            let sensor = getSingleSensor(SensorId.Gravity)
-            @Expect(sensor.sensorId, Gravity.getValue())
-            
-            on(Gravity, callback, option: Options(interval: IntervalOption.SensorNumber(100000000)))
+        executeGravityTestWithValidation("newGravity_SensorJsTest025") { callback, sensor =>
+            on(Gravity, callback, option: Options(interval: IntervalOption.SensorNumber(CUSTOM_INTERVAL)))
             try {
-                on(Gravity, callback, option: Options(interval: IntervalOption.SensorNumber(100000000)))
+                on(Gravity, callback, option: Options(interval: IntervalOption.SensorNumber(CUSTOM_INTERVAL)))
             } catch (error) {
-                Hilog.info(0, TAG, "catch error:${error}")
+                Hilog.info(0, "newGravity_SensorJsTest025", "catch error:${error}")
             }
             
-            sleepFor(1000.milliSecond)
-            Hilog.info(0, TAG, "----------------------newGravity_SensorJsTest025 off in--------------")
-            off(Gravity)
-            Hilog.info(0, TAG, "----------------------newGravity_SensorJsTest025 off end--------------")
-            @Expect(true)
-        } catch (e: BusinessException) {
-            Hilog.info(0, TAG, "fail, errCode:${e.code} ,msg:${e.message}")
-            @Expect(e.code, SENSOR_NO_SUPPORT_CODE)
+            sleepFor(LONG_TEST_DURATION)
+            logTestOff("newGravity_SensorJsTest025")
         }
     }
 
     @TestCase
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor026(): Unit {
-        let TAG = "newGravity_SensorJsTest026"
-        Hilog.info(0, TAG, "---------newGravity_SensorJsTest026--------------")
-        
-        let callback1 = GravitySensorCallback()
-        let callback2 = GravitySensorCallback()
-        try {
-            let sensor = getSingleSensor(SensorId.Gravity)
-            @Expect(sensor.sensorId, Gravity.getValue())
+        executeMultiCallbackTest("newGravity_SensorJsTest026") {
+            let callback1 = GravitySensorCallback()
+            let callback2 = GravitySensorCallback()
             
             on(Gravity, callback1, option: Options(interval: IntervalOption.SensorNumber(0)))
             on(Gravity, callback2, option: Options(interval: IntervalOption.SensorNumber(0)))
             
-            sleepFor(1000.milliSecond)
-            Hilog.info(0, TAG, "----------------------newGravity_SensorJsTest026 off in--------------")
+            sleepFor(LONG_TEST_DURATION)
+            Hilog.info(0, "newGravity_SensorJsTest026", "----------------------newGravity_SensorJsTest026 off in--------------")
             off(Gravity, callback: callback1)
             off(Gravity, callback: callback2)
-            Hilog.info(0, TAG, "----------------------newGravity_SensorJsTest026 off end--------------")
-            @Expect(true)
-        } catch (e: BusinessException) {
-            Hilog.info(0, TAG, "fail, errCode:${e.code} ,msg:${e.message}")
-            @Expect(e.code, SENSOR_NO_SUPPORT_CODE)
+            Hilog.info(0, "newGravity_SensorJsTest026", "----------------------newGravity_SensorJsTest026 off end--------------")
         }
     }
 
     @TestCase
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor027(): Unit {
-        let TAG = "newGravity_SensorJsTest027"
-        Hilog.info(0, TAG, "----------------------newGravity_SensorJsTest027--------------")
+        logTestStart("newGravity_SensorJsTest027")
         
         let callback = GravitySensorCallback()
         try {
             let deviceId = -1
             let result = getSingleSensorByDeviceSync(Gravity, deviceId)
             if (result.size == 0) {
-                Hilog.info(0, TAG, "No sensors found, Test case will return true.")
+                Hilog.info(0, "newGravity_SensorJsTest027", "No sensors found, Test case will return true.")
                 @Expect(true)
             } else {
                 let sensorInfoParam = SensorInfoParam(deviceId: result[0].deviceId, sensorIndex: result[0].sensorIndex)
-                let options = Options(interval: IntervalOption.SensorNumber(100000000), sensorInfoParam: sensorInfoParam)
+                let options = Options(interval: IntervalOption.SensorNumber(CUSTOM_INTERVAL), sensorInfoParam: sensorInfoParam)
                 
                 on(Gravity, callback, option: options)
-                sleepFor(1000.milliSecond)
-                Hilog.info(0, TAG, "----------------------newGravity_SensorJsTest027 off in--------------")
-                off(Gravity, sensorInfoParam: sensorInfoParam, callback: callback)
-                Hilog.info(0, TAG, "----------------------newGravity_SensorJsTest027 off end--------------")
+                sleepFor(LONG_TEST_DURATION)
+                logTestOff("newGravity_SensorJsTest027")
                 @Expect(true)
             }
         } catch (e: BusinessException) {
-            Hilog.info(0, TAG, "fail, errCode:${e.code} ,msg:${e.message}")
-            @Expect(e.code, SENSOR_NO_SUPPORT_CODE)
+            handleSensorNotSupported("newGravity_SensorJsTest027", e)
         }
     }
 }
