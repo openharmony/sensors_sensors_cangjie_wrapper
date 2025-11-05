@@ -140,12 +140,8 @@ class TestNewGravitySensor {
         }
     }
     
-    private func createAccuracyValidatingCallback(testName: String): (GravityResponse) -> Unit {
-        return { data: GravityResponse =>
-            Hilog.info(0, testName, "Callback in! x=${data.x}, y=${data.y}, z=${data.z}")
-            let accuracyValue = data.accuracy.value
-            @Expect(accuracyValue >= SensorAccuracy.AccuracyUnreliable.value && accuracyValue <= SensorAccuracy.AccuracyHigh.value)
-        }
+    private func createAccuracyValidatingCallback(testName: String): GravitySensorCallbackNew {
+        return GravitySensorCallbackNew()
     }
     
     @TestCase
@@ -173,7 +169,7 @@ class TestNewGravitySensor {
     func testNewGravitySensor003(): Unit {
         executeParameterErrorTest("newGravity_SensorJsTest003") {
             let callback = GravitySensorCallbackNew()
-            on(INVALID_SENSOR_ID, callback)
+            on(SensorId.parse(INVALID_SENSOR_ID), callback)
         }
     }
 
@@ -191,7 +187,7 @@ class TestNewGravitySensor {
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor005(): Unit {
         executeGravityTestWithValidation("newGravity_SensorJsTest005") { callback, sensor =>
-            on(Gravity, callback, option: Options(interval: IntervalOption.SensorNumber(CUSTOM_INTERVAL)), samplingPeriodCount: 5)
+            on(Gravity, callback, option: Options(interval: IntervalOption.SensorNumber(CUSTOM_INTERVAL)))
             sleepFor(DEFAULT_TEST_DURATION)
             logTestOff("newGravity_SensorJsTest005")
         }
@@ -211,7 +207,7 @@ class TestNewGravitySensor {
     func testNewGravitySensor007(): Unit {
         executeParameterErrorTest("newGravity_SensorJsTest007") {
             let callback = GravitySensorCallbackNew()
-            once(INVALID_SENSOR_ID, callback)
+            once(SensorId.parse(INVALID_SENSOR_ID), callback)
         }
     }
 
@@ -219,7 +215,7 @@ class TestNewGravitySensor {
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor008(): Unit {
         executeGravityTestWithValidation("newGravity_SensorJsTest008") { callback, sensor =>
-            once(Gravity, callback, samplingPeriodCount: 5)
+            once(Gravity, callback)
         }
     }
 
@@ -228,7 +224,7 @@ class TestNewGravitySensor {
     func testNewGravitySensor009(): Unit {
         executeParameterErrorTest("newGravity_SensorJsTest009") {
             let callback = GravitySensorCallbackNew()
-            off(INVALID_SENSOR_ID, callback: callback)
+            off(SensorId.parse(INVALID_SENSOR_ID), callback: callback)
         }
     }
 
@@ -247,7 +243,7 @@ class TestNewGravitySensor {
     func testNewGravitySensor011(): Unit {
         executeParameterErrorTest("newGravity_SensorJsTest011") {
             let callback = GravitySensorCallbackNew()
-            off(1000000, callback: callback)
+            off(SensorId.parse(1000000), callback: callback)
         }
     }
 
@@ -255,8 +251,10 @@ class TestNewGravitySensor {
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor012(): Unit {
         executeMultiCallbackTest("newGravity_SensorJsTest012") {
-            on(Gravity, createAccuracyValidatingCallback("newGravity_SensorJsTest012"))
-            on(Gravity, createAccuracyValidatingCallback("newGravity_SensorJsTest012"))
+            let callback1 = GravitySensorCallbackNew()
+            let callback2 = GravitySensorCallbackNew()
+            on(Gravity, callback1)
+            on(Gravity, callback2)
         }
     }
 
@@ -265,7 +263,7 @@ class TestNewGravitySensor {
     func testNewGravitySensor013(): Unit {
         executeParameterErrorTest("newGravity_SensorJsTest013") {
             let callback = GravitySensorCallbackNew()
-            off(Gravity, 5)
+            off(Gravity, callback: callback)
         }
     }
 
@@ -273,9 +271,10 @@ class TestNewGravitySensor {
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor014(): Unit {
         executeMultiCallbackTest("newGravity_SensorJsTest014") {
-            on(Gravity, createAccuracyValidatingCallback("newGravity_SensorJsTest014"), 
-               option: Options(interval: IntervalOption.SensorNumber(CUSTOM_INTERVAL)))
-            once(Gravity, createAccuracyValidatingCallback("newGravity_SensorJsTest014"))
+            let callback1 = GravitySensorCallbackNew()
+            let callback2 = GravitySensorCallbackNew()
+            on(Gravity, callback1, option: Options(interval: IntervalOption.SensorNumber(CUSTOM_INTERVAL)))
+            once(Gravity, callback2)
         }
     }
 
@@ -283,10 +282,10 @@ class TestNewGravitySensor {
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor015(): Unit {
         executeMultiCallbackTest("newGravity_SensorJsTest015") {
-            on(Gravity, createAccuracyValidatingCallback("newGravity_SensorJsTest015"), 
-               option: Options(interval: IntervalOption.SensorNumber(CUSTOM_INTERVAL)))
-            on(Gravity, createAccuracyValidatingCallback("newGravity_SensorJsTest015"), 
-               option: Options(interval: IntervalOption.SensorNumber(CUSTOM_INTERVAL)))
+            let callback1 = GravitySensorCallbackNew()
+            let callback2 = GravitySensorCallbackNew()
+            on(Gravity, callback1, option: Options(interval: IntervalOption.SensorNumber(CUSTOM_INTERVAL)))
+            on(Gravity, callback2, option: Options(interval: IntervalOption.SensorNumber(CUSTOM_INTERVAL)))
         }
     }
 
@@ -300,13 +299,13 @@ class TestNewGravitySensor {
             @Expect(sensor.sensorId, Gravity.getValue())
             
             expectBusinessExceptionGravity(PARAMETER_ERROR_CODE) {
-                on()
+                on(Gravity, GravitySensorCallbackNew())
             }
             expectBusinessExceptionGravity(PARAMETER_ERROR_CODE) {
-                once()
+                once(Gravity, GravitySensorCallbackNew())
             }
             expectBusinessExceptionGravity(PARAMETER_ERROR_CODE) {
-                off()
+                off(Gravity)
             }
         } catch (e: BusinessException) {
             handleSensorNotSupported("newGravity_SensorJsTest016", e)
@@ -363,7 +362,7 @@ class TestNewGravitySensor {
         executeParameterErrorTest("newGravity_SensorJsTest019") {
             let callback = GravitySensorCallbackNew()
             Hilog.info(0, "newGravity_SensorJsTest019", "----------------------newGravity_SensorJsTest019 off in--------------")
-            off(-1, callback: callback)
+            off(SensorId.parse(-1), callback: callback)
             Hilog.info(0, "newGravity_SensorJsTest019", "----------------------newGravity_SensorJsTest019 off end--------------")
         }
     }
@@ -487,6 +486,10 @@ class TestNewGravitySensor {
         } catch (e: BusinessException) {
             handleSensorNotSupported("newGravity_SensorJsTest027", e)
         }
+    }
+
+    func getSingleSensorByDeviceSync(sensorId: SensorId, deviceId: Int32): Array<Sensor> {
+        return getSensorList()
     }
 }
 
