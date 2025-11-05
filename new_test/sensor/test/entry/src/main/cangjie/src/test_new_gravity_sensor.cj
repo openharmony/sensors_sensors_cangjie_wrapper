@@ -141,7 +141,7 @@ class TestNewGravitySensor {
     }
     
     private func createAccuracyValidatingCallback(testName: String): (GravityResponse) -> Unit {
-        return { (data: GravityResponse): Unit =>
+        return { data: GravityResponse =>
             Hilog.info(0, testName, "Callback in! x=${data.x}, y=${data.y}, z=${data.z}")
             let accuracyValue = data.accuracy.value
             @Expect(accuracyValue >= SensorAccuracy.AccuracyUnreliable.value && accuracyValue <= SensorAccuracy.AccuracyHigh.value)
