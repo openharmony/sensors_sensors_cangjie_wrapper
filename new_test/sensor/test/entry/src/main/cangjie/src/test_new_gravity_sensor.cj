@@ -316,8 +316,8 @@ class TestNewGravitySensor {
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor017(): Unit {
         executeMultiCallbackTest("newGravity_SensorJsTest017") {
-            let callback1 = GravitySensorCallback()
-            let callback2 = GravitySensorCallback()
+            let callback1 = GravitySensorCallbackNew()
+            let callback2 = GravitySensorCallbackNew()
             
             on(Gravity, callback1)
             on(Gravity, callback2)
@@ -338,8 +338,8 @@ class TestNewGravitySensor {
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor018(): Unit {
         executeMultiCallbackTest("newGravity_SensorJsTest018") {
-            let callback1 = GravitySensorCallback()
-            let callback2 = GravitySensorCallback()
+            let callback1 = GravitySensorCallbackNew()
+            let callback2 = GravitySensorCallbackNew()
             
             on(Gravity, callback1, option: Options(interval: IntervalOption.SensorNumber(CUSTOM_INTERVAL)))
             on(Gravity, callback2, option: Options(interval: IntervalOption.SensorNumber(CUSTOM_INTERVAL)))
@@ -448,8 +448,8 @@ class TestNewGravitySensor {
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor026(): Unit {
         executeMultiCallbackTest("newGravity_SensorJsTest026") {
-            let callback1 = GravitySensorCallback()
-            let callback2 = GravitySensorCallback()
+            let callback1 = GravitySensorCallbackNew()
+            let callback2 = GravitySensorCallbackNew()
             
             on(Gravity, callback1, option: Options(interval: IntervalOption.SensorNumber(0)))
             on(Gravity, callback2, option: Options(interval: IntervalOption.SensorNumber(0)))
