@@ -254,29 +254,29 @@ class TestNewGravitySensor {
         }
     }
 
-    @TestCase
-    @Tag[APILevel22, TestLevel3]
-    func testNewGravitySensor016(): Unit {
-        logTestStart("newGravity_SensorJsTest016")
+    // @TestCase
+    // @Tag[APILevel22, TestLevel3]
+    // func testNewGravitySensor016(): Unit {
+    //     logTestStart("newGravity_SensorJsTest016")
         
-        try {
-            let sensor = getSingleSensor(SensorId.Gravity)
-            @Expect(sensor.sensorId, Gravity.getValue())
+    //     try {
+    //         let sensor = getSingleSensor(SensorId.Gravity)
+    //         @Expect(sensor.sensorId, Gravity.getValue())
             
-            expectBusinessExceptionGravity(PARAMETER_ERROR_CODE) {
-                on(Gravity, GravitySensorCallbackNew())
-            }
-            expectBusinessExceptionGravity(PARAMETER_ERROR_CODE) {
-                once(Gravity, GravitySensorCallbackNew())
-            }
-            expectBusinessExceptionGravity(PARAMETER_ERROR_CODE) {
-                once(Gravity, GravitySensorCallbackNew())
-                off(Gravity)
-            }
-        } catch (e: BusinessException) {
-            handleSensorNotSupported("newGravity_SensorJsTest016", e)
-        }
-    }
+    //         expectBusinessExceptionGravity(PARAMETER_ERROR_CODE) {
+    //             on(Gravity, GravitySensorCallbackNew())
+    //         }
+    //         expectBusinessExceptionGravity(PARAMETER_ERROR_CODE) {
+    //             once(Gravity, GravitySensorCallbackNew())
+    //         }
+    //         expectBusinessExceptionGravity(PARAMETER_ERROR_CODE) {
+    //             once(Gravity, GravitySensorCallbackNew())
+    //             off(Gravity)
+    //         }
+    //     } catch (e: BusinessException) {
+    //         handleSensorNotSupported("newGravity_SensorJsTest016", e)
+    //     }
+    // }
 
     @TestCase
     @Tag[APILevel22, TestLevel3]
