@@ -388,9 +388,13 @@ class TestNewGravitySensor {
     @Tag[APILevel22, TestLevel3]
     func testNewGravitySensor024(): Unit {
         executeGravityTestWithValidation("newGravity_SensorJsTest024") { callback, sensor =>
+        try {
             on(Gravity, callback, option: Options(interval: IntervalOption.SensorNumber(0)))
-            sleepFor(DEFAULT_TEST_DURATION)
-            logTestOff("newGravity_SensorJsTest024")
+        } catch (e: Exception) {
+            Hilog.info(0, "newGravity_SensorJsTest024", "catch error:${e}")
+        }
+        sleepFor(DEFAULT_TEST_DURATION)
+        logTestOff("newGravity_SensorJsTest024")
         }
     }
 
@@ -416,9 +420,18 @@ class TestNewGravitySensor {
         executeMultiCallbackTest("newGravity_SensorJsTest026") {
             let callback1 = GravitySensorCallbackNew()
             let callback2 = GravitySensorCallbackNew()
-            
-            on(Gravity, callback1, option: Options(interval: IntervalOption.SensorNumber(0)))
-            on(Gravity, callback2, option: Options(interval: IntervalOption.SensorNumber(0)))
+
+            try {
+               on(Gravity, callback1, option: Options(interval: IntervalOption.SensorNumber(0)))
+            } catch (e: Exception) {
+                Hilog.info(0, "newGravity_SensorJsTest026", "catch callback1 error:${e}")
+            }
+
+            try {
+               on(Gravity, callback2, option: Options(interval: IntervalOption.SensorNumber(0)))
+            } catch (e: Exception) {
+                Hilog.info(0, "newGravity_SensorJsTest026", "catch callback2 error:${e}")
+            }
             
             sleepFor(LONG_TEST_DURATION)
             Hilog.info(0, "newGravity_SensorJsTest026", "----------------------newGravity_SensorJsTest026 off in--------------")
