@@ -1830,30 +1830,6 @@ public func off(sensorType: SensorId, callback!: ?CallbackObject = None): Unit {
 }
 
 /**
- * Obtains all sensor information on the device.
- *
- * @returns { Array<Sensor> } Returns an array containing all available sensor information.
- * @throws { BusinessException } 14500101 - Service exception. Possible causes: 1. Sensor hdf service exception; 2.
- * Sensor service ipc exception; 3. Sensor data channel exception.
- */
-@!APILevel[
-    since: "22",
-    syscap: "SystemCapability.Sensors.Sensor"
-]
-public func getSensorList(): Array<Sensor> {
-    var result = CSensorArray()
-    let ret = unsafe { FfiSensorGetAllSensors(inout result) }
-    if (ret != SUCCESS_CODE) {
-        throw BusinessException(ret, getErrorMsg(ret))
-    }
-    try {
-        result.asArray()
-    } finally {
-        result.free()
-    }
-}
-
-/**
  * Obtains the sensor information of a specified type.
  *
  * @param { SensorId } sensorType - Indicates the sensor type to query.
@@ -1877,4 +1853,28 @@ public func getSingleSensor(sensorType: SensorId): Sensor {
     }
 
     throw BusinessException(SENSOR_NO_SUPPORT, getErrorMsg(SENSOR_NO_SUPPORT))
+}
+
+/**
+ * Obtains all sensor information on the device.
+ *
+ * @returns { Array<Sensor> } Returns an array containing all available sensor information.
+ * @throws { BusinessException } 14500101 - Service exception. Possible causes: 1. Sensor hdf service exception; 2.
+ * Sensor service ipc exception; 3. Sensor data channel exception.
+ */
+@!APILevel[
+    since: "22",
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public func getSensorList(): Array<Sensor> {
+    var result = CSensorArray()
+    let ret = unsafe { FfiSensorGetAllSensors(inout result) }
+    if (ret != SUCCESS_CODE) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+    try {
+        result.asArray()
+    } finally {
+        result.free()
+    }
 }
