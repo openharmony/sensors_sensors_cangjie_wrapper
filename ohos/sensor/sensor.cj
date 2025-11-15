@@ -25,7 +25,6 @@ import ohos.labels.{APILevel, Hide}
 
 /**
  * Enum for obtain the type of sensor.
- *
  */
 @Derive[ToString, Equatable]
 @!APILevel[
@@ -35,74 +34,73 @@ import ohos.labels.{APILevel, Hide}
 public enum SensorId {
     /**
      * Acceleration sensor.
-     *
      */
-    | @!APILevel[
+    @!APILevel[
         since: "22",
         permission: "ohos.permission.ACCELEROMETER",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     Accelerometer
+    |
     /**
      * Gyroscope sensor.
-     *
      */
-    | @!APILevel[
+    @!APILevel[
         since: "22",
         permission: "ohos.permission.GYROSCOPE",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     Gyroscope
+    |
     /**
      * Ambient light sensor.
-     *
      */
-    | @!APILevel[
+    @!APILevel[
         since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     AmbientLight
+    |
     /**
      * Magnetic field sensor.
-     *
      */
-    | @!APILevel[
+    @!APILevel[
         since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     MagneticField
+    |
     /**
      * Barometric pressure sensor.
-     *
      */
-    | @!APILevel[
+    @!APILevel[
         since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     Barometer
+    |
     /**
      * Hall effect sensor.
-     *
      */
-    | @!APILevel[
+    @!APILevel[
         since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     Hall
+    |
     /**
      * Proximity sensor.
-     *
      */
-    | @!APILevel[
+    @!APILevel[
         since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     Proximity
+    |
     /**
      * Humidity sensor.
-     *
      */
-    | @!APILevel[
+    @!APILevel[
         since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
@@ -113,124 +111,124 @@ public enum SensorId {
     |
     @!Hide
     Sar
+    |
     /**
      * Orientation sensor.
-     *
      */
-    | @!APILevel[
+    @!APILevel[
         since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     Orientation
+    |
     /**
      * Gravity sensor.
-     *
      */
-    | @!APILevel[
+    @!APILevel[
         since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     Gravity
+    |
     /**
-     * Linear acceleration sensor.
-     *
+     * Linear accelerometer sensor.
      */
-    | @!APILevel[
+    @!APILevel[
         since: "22",
         permission: "ohos.permission.ACCELEROMETER",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     LinearAccelerometer
+    |
     /**
      * Rotation vector sensor.
-     *
      */
-    | @!APILevel[
+    @!APILevel[
         since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     RotationVector
+    |
     /**
      * Ambient temperature sensor.
-     *
      */
-    | @!APILevel[
+    @!APILevel[
         since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     AmbientTemperature
+    |
     /**
      * Uncalibrated magnetic field sensor.
-     *
      */
-    | @!APILevel[
+    @!APILevel[
         since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     MagneticFieldUncalibrated
+    |
     /**
      * Uncalibrated gyroscope sensor.
-     *
      */
-    | @!APILevel[
+    @!APILevel[
         since: "22",
         permission: "ohos.permission.GYROSCOPE",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     GyroscopeUncalibrated
+    |
     /**
      * Significant motion sensor.
-     *
      */
-    | @!APILevel[
+    @!APILevel[
         since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     SignificantMotion
+    |
     /**
      * Pedometer detection sensor.
-     *
      */
-    | @!APILevel[
+    @!APILevel[
         since: "22",
         permission: "ohos.permission.ACTIVITY_MOTION",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     PedometerDetection
+    |
     /**
      * Pedometer sensor.
-     *
      */
-    | @!APILevel[
+    @!APILevel[
         since: "22",
         permission: "ohos.permission.ACTIVITY_MOTION",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     Pedometer
+    |
     /**
      * Heart rate sensor.
-     *
      */
-    | @!APILevel[
+    @!APILevel[
         since: "22",
         permission: "ohos.permission.READ_HEALTH_DATA",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     HeartRate
+    |
     /**
      * Wear detection sensor.
-     *
      */
-    | @!APILevel[
+    @!APILevel[
         since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     WearDetection
+    |
     /**
      * Uncalibrated acceleration sensor.
-     *
      */
-    | @!APILevel[
+    @!APILevel[
         since: "22",
         permission: "ohos.permission.ACCELEROMETER",
         syscap: "SystemCapability.Sensors.Sensor"
@@ -240,9 +238,7 @@ public enum SensorId {
 
     /**
      * Get the corresponding mapping value.
-     *
-     * @returns { Int32 } Returns the numeric ID corresponding to the sensor type.
-     * @throws { BusinessException } 14500101 - Parameter error. The sensor type is not supported.
+     * @returns { Int32 } Returns the corresponding mapping value.
      */
     @!APILevel[
         since: "22",
@@ -305,7 +301,6 @@ public enum SensorId {
 
 /**
  * Enumerates the accuracy levels of data reported by a sensor.
- *
  */
 @Derive[ToString, Equatable]
 @!APILevel[
@@ -315,40 +310,36 @@ public enum SensorId {
 public enum SensorAccuracy {
     /**
      * The sensor data is unreliable. It is possible that the sensor does not contact with the device to measure.
-     *
      */
-    | @!APILevel[
+    @!APILevel[
         since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     AccuracyUnreliable
-    /**
-     * The sensor data is at a low accuracy level. The data must be calibrated based on the environment before being
-     * used.
-     *
-     */
     |
+    /**
+     * The sensor data is at a low accuracy level. The data must be calibrated based on the environment 
+     * before being used.
+     */
     @!APILevel[
         since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     AccuracyLow
-    /**
-     * The sensor data is at a medium accuracy level. You are advised to calibrate the data based on the environment
-     * before using it.
-     *
-     */
     |
+    /**
+     * The sensor data is at a medium accuracy level. You are advised to calibrate the data based on the
+     * environment before using it.
+     */
     @!APILevel[
         since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     AccuracyMedium
+    |
     /**
      * The sensor data is at a high accuracy level. The data can be used directly.
-     *
      */
-    |
     @!APILevel[
         since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
@@ -380,7 +371,7 @@ public enum SensorAccuracy {
 }
 
 /**
- * Enumerates IntervalOption. 
+ * Enumeration of event intervals in sensor event reports.
  */
 @Derive[ToString, Equatable]
 @!APILevel[
@@ -389,33 +380,36 @@ public enum SensorAccuracy {
 ]
 public enum IntervalOption {
     /**
-    * SensorNumber option.
-    */
+     * Indicate the time interval for reporting sensor events.
+     */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.Sensors.Sensor"
+    ] 
+    SensorNumber(Int64)
+    |
+    /**
+     * Sensor Frequency Types: Game Mode.
+     */
     @!APILevel[
         since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
-    SensorNumber(Int64)
-    /**
-    * GameMode option.
-    */
-    | @!APILevel[
-        since: "22",
-        syscap: "SystemCapability.Sensors.Sensor"
-    ]
     GameMode
+    |
     /**
-    * UIMode option.
-    */
-    | @!APILevel[
+     * Sensor Frequency Types: UIMode sensor.
+     */
+    @!APILevel[
         since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     UIMode
+    |
     /**
-    * NormalMode option.
-    */
-    | @!APILevel[
+     * Sensor Frequency Types: Normal Mode.
+     */
+    @!APILevel[
         since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
     ]
@@ -437,7 +431,6 @@ public enum IntervalOption {
 
 /**
 * Parameters of sensor on the device.
-*
 */
 @!APILevel[
     since: "22",
@@ -447,7 +440,6 @@ public class SensorInfoParam {
     /**
     * Unique identifier for the device that contains one or multiple sensors.
     * By default, deviceId may default to querying or controlling the local default sensor.
-    *
     */
     @!APILevel[
         since: "22",
@@ -457,7 +449,6 @@ public class SensorInfoParam {
 
     /**
     * Index of sensors of the same type. By default, it controls default sensors of the sensor type.
-    *
     */
     @!APILevel[
         since: "22",
@@ -467,6 +458,9 @@ public class SensorInfoParam {
 
     /**
     * Options constructor.
+    *
+    * @param { Int32 } [deviceId] - Indicates the unique identifier for the device that contains one or multiple sensors.
+    * @param { Int32 } [sensorIndex] - Indicates the index of sensors of the same type. By default, it controls default sensors of the sensor type.
     */
     @!APILevel[
         since: "22",
@@ -480,7 +474,6 @@ public class SensorInfoParam {
 
 /**
 * Acceleration sensor event data.
-*
 */
 @!APILevel[
     since: "22",
@@ -489,7 +482,6 @@ public class SensorInfoParam {
 public class AccelerometerResponse <: Response {
     /**
     * Acceleration x-axis component.
-    *
     */
     @!APILevel[
         since: "22",
@@ -499,7 +491,6 @@ public class AccelerometerResponse <: Response {
 
     /**
     * Acceleration y-axis component.
-    *
     */
     @!APILevel[
         since: "22",
@@ -508,7 +499,6 @@ public class AccelerometerResponse <: Response {
     public var y: Float32
     /**
     * Acceleration z-axis component.
-    *
     */
     @!APILevel[
         since: "22",
@@ -531,7 +521,6 @@ public class AccelerometerResponse <: Response {
 
 /**
  * Subscribe to the sensor's optional parameters.
- *
  */
 @!APILevel[
     since: "22",
@@ -540,7 +529,6 @@ public class AccelerometerResponse <: Response {
 public class Options {
     /**
     * Sensor event reporting event interval.
-    *
     */
     @!APILevel[
         since: "22",
@@ -550,7 +538,6 @@ public class Options {
 
     /**
     * Parameters of sensor on the device.
-    *
     */
     @!APILevel[
         since: "22",
@@ -560,6 +547,9 @@ public class Options {
 
     /**
     * Options constructor.
+    *
+    * @param { IntervalOption } [interval] - Indicates the sensor event reporting event interval.
+    * @param { SensorInfoParam } [sensorInfoParam] - Indicates the parameters of sensor on the device.
     */
     @!APILevel[
         since: "22",
@@ -573,7 +563,6 @@ public class Options {
 
 /**
  * The basic data structure of the sensor event.
- *
  */
 @!APILevel[
     since: "22",
@@ -582,7 +571,6 @@ public class Options {
 public open class Response {
     /**
      * The timestamp of the reported sensor data.
-     *
      */
     @!APILevel[
         since: "22",
@@ -592,7 +580,6 @@ public open class Response {
 
     /**
      * The accuracy levels of data reported by a sensor.
-     *
      */
     @!APILevel[
         since: "22",
@@ -624,7 +611,6 @@ class ResponseImpl {}
 
 /**
  * Acceleration uncalibrated sensor event data.
- *
  */
 @!APILevel[
     since: "22",
@@ -633,7 +619,6 @@ class ResponseImpl {}
 public class AccelerometerUncalibratedResponse <: Response {
     /**
     * Acceleration uncalibrated x-axis component.
-    *
     */
     @!APILevel[
         since: "22",
@@ -643,7 +628,6 @@ public class AccelerometerUncalibratedResponse <: Response {
 
     /**
     * Acceleration uncalibrated y-axis component.
-    *
     */
     @!APILevel[
         since: "22",
@@ -653,7 +637,6 @@ public class AccelerometerUncalibratedResponse <: Response {
 
     /**
     * Acceleration uncalibrated z-axis component.
-    *
     */
     @!APILevel[
         since: "22",
@@ -663,7 +646,6 @@ public class AccelerometerUncalibratedResponse <: Response {
 
     /**
     * Acceleration uncalibrated x-axis offset.
-    *
     */
     @!APILevel[
         since: "22",
@@ -673,7 +655,6 @@ public class AccelerometerUncalibratedResponse <: Response {
 
     /**
     * Acceleration uncalibrated y-axis offset.
-    *
     */
     @!APILevel[
         since: "22",
@@ -682,7 +663,6 @@ public class AccelerometerUncalibratedResponse <: Response {
     public var biasY: Float32
     /**
     * Acceleration uncalibrated z-axis offset.
-    *
     */
     @!APILevel[
         since: "22",
@@ -709,7 +689,6 @@ public class AccelerometerUncalibratedResponse <: Response {
 
 /**
  * Light sensor event data.
- * 
  */
 @!APILevel[
     since: "22",
@@ -718,7 +697,6 @@ public class AccelerometerUncalibratedResponse <: Response {
 public class LightResponse <: Response {
     /**
     * Indicates light intensity, in lux.
-    *
     */
     @!APILevel[
         since: "22",
@@ -728,7 +706,6 @@ public class LightResponse <: Response {
 
     /**
     * Indicates color temperature, in kelvin.
-    *
     */
     @!APILevel[
         since: "22",
@@ -738,7 +715,6 @@ public class LightResponse <: Response {
 
     /**
     * Indicates infrared luminance, in cd/m2.
-    *
     */
     @!APILevel[
         since: "22",
@@ -763,7 +739,6 @@ public class LightResponse <: Response {
 
 /**
  * Ambient temperature sensor event data.
- *
  */
 @!APILevel[
     since: "22",
@@ -772,7 +747,6 @@ public class LightResponse <: Response {
 public class AmbientTemperatureResponse <: Response {
     /**
     * Indicates ambient temperature, in celsius.
-    *
     */
     @!APILevel[
         since: "22",
@@ -793,7 +767,6 @@ public class AmbientTemperatureResponse <: Response {
 
 /**
  * Barometer sensor event data.
- *
  */
 @!APILevel[
     since: "22",
@@ -802,7 +775,6 @@ public class AmbientTemperatureResponse <: Response {
 public class BarometerResponse <: Response {
     /**
     * Indicates the number of barometer, in hpa.
-    *
     */
     @!APILevel[
         since: "22",
@@ -823,7 +795,6 @@ public class BarometerResponse <: Response {
 
 /**
  * Gravity sensor event data.
- *
  */
 @!APILevel[
     since: "22",
@@ -832,7 +803,6 @@ public class BarometerResponse <: Response {
 public class GravityResponse <: Response {
     /**
     * Gravity x-axis component.
-    *
     */
     @!APILevel[
         since: "22",
@@ -841,7 +811,6 @@ public class GravityResponse <: Response {
     public var x: Float32
     /**
     * Gravity y-axis component.
-    *
     */
     @!APILevel[
         since: "22",
@@ -850,7 +819,6 @@ public class GravityResponse <: Response {
     public var y: Float32
     /**
     * Gravity z-axis component.
-    *
     */
     @!APILevel[
         since: "22",
@@ -873,7 +841,6 @@ public class GravityResponse <: Response {
 
 /**
  * Gyroscope sensor event data.
- *
  */
 @!APILevel[
     since: "22",
@@ -882,7 +849,6 @@ public class GravityResponse <: Response {
 public class GyroscopeResponse <: Response {
     /**
     * Gyroscope x-axis component.
-    *
     */
     @!APILevel[
         since: "22",
@@ -892,7 +858,6 @@ public class GyroscopeResponse <: Response {
 
     /**
     * Gyroscope y-axis component.
-    *
     */
     @!APILevel[
         since: "22",
@@ -902,7 +867,6 @@ public class GyroscopeResponse <: Response {
 
     /**
     * Gyroscope z-axis component.
-    *
     */
     @!APILevel[
         since: "22",
@@ -925,7 +889,6 @@ public class GyroscopeResponse <: Response {
 
 /**
  * Gyroscope uncalibrated sensor event data.
- *
  */
 @!APILevel[
     since: "22",
@@ -934,7 +897,6 @@ public class GyroscopeResponse <: Response {
 public class GyroscopeUncalibratedResponse <: Response {
     /**
     * Gyroscope uncalibrated x-axis component.
-    *
     */
     @!APILevel[
         since: "22",
@@ -944,7 +906,6 @@ public class GyroscopeUncalibratedResponse <: Response {
 
     /**
     * Gyroscope uncalibrated y-axis component.
-    *
     */
     @!APILevel[
         since: "22",
@@ -954,7 +915,6 @@ public class GyroscopeUncalibratedResponse <: Response {
 
     /**
     * Gyroscope uncalibrated z-axis component.
-    *
     */
     @!APILevel[
         since: "22",
@@ -964,7 +924,6 @@ public class GyroscopeUncalibratedResponse <: Response {
 
     /**
     * Gyroscope uncalibrated x-axis offset.
-    *
     */
     @!APILevel[
         since: "22",
@@ -974,7 +933,6 @@ public class GyroscopeUncalibratedResponse <: Response {
 
     /**
     * Gyroscope uncalibrated y-axis offset.
-    *
     */
     @!APILevel[
         since: "22",
@@ -984,7 +942,6 @@ public class GyroscopeUncalibratedResponse <: Response {
 
     /**
     * Gyroscope uncalibrated z-axis offset.
-    *
     */
     @!APILevel[
         since: "22",
@@ -1011,7 +968,6 @@ public class GyroscopeUncalibratedResponse <: Response {
 
 /**
  * Hall sensor event data.
- *
  */
 @!APILevel[
     since: "22",
@@ -1020,7 +976,6 @@ public class GyroscopeUncalibratedResponse <: Response {
 public class HallResponse <: Response {
     /**
     * Indicates hall status, 0 indicates open, and greater than 0 indicates suction.
-    *
     */
     @!APILevel[
         since: "22",
@@ -1041,7 +996,6 @@ public class HallResponse <: Response {
 
 /**
  * Heart rate sensor event data.
- *
  */
 @!APILevel[
     since: "22",
@@ -1050,7 +1004,6 @@ public class HallResponse <: Response {
 public class HeartRateResponse <: Response {
     /**
     * Indicates the number of heart rate.
-    *
     */
     @!APILevel[
         since: "22",
@@ -1071,7 +1024,6 @@ public class HeartRateResponse <: Response {
 
 /**
  * Humidity sensor event data.
- *
  */
 @!APILevel[
     since: "22",
@@ -1080,7 +1032,6 @@ public class HeartRateResponse <: Response {
 public class HumidityResponse <: Response {
     /**
     * Indicates the number of humidity.
-    *
     */
     @!APILevel[
         since: "22",
@@ -1101,7 +1052,6 @@ public class HumidityResponse <: Response {
 
 /**
  * Linear acceleration sensor event data.
- *
  */
 @!APILevel[
     since: "22",
@@ -1110,7 +1060,6 @@ public class HumidityResponse <: Response {
 public class LinearAccelerometerResponse <: Response {
     /**
     * Linear acceleration x-axis component.
-    *
     */
     @!APILevel[
         since: "22",
@@ -1120,7 +1069,6 @@ public class LinearAccelerometerResponse <: Response {
 
     /**
     * Linear acceleration y-axis component.
-    *
     */
     @!APILevel[
         since: "22",
@@ -1130,7 +1078,6 @@ public class LinearAccelerometerResponse <: Response {
 
     /**
     * Linear acceleration z-axis component.
-    *
     */
     @!APILevel[
         since: "22",
@@ -1153,7 +1100,6 @@ public class LinearAccelerometerResponse <: Response {
 
 /**
  * Magnetic field sensor event data.
- *
  */
 @!APILevel[
     since: "22",
@@ -1162,7 +1108,6 @@ public class LinearAccelerometerResponse <: Response {
 public class MagneticFieldResponse <: Response {
     /**
     * Magnetic field x-axis component.
-    *
     */
     @!APILevel[
         since: "22",
@@ -1172,7 +1117,6 @@ public class MagneticFieldResponse <: Response {
 
     /**
     * Magnetic field y-axis component.
-    *
     */
     @!APILevel[
         since: "22",
@@ -1181,7 +1125,6 @@ public class MagneticFieldResponse <: Response {
     public var y: Float32
     /**
     * Magnetic field z-axis component.
-    *
     */
     @!APILevel[
         since: "22",
@@ -1203,8 +1146,7 @@ public class MagneticFieldResponse <: Response {
 }
 
 /**
- * Magnetic field sensor event data.
- *
+ * Magnetic field uncalibrated sensor event data.
  */
 @!APILevel[
     since: "22",
@@ -1213,7 +1155,6 @@ public class MagneticFieldResponse <: Response {
 public class MagneticFieldUncalibratedResponse <: Response {
     /**
     * Magnetic field uncalibrated x-axis component.
-    *
     */
     @!APILevel[
         since: "22",
@@ -1223,7 +1164,6 @@ public class MagneticFieldUncalibratedResponse <: Response {
 
     /**
     * Magnetic field uncalibrated y-axis component.
-    *
     */
     @!APILevel[
         since: "22",
@@ -1233,7 +1173,6 @@ public class MagneticFieldUncalibratedResponse <: Response {
 
     /**
     * Magnetic field uncalibrated z-axis component.
-    *
     */
     @!APILevel[
         since: "22",
@@ -1243,7 +1182,6 @@ public class MagneticFieldUncalibratedResponse <: Response {
 
     /**
     * Magnetic field uncalibrated x-axis offset.
-    *
     */
     @!APILevel[
         since: "22",
@@ -1253,7 +1191,6 @@ public class MagneticFieldUncalibratedResponse <: Response {
 
     /**
     * Magnetic field uncalibrated y-axis offset.
-    *
     */
     @!APILevel[
         since: "22",
@@ -1263,7 +1200,6 @@ public class MagneticFieldUncalibratedResponse <: Response {
 
     /**
     * Magnetic field uncalibrated z-axis offset.    *
-    *
     */
     @!APILevel[
         since: "22",
@@ -1290,7 +1226,6 @@ public class MagneticFieldUncalibratedResponse <: Response {
 
 /**
  * Orientation sensor event data.
- *
  */
 @!APILevel[
     since: "22",
@@ -1299,7 +1234,6 @@ public class MagneticFieldUncalibratedResponse <: Response {
 public class OrientationResponse <: Response {
     /**
     * The device rotates at an angle around the Z axis.
-    *
     */
     @!APILevel[
         since: "22",
@@ -1309,7 +1243,6 @@ public class OrientationResponse <: Response {
 
     /**
     * The device rotates at an angle around the X axis.
-    *
     */
     @!APILevel[
         since: "22",
@@ -1319,7 +1252,6 @@ public class OrientationResponse <: Response {
 
     /**
     * The device rotates at an angle around the Y axis.
-    *
     */
     @!APILevel[
         since: "22",
@@ -1342,7 +1274,6 @@ public class OrientationResponse <: Response {
 
 /**
  * Pedometer sensor event data.
- *
  */
 @!APILevel[
     since: "22",
@@ -1351,8 +1282,6 @@ public class OrientationResponse <: Response {
 public class PedometerResponse <: Response {
     /**
     * Indicates the number of steps.
-    *
-    * relation steps: number;
     */
     @!APILevel[
         since: "22",
@@ -1373,7 +1302,6 @@ public class PedometerResponse <: Response {
 
 /**
  * Pedometer detection sensor event data.
- *
  */
 @!APILevel[
     since: "22",
@@ -1383,7 +1311,6 @@ public class PedometerDetectionResponse <: Response {
     /**
     * Indicates the pedometer detection status, 1 indicates that a walking action has occurred,
     * and 0 indicates that no movement has occurred.
-    *
     */
     @!APILevel[
         since: "22",
@@ -1404,7 +1331,6 @@ public class PedometerDetectionResponse <: Response {
 
 /**
  * Proximity sensor event data.
- *
  */
 @!APILevel[
     since: "22",
@@ -1413,8 +1339,6 @@ public class PedometerDetectionResponse <: Response {
 public class ProximityResponse <: Response {
     /**
     * Indicates the degree of proximity, event 0 indicates proximity, and greater than 0 indicates distance.
-    *
-    * relation distance: number;
     */
     @!APILevel[
         since: "22",
@@ -1435,7 +1359,6 @@ public class ProximityResponse <: Response {
 
 /**
  * Rotation vector sensor event data.
- *
  */
 @!APILevel[
     since: "22",
@@ -1444,7 +1367,6 @@ public class ProximityResponse <: Response {
 public class RotationVectorResponse <: Response {
     /**
     * Rotation vector x-axis component.
-    *
     */
     @!APILevel[
         since: "22",
@@ -1454,7 +1376,6 @@ public class RotationVectorResponse <: Response {
 
     /**
     * Rotation vector y-axis component.
-    *
     */
     @!APILevel[
         since: "22",
@@ -1464,7 +1385,6 @@ public class RotationVectorResponse <: Response {
 
     /**
     * Rotation vector z-axis component.
-    *
     */
     @!APILevel[
         since: "22",
@@ -1474,7 +1394,6 @@ public class RotationVectorResponse <: Response {
 
     /**
     * Scalar quantity.
-    *
     */
     @!APILevel[
         since: "22",
@@ -1499,7 +1418,6 @@ public class RotationVectorResponse <: Response {
 
 /**
  * Significant motion sensor event data.
- *
  */
 @!APILevel[
     since: "22",
@@ -1507,9 +1425,10 @@ public class RotationVectorResponse <: Response {
 ]
 public class SignificantMotionResponse <: Response {
     /**
-    * Indicates the degree of proximity, event 0 indicates proximity, and greater than 0 indicates distance.
-    *
-    */
+     * The degree of significant motion.
+     * Whether the device has a significant motion.
+     * The value 1 means that the device has a significant motion, and 0 means the opposite.
+     */
     @!APILevel[
         since: "22",
         syscap: "SystemCapability.Sensors.Sensor"
@@ -1529,7 +1448,6 @@ public class SignificantMotionResponse <: Response {
 
 /**
  * Wear detection sensor event data.
- *
  */
 @!APILevel[
     since: "22",
@@ -1538,7 +1456,6 @@ public class SignificantMotionResponse <: Response {
 public class WearDetectionResponse <: Response {
     /**
     * Indicates the status of wear detection, 1 for wearing, 0 for wearing not.
-    *
     */
     @!APILevel[
         since: "22",
@@ -1581,7 +1498,6 @@ func removeAllCallback(sensorType: SensorId): Int64 {
 
 /**
  * Indicates sensor information.
- *
  */
 @!APILevel[
     since: "22",
@@ -1590,7 +1506,6 @@ func removeAllCallback(sensorType: SensorId): Int64 {
 public class Sensor {
     /**
      * Sensor name.
-     *
      */
     @!APILevel[
         since: "22",
@@ -1600,7 +1515,6 @@ public class Sensor {
 
     /**
      * Sensor vendor.
-     *
      */
     @!APILevel[
         since: "22",
@@ -1610,7 +1524,6 @@ public class Sensor {
 
     /**
      * Sensor firmware version.
-     *
      */
     @!APILevel[
         since: "22",
@@ -1620,7 +1533,6 @@ public class Sensor {
 
     /**
      * Sensor hardware version.
-     *
      */
     @!APILevel[
         since: "22",
@@ -1629,8 +1541,7 @@ public class Sensor {
     public var hardwareVersion: String
 
     /**
-     * Sensor type ID, {@code SensorType}.
-     *
+     * Sensor type ID, SensorType.
      */
     @!APILevel[
         since: "22",
@@ -1640,7 +1551,6 @@ public class Sensor {
 
     /**
      * Maximum measurement range of the sensor.
-     *
      */
     @!APILevel[
         since: "22",
@@ -1650,7 +1560,6 @@ public class Sensor {
 
     /**
      * Minimum sample period allowed, in ns.
-     *
      */
     @!APILevel[
         since: "22",
@@ -1660,7 +1569,6 @@ public class Sensor {
 
     /**
      * Maximum sample period allowed, in ns.
-     *
      */
     @!APILevel[
         since: "22",
@@ -1670,7 +1578,6 @@ public class Sensor {
 
     /**
      * Sensor accuracy.
-     *
      */
     @!APILevel[
         since: "22",
@@ -1680,7 +1587,6 @@ public class Sensor {
 
     /**
      * Sensor power.
-     *
      */
     @!APILevel[
         since: "22",
@@ -1731,19 +1637,18 @@ public class Sensor {
 
 /**
  * Subscribe to sensor data.
- *
- * @param { SensorId } sensorType - Indicates the sensor type to subscribe to.
+ * @param { SensorId } sensorType - Indicates the sensor type to subscribe.
  * @param { Callback1Argument<T> } callback - Indicates the callback function that returns sensor data.
- * @param { Options } option - Indicates the optional subscription parameters.
+ * @param { Options } [option] - Indicates the optional subscription parameters.
  * @throws { BusinessException } 201 - Permission verification failed. The application does not have permission to call
  * the API.
- * @throws { BusinessException } 401 - Parameter error. Possible causes: 1. Mandatory parameters are left unspecified;
- * 2. Incorrect parameter types; 3. Parameter verification failed.
- * @throws { BusinessException } 14500101 - Service exception.
+ * @throws { BusinessException } 14500101 - Service exception. Possible causes: 1. Sensor hdf service exception;
+ * 2. Sensor service ipc exception;3. Sensor data channel exception.
  */
 @!APILevel[
     since: "22",
-    syscap: "SystemCapability.Sensors.Sensor"
+    syscap: "SystemCapability.Sensors.Sensor",
+    throwexception: true
 ]
 public func on<T>(sensorType: SensorId, callback: Callback1Argument<T>, option!: ?Options = None): Unit where T <: Response {
     if (!SensorManager.isMatchType(sensorType, callback)) {
@@ -1762,18 +1667,16 @@ public func on<T>(sensorType: SensorId, callback: Callback1Argument<T>, option!:
 
 /**
  * Subscribe to sensor data once.
- *
- * @param { SensorId } sensorType - Indicates the sensor type to subscribe to.
+ * @param { SensorId } sensorType - Indicates the sensor type to subscribe.
  * @param { Callback1Argument<T> } callback - Indicates the callback function that returns sensor data.
  * @throws { BusinessException } 201 - Permission verification failed. The application does not have permission to call
  * the API.
- * @throws { BusinessException } 401 - Parameter error. Possible causes: 1. Mandatory parameters are left unspecified;
- * 2. Incorrect parameter types; 3. Parameter verification failed.
  * @throws { BusinessException } 14500101 - Service exception.
  */
 @!APILevel[
     since: "22",
-    syscap: "SystemCapability.Sensors.Sensor"
+    syscap: "SystemCapability.Sensors.Sensor",
+    throwexception: true
 ]
 public func once<T>(sensorType: SensorId, callback: Callback1Argument<T>): Unit where T <: Response {
     if (!SensorManager.isMatchType(sensorType, callback)) {
@@ -1796,18 +1699,16 @@ public func once<T>(sensorType: SensorId, callback: Callback1Argument<T>): Unit 
 
 /**
  * Unsubscribe from sensor data.
- *
  * @param { SensorId } sensorType - Indicates the sensor type to unsubscribe from.
- * @param { CallbackObject } callback - Indicates the callback function to remove. If not provided, all callbacks for
+ * @param { CallbackObject } [callback] - Indicates the callback function to remove. If not provided, all callbacks for
  * the sensor type will be removed.
  * @throws { BusinessException } 201 - Permission verification failed. The application does not have permission to call
  * the API.
- * @throws { BusinessException } 401 - Parameter error. Possible causes: 1. Mandatory parameters are left unspecified;
- * 2. Incorrect parameter types; 3. Parameter verification failed.
  */
 @!APILevel[
     since: "22",
-    syscap: "SystemCapability.Sensors.Sensor"
+    syscap: "SystemCapability.Sensors.Sensor",
+    throwexception: true
 ]
 public func off(sensorType: SensorId, callback!: ?CallbackObject = None): Unit {
     if (!ON_SENSOR_MANAGER.isSensorSubscribed(sensorType)) {
@@ -1831,18 +1732,17 @@ public func off(sensorType: SensorId, callback!: ?CallbackObject = None): Unit {
 
 /**
  * Obtains the sensor information of a specified type.
- *
  * @param { SensorId } sensorType - Indicates the sensor type to query.
  * @returns { Sensor } Returns the sensor information of the specified type.
- * @throws { BusinessException } 401 - Parameter error. Possible causes: 1. Mandatory parameters are left unspecified;
- * 2. Incorrect parameter types; 3. Parameter verification failed.
  * @throws { BusinessException } 14500101 - Service exception. Possible causes: 1. Sensor hdf service exception; 2.
  * Sensor service ipc exception; 3. Sensor data channel exception.
  * @throws { BusinessException } 14500102 - The sensor is not supported by the device.
  */
 @!APILevel[
     since: "22",
-    syscap: "SystemCapability.Sensors.Sensor"
+    syscap: "SystemCapability.Sensors.Sensor",
+    throwexception: true,
+    workerthread: true
 ]
 public func getSingleSensor(sensorType: SensorId): Sensor {
     let sensorList = getSensorList()
@@ -1857,14 +1757,15 @@ public func getSingleSensor(sensorType: SensorId): Sensor {
 
 /**
  * Obtains all sensor information on the device.
- *
  * @returns { Array<Sensor> } Returns an array containing all available sensor information.
  * @throws { BusinessException } 14500101 - Service exception. Possible causes: 1. Sensor hdf service exception; 2.
  * Sensor service ipc exception; 3. Sensor data channel exception.
  */
 @!APILevel[
     since: "22",
-    syscap: "SystemCapability.Sensors.Sensor"
+    syscap: "SystemCapability.Sensors.Sensor",
+    throwexception: true,
+    workerthread: true
 ]
 public func getSensorList(): Array<Sensor> {
     var result = CSensorArray()
