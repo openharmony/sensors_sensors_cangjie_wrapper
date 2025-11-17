@@ -246,35 +246,6 @@ class TestAccelerometerUncalibrated {
         }
     }
     
-    // @TestCase
-    // @Tag[APILevel22, TestLevel0]
-    // func newAccelerometer_Uncalibrated_SensorJsTest028(): Unit {
-    //     // 对应JS测试用例028：无参数调用测试
-    //     try {
-    //         expectBusinessExceptionAccelerometer(401) {
-    //             on() // 无参数
-    //         }
-    //     } catch (e: BusinessException) {
-    //         @Expect(e.code, 401)
-    //     }
-        
-    //     try {
-    //         expectBusinessExceptionAccelerometer(401) {
-    //             once() // 无参数
-    //         }
-    //     } catch (e: BusinessException) {
-    //         @Expect(e.code, 401)
-    //     }
-        
-    //     try {
-    //         expectBusinessExceptionAccelerometer(401) {
-    //             off() // 无参数
-    //         }
-    //     } catch (e: BusinessException) {
-    //         @Expect(e.code, 401)
-    //     }
-    // }
-    
     @TestCase
     @Tag[APILevel22, TestLevel0]
     func newAccelerometer_Uncalibrated_SensorJsTest029(): Unit {
