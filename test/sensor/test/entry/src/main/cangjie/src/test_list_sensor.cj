@@ -21,4 +21,6 @@ func testsuite(): Unit {
     registerTestSuite("TestSensorGetSensorList", {=> TestSensorGetSensorList()})
     registerTestSuite("TestSensorEnum", {=> TestSensorEnum()})
     registerTestSuite("TestSensorOnOff", {=> TestSensorOnOff()})
+    registerTestSuite("TestAccelerometerUncalibrated", {=> TestAccelerometerUncalibrated()})
+    registerTestSuite("TestAccelerometerUncalibrated", {=> TestNewGravitySensor()})
 }
