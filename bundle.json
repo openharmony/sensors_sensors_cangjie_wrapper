@@ -27,7 +27,14 @@
           "//base/sensors/sensors_cangjie_wrapper/ohos/sensor:ohos.sensor",
           "//base/sensors/sensors_cangjie_wrapper/kit/SensorServiceKit:kit.SensorServiceKit"
       ],
-      "inner_kits": [],
+      "inner_kits": [
+        {
+          "name": "//base/sensors/sensors_cangjie_wrapper:copy_sdk_sensors_cangjie_libs"
+        },
+        {
+          "name": "//base/sensors/sensors_cangjie_wrapper:copy_sdk_sensors_cangjie_libs_kit"
+        }
+      ],
       "test": []
     }
   }
