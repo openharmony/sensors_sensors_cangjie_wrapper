@@ -9,7 +9,7 @@
   "component": {
     "name": "sensors_cangjie_wrapper",
     "subsystem": "sensors",
-    "syscap": ["SystemCapability.Sensors.Sensor"],
+    "syscap": [],
     "features": [],
     "adapted_system_type": [ "standard" ],
     "rom": "160KB",
