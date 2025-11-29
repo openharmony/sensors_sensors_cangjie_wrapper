@@ -15,6 +15,7 @@ import("//build/templates/cangjie/cjc.gni")
 
 sensors_cangjie_wrapper_packages_ohos = [
     "//base/sensors/sensors_cangjie_wrapper/ohos/sensor:ohos.sensor",
+    "//base/sensors/sensors_cangjie_wrapper/ohos/vibrator:ohos.vibrator",
 ]
 sensors_cangjie_wrapper_packages_kit = [
     "//base/sensors/sensors_cangjie_wrapper/kit/SensorServiceKit:kit.SensorServiceKit",

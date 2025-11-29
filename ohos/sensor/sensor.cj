@@ -19,7 +19,7 @@ package ohos.sensor
 
 import ohos.business_exception.{BusinessException, ERR_PARAMETER_ERROR, ERR_NO_PERMISSION}
 import ohos.callback_invoke.{CallbackObject, Callback1Argument}
-import ohos.ffi.{Callback1Param, SUCCESS_CODE}
+import ohos.ffi.{Callback1Param, SUCCESS_CODE, CArrFloat32}
 import std.deriving.Derive
 import ohos.labels.{APILevel, Hide}
 
@@ -516,6 +516,37 @@ public class AccelerometerResponse <: Response {
         super(v.timestamp, SensorAccuracy.parse(v.option))
         let data = Response.parseCResponseData<CAccelerometerResponse>(v.data, v.dataLen)
         (x, y, z) = (data.x, data.y, data.z)
+    }
+}
+
+/**
+ * Indicates the response of rotation matrix.
+ */
+@!APILevel[
+    since: "24",
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public class RotationMatrixResponse {
+    /**
+    * rotation matrix.
+    */
+    @!APILevel[
+        since: "24",
+        syscap: "SystemCapability.Sensors.Sensor"
+    ]
+    public var rotation: Array<Float32>
+
+    /**
+    * inclination matrix.
+    */
+    @!APILevel[
+        since: "24",
+        syscap: "SystemCapability.Sensors.Sensor"
+    ]
+    public var inclination: Array<Float32>
+
+    init(data: CRotationMatrixResponse) {
+        (rotation, inclination) = (data.rotation.asArray(), data.inclination.asArray())
     }
 }
 
@@ -1778,4 +1809,135 @@ public func getSensorList(): Array<Sensor> {
     } finally {
         result.free()
     }
+}
+
+/**
+ * Get the angle variation between two rotation matrices.
+ * @param { Array<Float32> } currentRotationMatrix -  Indicates the current rotation matrix.
+ * @param { Array<Float32> } preRotationMatrix - preRotationMatrix Indicates the current rotation matrix.
+ * @returns { Array<Float32> } used to return the result.
+ * @throws { BusinessException } 14500101 - Service exception.
+ */
+@!APILevel[
+    since: "24",
+    syscap: "SystemCapability.Sensors.Sensor",
+    throwexception: true,
+    workerthread: true
+]
+public func getAngleVariation(currentRotationMatrix: Array<Float32>, preRotationMatrix: Array<Float32>): Array<Float32> {
+    var result: CArrFloat32 = CArrFloat32(CPointer(), 0)
+    try (
+        rCurrentRotationMatrix = toCArrayFloat32(currentRotationMatrix).asResource(),
+        rPreRotationMatrix = toCArrayFloat32(preRotationMatrix).asResource()
+    ) {
+        let ret = unsafe {
+            FfiSensorGetAngleVariation(rCurrentRotationMatrix.value, rPreRotationMatrix.value, inout result)
+        }
+        if (ret != SUCCESS_CODE) {
+            throw BusinessException(ret, getErrorMsg(ret))
+        }
+    }
+    return try {
+        result.asArray()
+    } finally {
+        result.free()
+    }
+
+    throw BusinessException(SENSOR_NO_SUPPORT, "Never reach here!")
+}
+
+/**
+ * Convert rotation vector to rotation matrix.
+ * @param { Array<Float32> } rotationVector - rotationVector Indicates the rotation vector.
+ * @returns { Array<Float32> } return rotation matrix.
+ * @throws { BusinessException } 14500101 - Service exception.
+ */
+@!APILevel[
+    since: "24",
+    syscap: "SystemCapability.Sensors.Sensor",
+    throwexception: true,
+    workerthread: true
+]
+public func getRotationMatrix(rotationVector: Array<Float32>): Array<Float32> {
+    var result: CArrFloat32 = CArrFloat32(CPointer(), 0)
+    try (rRotationVector = toCArrayFloat32(rotationVector).asResource()) {
+        let ret = unsafe { FfiSensorGetRotationMatrix(rRotationVector.value, inout result) }
+        if (ret != SUCCESS_CODE) {
+            throw BusinessException(ret, getErrorMsg(ret))
+        }
+    }
+    return try {
+        result.asArray()
+    } finally {
+        result.free()
+    }
+
+    throw BusinessException(SENSOR_NO_SUPPORT, "Never reach here!")
+}
+
+/**
+ * Calculate rotation matrix based on gravity vector and geomagnetic vector.
+ * @param { Array<Float32> } gravity - gravity Indicates the gravity vector.
+ * @param { Array<Float32> } geomagnetic - geomagnetic Indicates the geomagnetic vector.
+ * @returns { RotationMatrixResponse } Returns the rotation matrix.
+ * @throws { BusinessException } 14500101 - Service exception.
+ */
+@!APILevel[
+    since: "24",
+    syscap: "SystemCapability.Sensors.Sensor",
+    throwexception: true,
+    workerthread: true
+]
+public func getRotationMatrix(gravity: Array<Float32>, geomagnetic: Array<Float32>): RotationMatrixResponse {
+    var result: CRotationMatrixResponse = CRotationMatrixResponse(
+        CArrFloat32(CPointer(), 0),
+        CArrFloat32(CPointer(), 0)
+    )
+    try (
+        rGravity = toCArrayFloat32(gravity).asResource(),
+        rGeomagnetic = toCArrayFloat32(geomagnetic).asResource()
+    ) {
+        let ret = unsafe {
+            FfiSensorGetRotationMatrixByGravityAndGeomagnetic(rGravity.value, rGeomagnetic.value, inout result)
+        }
+        if (ret != SUCCESS_CODE) {
+            throw BusinessException(ret, getErrorMsg(ret))
+        }
+    }
+    return try {
+        RotationMatrixResponse(result)
+    } finally {
+        result.free()
+    }
+
+    throw BusinessException(SENSOR_NO_SUPPORT, "Never reach here!")
+}
+
+/**
+ * Computes the device's orientation based on the rotation matrix.
+ * @param { Array<Float32> } rotationMatrix - rotationMatrix Indicates the rotation matrix.
+ * @returns { Array<Float32> } return the angle of rotation around the z, x, y axis.
+ * @throws { BusinessException } 14500101 - Service exception.
+ */
+@!APILevel[
+    since: "24",
+    syscap: "SystemCapability.Sensors.Sensor",
+    throwexception: true,
+    workerthread: true
+]
+public func getOrientation(rotationMatrix: Array<Float32>): Array<Float32> {
+    var result: CArrFloat32 = CArrFloat32(CPointer(), 0)
+    try (rRotationMatrix = toCArrayFloat32(rotationMatrix).asResource()) {
+        let ret = unsafe { FfiSensorGetOrientation(rRotationMatrix.value, inout result) }
+        if (ret != SUCCESS_CODE) {
+            throw BusinessException(ret, getErrorMsg(ret))
+        }
+    }
+    return try {
+        result.asArray()
+    } finally {
+        result.free()
+    }
+
+    throw BusinessException(SENSOR_NO_SUPPORT, "Never reach here!")
 }
