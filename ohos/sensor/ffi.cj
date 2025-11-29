@@ -16,6 +16,8 @@
 // The Cangjie API is in Beta. For details on its capabilities and limitations, please refer to the README file.
 
 package ohos.sensor
+import ohos.business_exception.{BusinessException, ERR_PARAMETER_ERROR}
+import ohos.ffi.{CArrFloat32}
 
 @C
 struct CAccelerometerResponse {
@@ -45,6 +47,19 @@ struct CLightResponse {
         let colorTemperature: Float32,
         let infraredLuminance: Float32
     ) {}
+}
+
+@C
+struct CRotationMatrixResponse {
+    CRotationMatrixResponse(
+        let rotation: CArrFloat32,
+        let inclination: CArrFloat32
+    ) {}
+
+    func free() {
+        rotation.free()
+        inclination.free()
+    }
 }
 
 @C
@@ -287,8 +302,31 @@ struct CSensorArray {
     }
 }
 
+func toCArrayFloat32(arr: Array<Float32>): CArrFloat32 {
+    if (arr.isEmpty()) {
+        throw BusinessException(SERVICE_EXCEPTION, getErrorMsg(SERVICE_EXCEPTION))
+    }
+
+    unsafe {
+        let p = LibC.malloc<Float32>(count: arr.size)
+        if (p.isNull()) {
+            throw BusinessException(SERVICE_EXCEPTION, getErrorMsg(SERVICE_EXCEPTION))
+        }
+        for (i in 0..arr.size) {
+            p.write(i, arr[i])
+        }
+        return CArrFloat32(p, arr.size)
+    }
+}
+
 foreign {
     func FfiSensorSubscribeSensor(sensorId: Int32, interval: Int64, callback: Int64): Int32
     func FfiSensorUnSubscribeSensor(sensorId: Int32): Int32
     func FfiSensorGetAllSensors(sensors: CPointer<CSensorArray>): Int32
+    func FfiSensorGetAngleVariation(currentRotationMatrix: CArrFloat32, preRotationMatrix: CArrFloat32,
+        angleChange: CPointer<CArrFloat32>): Int32
+    func FfiSensorGetRotationMatrix(rotationVector: CArrFloat32, rotationMatrix: CPointer<CArrFloat32>): Int32
+    func FfiSensorGetOrientation(rotationMatrix: CArrFloat32, rotationAngle: CPointer<CArrFloat32>): Int32
+    func FfiSensorGetRotationMatrixByGravityAndGeomagnetic(gravity: CArrFloat32, geomagnetic: CArrFloat32,
+        matrix: CPointer<CRotationMatrixResponse>): Int32
 }

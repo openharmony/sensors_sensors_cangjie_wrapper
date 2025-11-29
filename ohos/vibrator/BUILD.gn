@@ -16,13 +16,22 @@
 import("//build/ohos.gni")
 import("//build/templates/cangjie/cjc.gni")
 
-ohos_cangjie_shared_library("kit.SensorServiceKit") {
-  sources = [ "index.cj" ]
-
-  cj_deps = [
-    "../../ohos/sensor:ohos.sensor",
-    "../../ohos/vibrator:ohos.vibrator",
+ohos_cangjie_shared_library("ohos.vibrator") {
+  sources = [
+    "vibrator.cj",
+    "vibrator_ffi.cj",
   ]
+
+  cj_external_deps = [
+    "cangjie_ark_interop:ohos.business_exception",
+    "cangjie_ark_interop:ohos.callback_invoke",
+    "cangjie_ark_interop:ohos.ffi",
+    "cangjie_ark_interop:ohos.labels",
+    "hiviewdfx_cangjie_wrapper:ohos.hilog",
+    "filemanagement_cangjie_wrapper:ohos.file.fs",
+  ]
+
+  external_deps = [ "miscdevice:cj_vibrator_ffi" ]
 
   subsystem_name = "sensors"
   part_name = "sensors_cangjie_wrapper"

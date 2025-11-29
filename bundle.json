@@ -19,12 +19,14 @@
       "components": [
         "cangjie_ark_interop",
         "hiviewdfx_cangjie_wrapper",
-        "sensor"
+        "sensor",
+        "filemanagement_cangjie_wrapper"
       ]
     },
     "build": {
       "sub_component": [
           "//base/sensors/sensors_cangjie_wrapper/ohos/sensor:ohos.sensor",
+          "//base/sensors/sensors_cangjie_wrapper/ohos/vibrator:ohos.vibrator",
           "//base/sensors/sensors_cangjie_wrapper/kit/SensorServiceKit:kit.SensorServiceKit"
       ],
       "inner_kits": [
