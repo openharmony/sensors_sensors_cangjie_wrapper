@@ -346,7 +346,7 @@ func getErrorMsg(code: Int32): String {
 /**
  * Trigger vibrator vibration.
  *
- * @param { VibrateTime } VibrateEffect - Indicate vibrate effect.
+ * @param { VibrateEffect } effect - Indicate vibrate effect.
  * @param { VibrateAttribute } attribute - Indicate vibrate attribute.
  * @throws { BusinessException } 201 - Permission denied.
  * @throws { BusinessException } 801 - Capability not supported.
@@ -392,7 +392,7 @@ public func startVibration(effect: VibrateEffect, attribute: VibrateAttribute): 
 /**
  * Stop the vibrator from vibrating.
  *
- * @param { VibratorStopMode } stopMode - Indicate the stop mode in which the motor vibrates, {@code VibratorStopMode}.
+ * @param { Option<VibratorStopMode> } stopMode - Indicate the stop mode in which the motor vibrates, {@code VibratorStopMode}.
  * @throws { BusinessException } 201 - Permission denied.
  */
 @!APILevel[
