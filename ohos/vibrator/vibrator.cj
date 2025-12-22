@@ -392,7 +392,7 @@ public func startVibration(effect: VibrateEffect, attribute: VibrateAttribute): 
 /**
  * Stop the vibrator from vibrating.
  *
- * @param { Option<VibratorStopMode> } stopMode - Indicate the stop mode in which the motor vibrates, {@code VibratorStopMode}.
+ * @param { Option<VibratorStopMode> } [ stopMode ] - Indicate the stop mode in which the motor vibrates, {@code VibratorStopMode}.
  * @throws { BusinessException } 201 - Permission denied.
  */
 @!APILevel[
