@@ -106,10 +106,10 @@ public enum SensorId {
     ]
     Humidity
     |
-    @!Hide
+    @!Hide[isChecked: true]
     Color
     |
-    @!Hide
+    @!Hide[isChecked: true]
     Sar
     |
     /**
@@ -1594,16 +1594,16 @@ public class Sensor {
     ]
     public var power: Float32
 
-    @!Hide
+    @!Hide[isChecked: true]
     internal var sensorIndex: ?Int32 = Option<Int32>.None
 
-    @!Hide
+    @!Hide[isChecked: true]
     internal var deviceId: ?Int32 = Option<Int32>.None
 
-    @!Hide
+    @!Hide[isChecked: true]
     internal var deviceName: ?String = Option<String>.None
 
-    @!Hide
+    @!Hide[isChecked: true]
     internal var isLocalSensor: ?Bool = Option<Bool>.None
 
     init(sensorName: String, vendorName: String, firmwareVersion: String,
