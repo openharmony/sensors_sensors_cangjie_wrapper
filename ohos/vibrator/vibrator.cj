@@ -25,7 +25,7 @@ import ohos.labels.{APILevel}
 import std.deriving.Derive
 
 /**
- * The vibrate effect type.
+ * Describes the effect type of vibrate.
  */
 @!APILevel[
     since: "24",
@@ -205,7 +205,7 @@ public class VibrateAttribute {
 }
 
 /**
- * Enum for the use of vibration.
+ * The use of vibration.
  */
 @!APILevel[
     since: "24",
@@ -303,7 +303,7 @@ public enum Usage {
 }
 
 /**
- * Enum for Vibrator vibration stop mode.
+ * Vibrator vibration stop mode.
  */
 @Derive[ToString]
 @!APILevel[
