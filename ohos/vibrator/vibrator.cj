@@ -18,14 +18,14 @@
 package ohos.vibrator
 
 import ohos.business_exception.{BusinessException, ERR_PARAMETER_ERROR, getUniversalErrorMsg}
-import ohos.ffi.{SUCCESS_CODE}
+import ohos.ffi.{SUCCESS_CODE,cArr2cjArr}
 import std.collection.HashMap
 import ohos.file.fs.FileIo
 import ohos.labels.{APILevel}
 import std.deriving.Derive
 
 /**
- * The vibrate effect type.
+ * Describes the effect type of vibrate.
  */
 @!APILevel[
     since: "24",
@@ -188,6 +188,15 @@ public class VibrateAttribute {
         syscap: "SystemCapability.Sensors.MiscDevice"
     ]
     public var id: Int32
+
+    /**
+    * Vibrator id, default is 0.
+    */
+    @!APILevel[
+        since: "24",
+        syscap: "SystemCapability.Sensors.MiscDevice"
+    ]
+    public var deviceId: Int32
     /**
     * VibrateAttribute constructor.
     *
@@ -198,14 +207,15 @@ public class VibrateAttribute {
         since: "24",
         syscap: "SystemCapability.Sensors.MiscDevice"
     ]
-    public init(usage: Usage, id!: Int32 = 0) {
+    public init(usage: Usage, id!: Int32 = 0, deviceId!: Int32 = -1) {
         this.usage = usage
         this.id = id
+        this.deviceId = deviceId
     }
 }
 
 /**
- * Enum for the use of vibration.
+ * The use of vibration.
  */
 @!APILevel[
     since: "24",
@@ -302,32 +312,113 @@ public enum Usage {
     }
 }
 
-/**
- * Enum for Vibrator vibration stop mode.
- */
-@Derive[ToString]
 @!APILevel[
     since: "24",
     syscap: "SystemCapability.Sensors.MiscDevice"
 ]
-public enum VibratorStopMode {
+public class VibratorInfoParam {
     /**
-    * Indicates the mode of stopping a one-shot vibration effect.
+    * Vibrator id, default is 0.
     */
     @!APILevel[
         since: "24",
         syscap: "SystemCapability.Sensors.MiscDevice"
     ]
-    VibratorStopModeTime
+    public var deviceId: Int32
     /**
-    * Indicates the mode of stopping a preset vibration effect.
+    * Vibrator id, default is 0.
     */
-   | @!APILevel[
+    @!APILevel[
         since: "24",
         syscap: "SystemCapability.Sensors.MiscDevice"
     ]
-    VibratorStopModePreset
-    | ...
+    public var vibratorId: Int32
+    /**
+    * VibrateAttribute constructor.
+    *
+    * @param { Usage } usage - The use of vibration.
+    * @param { Int32 } [ id ] - Vibrator id, default is 0.
+    */
+    @!APILevel[
+        since: "24",
+        syscap: "SystemCapability.Sensors.MiscDevice"
+    ]
+    public init(deviceId!: Int32 = -1, vibratorId!: Int32 = 0) {
+        this.deviceId = deviceId
+        this.vibratorId = vibratorId
+    }
+}
+
+@!APILevel[
+    since: "24",
+    syscap: "SystemCapability.Sensors.MiscDevice"
+]
+public class VibratorInfo {
+    /**
+    * Vibrator id, default is 0.
+    */
+    @!APILevel[
+        since: "24",
+        syscap: "SystemCapability.Sensors.MiscDevice"
+    ]
+    public var deviceId: Int32
+    /**
+    * Vibrator id, default is 0.
+    */
+    @!APILevel[
+        since: "24",
+        syscap: "SystemCapability.Sensors.MiscDevice"
+    ]
+    public var vibratorId: Int32
+    /**
+    * Vibrator id, default is 0.
+    */
+    @!APILevel[
+        since: "24",
+        syscap: "SystemCapability.Sensors.MiscDevice"
+    ]
+    public var deviceName: String
+    /**
+    * Vibrator id, default is 0.
+    */
+    @!APILevel[
+        since: "24",
+        syscap: "SystemCapability.Sensors.MiscDevice"
+    ]
+    public var isHdHapticSupported: Bool
+    /**
+    * Vibrator id, default is 0.
+    */
+    @!APILevel[
+        since: "24",
+        syscap: "SystemCapability.Sensors.MiscDevice"
+    ]
+    public var isLocalVibrator: Bool
+    /**
+    * VibrateAttribute constructor.
+    *
+    * @param { Usage } usage - The use of vibration.
+    * @param { Int32 } [ id ] - Vibrator id, default is 0.
+    */
+    @!APILevel[
+        since: "24",
+        syscap: "SystemCapability.Sensors.MiscDevice"
+    ]
+    public init(deviceId: Int32, vibratorId: Int32, deviceName: String, isHdHapticSupported: Bool, isLocalVibrator: Bool) {
+        this.deviceId = deviceId
+        this.vibratorId = vibratorId
+        this.deviceName = deviceName
+        this.isHdHapticSupported = isHdHapticSupported
+        this.isLocalVibrator = isLocalVibrator
+    }   
+
+    init(ret: RetVibratorInfo) {
+        this.deviceId = ret.deviceId
+        this.vibratorId = ret.vibratorId
+        this.deviceName = ret.deviceName.toString()
+        this.isHdHapticSupported = ret.isHdHapticSupported
+        this.isLocalVibrator = ret.isLocalVibrator
+    }
 }
 
 const SERVICE_STATUS_ERROR = 14600101i32
@@ -361,15 +452,15 @@ func getErrorMsg(code: Int32): String {
 ]
 public func startVibration(effect: VibrateEffect, attribute: VibrateAttribute): Unit {
     unsafe {
-        let cAttribute = RetVibrateAttribute(attribute)
+        let cAttribute = RetVibrateAttributeEnhanced(attribute)
         var code = 0i32
         match (effect) {
             case v: VibrateTime =>
                 let cEffectTime = RetVibrateTime(v)
-                FfiVibratorStartVibrationTime(cEffectTime, cAttribute, inout code)
+                FfiVibratorStartVibrationTimeEnhanced(cEffectTime, cAttribute, inout code)
             case v: VibratePreset =>
                 let cEffectPreset = RetVibratePreset(v)
-                FfiVibratorStartVibrationPreset(cEffectPreset, cAttribute, inout code)
+                FfiVibratorStartVibrationPresetEnhanced(cEffectPreset, cAttribute, inout code)
                 cEffectPreset.free()
             case v: VibrateFromFile =>
                 if (v.hapticFd.offSet < 0 || v.hapticFd.offSet > FileIo.stat(v.hapticFd.fd).size || v.hapticFd.length > FileIo
@@ -378,7 +469,7 @@ public func startVibration(effect: VibrateEffect, attribute: VibrateAttribute): 
                         "startVibration failed: ${getErrorMsg(ERR_PARAMETER_ERROR)}")
                 }
                 let cEffectFile = RetVibrateFromFile(v)
-                FfiVibratorStartVibrationFile(cEffectFile, cAttribute, inout code)
+                FfiVibratorStartVibrationFileEnhanced(cEffectFile, cAttribute, inout code)
             case _ =>
                 throw BusinessException(14600101, "Device operation failed.")
         }
@@ -402,18 +493,27 @@ public func startVibration(effect: VibrateEffect, attribute: VibrateAttribute): 
     throwexception: true,
     workerthread: true
 ]
-public func stopVibration(stopMode!: Option<VibratorStopMode> = None): Unit {
+public func stopVibration(param!: VibratorInfoParam = VibratorInfoParam(deviceId:-1, vibratorId:-1)): Unit {
     unsafe {
         var code = 0i32
-        if (let Some(v) <- stopMode) {
-            let cStr = LibC.mallocCString(v.toString())
-            FfiVibratorStopVibrationMode(cStr, inout code)
-            LibC.free(cStr)
-        } else {
-            FfiVibratorStopVibration(inout code)
-        }
+        let cParam = RetVibratorInfoParam(param)
+        FfiVibratorStopVibrationEnhanced(cParam, inout code)
         if (code != SUCCESS_CODE) {
             throw BusinessException(code, "stopVibration failed: ${getErrorMsg(code)}")
         }
+    }
+}
+
+public func getVibratorInfo(param!: VibratorInfoParam = VibratorInfoParam(deviceId:-1, vibratorId:-1)): Array<VibratorInfo> {
+    unsafe {
+        let cParam = RetVibratorInfoParam(param)
+        var code = 0i32
+        let ret = FfiVibratorGetVibratorInfo(cParam, inout code)
+        let infoArr = cArr2cjArr<RetVibratorInfo, VibratorInfo>(ret.size, ret.head, { item => VibratorInfo(item) })
+        ret.free()
+        if (code != SUCCESS_CODE) {
+            throw BusinessException(code, "getVibratorInfo failed: ${getErrorMsg(code)}")
+        }
+        return infoArr
     }
 }

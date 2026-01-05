@@ -19,10 +19,15 @@ package ohos.sensor
 
 import ohos.business_exception.{BusinessException, ERR_PARAMETER_ERROR, ERR_NO_PERMISSION}
 import ohos.callback_invoke.{CallbackObject, Callback1Argument}
-import ohos.ffi.{Callback1Param, SUCCESS_CODE, CArrFloat32}
+import ohos.ffi.{Callback1Param, SUCCESS_CODE}
 import std.deriving.Derive
 import ohos.labels.{APILevel, Hide}
 
+const DEFAULT_DEVICE_ID: Int32 = -1
+const DEFAULT_SENSOR_ID: Int32 = 0
+const IS_LOCAL_DEVICE: Int32 = 1
+const NON_LOCAL_DEVICE: Int32 = 0
+const INVALID_SUBSCRIBE_SIZE: Int32 = -1
 /**
  * Enum for obtain the type of sensor.
  */
@@ -516,37 +521,6 @@ public class AccelerometerResponse <: Response {
         super(v.timestamp, SensorAccuracy.parse(v.option))
         let data = Response.parseCResponseData<CAccelerometerResponse>(v.data, v.dataLen)
         (x, y, z) = (data.x, data.y, data.z)
-    }
-}
-
-/**
- * Indicates the response of rotation matrix.
- */
-@!APILevel[
-    since: "24",
-    syscap: "SystemCapability.Sensors.Sensor"
-]
-public class RotationMatrixResponse {
-    /**
-    * rotation matrix.
-    */
-    @!APILevel[
-        since: "24",
-        syscap: "SystemCapability.Sensors.Sensor"
-    ]
-    public var rotation: Array<Float32>
-
-    /**
-    * inclination matrix.
-    */
-    @!APILevel[
-        since: "24",
-        syscap: "SystemCapability.Sensors.Sensor"
-    ]
-    public var inclination: Array<Float32>
-
-    init(data: CRotationMatrixResponse) {
-        (rotation, inclination) = (data.rotation.asArray(), data.inclination.asArray())
     }
 }
 
@@ -1507,23 +1481,18 @@ public class WearDetectionResponse <: Response {
 
 const DEFAULT_REPORTING_INTERVAL = 200_000_000
 
-func removeCallback(sensorType: SensorId, callback: CallbackObject): Int64 {
-    if (!SensorManager.isMatchType(sensorType, callback)) {
-        throw BusinessException(ERR_PARAMETER_ERROR, getErrorMsg(ERR_PARAMETER_ERROR))
-    }
-
-    let list = ON_SENSOR_MANAGER.getOrCreate(sensorType)
+func removeCallback(sensorDesc: SensorDescription, callback: CallbackObject): Int64 {
+    let list = ON_ENHANCED_SENSOR_MANAGER.getOrCreate(sensorDesc)
     list.off(callback)
     if (list.isEmpty()) {
-        ON_SENSOR_MANAGER.remove(sensorType)
+        ON_ENHANCED_SENSOR_MANAGER.removeAllCallback(sensorDesc)
         return 0
     }
-
     return list.size()
 }
 
-func removeAllCallback(sensorType: SensorId): Int64 {
-    ON_SENSOR_MANAGER.remove(sensorType)
+func removeAllCallback(sensorDesc: SensorDescription): Int64 {
+    ON_ENHANCED_SENSOR_MANAGER.removeAllCallback(sensorDesc)
     0
 }
 
@@ -1682,18 +1651,38 @@ public class Sensor {
     throwexception: true
 ]
 public func on<T>(sensorType: SensorId, callback: Callback1Argument<T>, option!: ?Options = None): Unit where T <: Response {
-    if (!SensorManager.isMatchType(sensorType, callback)) {
+    if (!SensorManagerEnhanced.isMatchType(sensorType, callback)) {
         throw BusinessException(ERR_PARAMETER_ERROR, getErrorMsg(ERR_PARAMETER_ERROR))
+    }
+    let interval = option?.interval.value ?? DEFAULT_REPORTING_INTERVAL
+    var sensorDesc = SensorDescription(getLocationDeviced(), sensorType.getValue(), DEFAULT_SENSOR_ID, IS_LOCAL_DEVICE)
+ 
+    if (let Some(v1) <- option) {
+        sensorDesc.deviceId = v1.sensorInfoParam?.deviceId ?? -1
+        sensorDesc.sensorId = v1.sensorInfoParam?.sensorIndex ?? 0
+    }
+    if (sensorDesc.deviceId != getLocationDeviced()) {
+        sensorDesc.location = NON_LOCAL_DEVICE
     }
 
     let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
-    let interval = option?.interval.value ?? DEFAULT_REPORTING_INTERVAL
-    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(sensorType.getValue(), interval, lambdaData.getID()) }
+    let cParam = unsafe { CSensorDescription(sensorDesc) }
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensorEnhanced(interval, cParam, lambdaData.getID()) }
     if (ret != SUCCESS_CODE) {
         throw BusinessException(ret, getErrorMsg(ret))
     }
-    // Due to interval, no need to check type is subscribed
-    ON_SENSOR_MANAGER.getOrCreate(sensorType).on(callback)
+
+    if (ON_ENHANCED_SENSOR_MANAGER.isSensorCallbackSubscribed(sensorDesc, callback)) {
+        SENSOR_LOG.info("The callback has been subscribed")
+        return
+    }
+    ON_ENHANCED_SENSOR_MANAGER.getOrCreate(sensorDesc).on(callback)
+}
+
+func getLocationDeviced(): Int32 {
+    var localDeviceId = DEFAULT_DEVICE_ID
+    unsafe { FfiSensorGetLocationDeviceId(inout localDeviceId)}
+    return localDeviceId
 }
 
 /**
@@ -1710,22 +1699,20 @@ public func on<T>(sensorType: SensorId, callback: Callback1Argument<T>, option!:
     throwexception: true
 ]
 public func once<T>(sensorType: SensorId, callback: Callback1Argument<T>): Unit where T <: Response {
-    if (!SensorManager.isMatchType(sensorType, callback)) {
+    if (!SensorManagerEnhanced.isMatchType(sensorType, callback)) {
         throw BusinessException(ERR_PARAMETER_ERROR, getErrorMsg(ERR_PARAMETER_ERROR))
     }
 
-    if (ON_SENSOR_MANAGER.isSensorSubscribed(sensorType)) {
-        ONCE_SENSOR_MANAGER.getOrCreate(sensorType).on(callback)
-        return
+    if (!ON_ENHANCED_SENSOR_MANAGER.isSensorSubscribed(SensorDescription(DEFAULT_DEVICE_ID, sensorType.getValue(), DEFAULT_SENSOR_ID, IS_LOCAL_DEVICE))) {
+        let sensorDesc = CSensorDescription(SensorDescription(DEFAULT_DEVICE_ID, sensorType.getValue(), DEFAULT_SENSOR_ID, IS_LOCAL_DEVICE))
+        let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+        let ret: Int32 = unsafe { FfiSensorSubscribeSensorEnhanced(DEFAULT_REPORTING_INTERVAL, sensorDesc, lambdaData.getID()) }
+        if (ret != SUCCESS_CODE) {
+            throw BusinessException(ret, getErrorMsg(ret))
+        }
     }
 
-    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
-    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(sensorType.getValue(), DEFAULT_REPORTING_INTERVAL, lambdaData.getID()) }
-    if (ret != SUCCESS_CODE) {
-        throw BusinessException(ret, getErrorMsg(ret))
-    }
-
-    ONCE_SENSOR_MANAGER.getOrCreate(sensorType).on(callback)
+    ONCE_ENHANCED_SENSOR_MANAGER.getOrCreate(SensorDescription(DEFAULT_DEVICE_ID, sensorType.getValue(), DEFAULT_SENSOR_ID, IS_LOCAL_DEVICE)).on(callback)
 }
 
 /**
@@ -1742,20 +1729,66 @@ public func once<T>(sensorType: SensorId, callback: Callback1Argument<T>): Unit 
     throwexception: true
 ]
 public func off(sensorType: SensorId, callback!: ?CallbackObject = None): Unit {
-    if (!ON_SENSOR_MANAGER.isSensorSubscribed(sensorType)) {
+    var sensorDesc = SensorDescription(DEFAULT_DEVICE_ID, sensorType.getValue(), DEFAULT_SENSOR_ID, IS_LOCAL_DEVICE)
+    if (!ON_ENHANCED_SENSOR_MANAGER.isSensorSubscribed(sensorDesc)) {
         return
     }
-
-    let size = match (callback) {
-        case Some(v) => removeCallback(sensorType, v)
-        case None => removeAllCallback(sensorType)
+    var size = 0
+    if (let Some(v) <- callback) {
+        size = removeCallback(sensorDesc, v)
+    } else {
+        size = removeAllCallback(sensorDesc)
     }
 
     if (size > 0) {
         return
     }
 
-    let ret = unsafe { FfiSensorUnSubscribeSensor(sensorType.getValue()) }
+    let cSensorDesc = CSensorDescription(sensorDesc)
+    let ret = unsafe { FfiSensorUnSubscribeSensorEnhanced(cSensorDesc) }
+
+    if (ret == ERR_PARAMETER_ERROR || ret == ERR_NO_PERMISSION) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+}
+
+/**
+ * Unsubscribe from sensor data.
+ * @param { SensorId } sensorType - Indicates the sensor type to unsubscribe from.
+ * @param { CallbackObject } [callback] - Indicates the callback function to remove. If not provided, all callbacks for
+ * the sensor type will be removed.
+ * @throws { BusinessException } 201 - Permission verification failed. The application does not have permission to call
+ * the API.
+ */
+@!APILevel[
+    since: "22",
+    syscap: "SystemCapability.Sensors.Sensor",
+    throwexception: true
+]
+public func off(sensorType: SensorId, option: Options, callback!: ?CallbackObject = None): Unit {
+    var sensorDesc = SensorDescription(DEFAULT_DEVICE_ID, sensorType.getValue(), DEFAULT_SENSOR_ID, IS_LOCAL_DEVICE)
+    sensorDesc.deviceId = option.sensorInfoParam?.deviceId ?? -1
+    sensorDesc.sensorId = option.sensorInfoParam?.sensorIndex ?? 0
+    if (sensorDesc.deviceId != getLocationDeviced()) {
+        sensorDesc.location = NON_LOCAL_DEVICE
+    }
+    if (!ON_ENHANCED_SENSOR_MANAGER.isSensorSubscribed(sensorDesc)) {
+        return
+    }
+
+    var size = 0
+    if (let Some(v) <- callback) {
+        size = removeCallback(sensorDesc, v)
+    } else {
+        size = removeAllCallback(sensorDesc)
+    }
+    if (size > 0) {
+        return
+    }
+
+    let cSensorDesc = CSensorDescription(sensorDesc)
+    let ret = unsafe { FfiSensorUnSubscribeSensorEnhanced(cSensorDesc) }
+
     if (ret == ERR_PARAMETER_ERROR || ret == ERR_NO_PERMISSION) {
         throw BusinessException(ret, getErrorMsg(ret))
     }
@@ -1811,133 +1844,3 @@ public func getSensorList(): Array<Sensor> {
     }
 }
 
-/**
- * Get the angle variation between two rotation matrices.
- * @param { Array<Float32> } currentRotationMatrix -  Indicates the current rotation matrix.
- * @param { Array<Float32> } preRotationMatrix - preRotationMatrix Indicates the current rotation matrix.
- * @returns { Array<Float32> } used to return the result.
- * @throws { BusinessException } 14500101 - Service exception.
- */
-@!APILevel[
-    since: "24",
-    syscap: "SystemCapability.Sensors.Sensor",
-    throwexception: true,
-    workerthread: true
-]
-public func getAngleVariation(currentRotationMatrix: Array<Float32>, preRotationMatrix: Array<Float32>): Array<Float32> {
-    var result: CArrFloat32 = CArrFloat32(CPointer(), 0)
-    try (
-        rCurrentRotationMatrix = toCArrayFloat32(currentRotationMatrix).asResource(),
-        rPreRotationMatrix = toCArrayFloat32(preRotationMatrix).asResource()
-    ) {
-        let ret = unsafe {
-            FfiSensorGetAngleVariation(rCurrentRotationMatrix.value, rPreRotationMatrix.value, inout result)
-        }
-        if (ret != SUCCESS_CODE) {
-            throw BusinessException(ret, getErrorMsg(ret))
-        }
-    }
-    return try {
-        result.asArray()
-    } finally {
-        result.free()
-    }
-
-    throw BusinessException(SENSOR_NO_SUPPORT, "Never reach here!")
-}
-
-/**
- * Convert rotation vector to rotation matrix.
- * @param { Array<Float32> } rotationVector - rotationVector Indicates the rotation vector.
- * @returns { Array<Float32> } return rotation matrix.
- * @throws { BusinessException } 14500101 - Service exception.
- */
-@!APILevel[
-    since: "24",
-    syscap: "SystemCapability.Sensors.Sensor",
-    throwexception: true,
-    workerthread: true
-]
-public func getRotationMatrix(rotationVector: Array<Float32>): Array<Float32> {
-    var result: CArrFloat32 = CArrFloat32(CPointer(), 0)
-    try (rRotationVector = toCArrayFloat32(rotationVector).asResource()) {
-        let ret = unsafe { FfiSensorGetRotationMatrix(rRotationVector.value, inout result) }
-        if (ret != SUCCESS_CODE) {
-            throw BusinessException(ret, getErrorMsg(ret))
-        }
-    }
-    return try {
-        result.asArray()
-    } finally {
-        result.free()
-    }
-
-    throw BusinessException(SENSOR_NO_SUPPORT, "Never reach here!")
-}
-
-/**
- * Calculate rotation matrix based on gravity vector and geomagnetic vector.
- * @param { Array<Float32> } gravity - gravity Indicates the gravity vector.
- * @param { Array<Float32> } geomagnetic - geomagnetic Indicates the geomagnetic vector.
- * @returns { RotationMatrixResponse } Returns the rotation matrix.
- * @throws { BusinessException } 14500101 - Service exception.
- */
-@!APILevel[
-    since: "24",
-    syscap: "SystemCapability.Sensors.Sensor",
-    throwexception: true,
-    workerthread: true
-]
-public func getRotationMatrix(gravity: Array<Float32>, geomagnetic: Array<Float32>): RotationMatrixResponse {
-    var result: CRotationMatrixResponse = CRotationMatrixResponse(
-        CArrFloat32(CPointer(), 0),
-        CArrFloat32(CPointer(), 0)
-    )
-    try (
-        rGravity = toCArrayFloat32(gravity).asResource(),
-        rGeomagnetic = toCArrayFloat32(geomagnetic).asResource()
-    ) {
-        let ret = unsafe {
-            FfiSensorGetRotationMatrixByGravityAndGeomagnetic(rGravity.value, rGeomagnetic.value, inout result)
-        }
-        if (ret != SUCCESS_CODE) {
-            throw BusinessException(ret, getErrorMsg(ret))
-        }
-    }
-    return try {
-        RotationMatrixResponse(result)
-    } finally {
-        result.free()
-    }
-
-    throw BusinessException(SENSOR_NO_SUPPORT, "Never reach here!")
-}
-
-/**
- * Computes the device's orientation based on the rotation matrix.
- * @param { Array<Float32> } rotationMatrix - rotationMatrix Indicates the rotation matrix.
- * @returns { Array<Float32> } return the angle of rotation around the z, x, y axis.
- * @throws { BusinessException } 14500101 - Service exception.
- */
-@!APILevel[
-    since: "24",
-    syscap: "SystemCapability.Sensors.Sensor",
-    throwexception: true,
-    workerthread: true
-]
-public func getOrientation(rotationMatrix: Array<Float32>): Array<Float32> {
-    var result: CArrFloat32 = CArrFloat32(CPointer(), 0)
-    try (rRotationMatrix = toCArrayFloat32(rotationMatrix).asResource()) {
-        let ret = unsafe { FfiSensorGetOrientation(rRotationMatrix.value, inout result) }
-        if (ret != SUCCESS_CODE) {
-            throw BusinessException(ret, getErrorMsg(ret))
-        }
-    }
-    return try {
-        result.asArray()
-    } finally {
-        result.free()
-    }
-
-    throw BusinessException(SENSOR_NO_SUPPORT, "Never reach here!")
-}

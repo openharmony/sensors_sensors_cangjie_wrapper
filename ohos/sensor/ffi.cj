@@ -16,8 +16,6 @@
 // The Cangjie API is in Beta. For details on its capabilities and limitations, please refer to the README file.
 
 package ohos.sensor
-import ohos.business_exception.{BusinessException, ERR_PARAMETER_ERROR}
-import ohos.ffi.{CArrFloat32}
 
 @C
 struct CAccelerometerResponse {
@@ -47,19 +45,6 @@ struct CLightResponse {
         let colorTemperature: Float32,
         let infraredLuminance: Float32
     ) {}
-}
-
-@C
-struct CRotationMatrixResponse {
-    CRotationMatrixResponse(
-        let rotation: CArrFloat32,
-        let inclination: CArrFloat32
-    ) {}
-
-    func free() {
-        rotation.free()
-        inclination.free()
-    }
 }
 
 @C
@@ -200,7 +185,10 @@ struct CSensorCallbackData {
         let option: Int32,
         let mode: Int32,
         let data: CPointer<UInt8>,
-        let dataLen: Int32
+        let dataLen: Int32,
+        let deviceId: Int32,
+        let sensorId: Int32,
+        let location: Int32
     ) {}
 
     func convertToResponseOption(): ?Response {
@@ -302,20 +290,46 @@ struct CSensorArray {
     }
 }
 
-func toCArrayFloat32(arr: Array<Float32>): CArrFloat32 {
-    if (arr.isEmpty()) {
-        throw BusinessException(SERVICE_EXCEPTION, getErrorMsg(SERVICE_EXCEPTION))
+@C
+struct CSensorDescription {
+    let deviceId: Int32
+    let sensorType: Int32
+    let sensorId: Int32
+    let location: Int32
+
+    init(param: SensorDescription) {
+        this.deviceId = param.deviceId
+        this.sensorType = param.sensorType
+        this.sensorId = param.sensorId
+        this.location = param.location
+    }
+}
+
+class SensorDescription <: Equatable<SensorDescription> & Hashable {
+    public var deviceId: Int32
+    public var sensorType: Int32
+    public var sensorId: Int32
+    public var location: Int32
+
+    init(deviceId: Int32, sensorType: Int32, sensorId: Int32, location: Int32) {
+        this.deviceId = deviceId
+        this.sensorType = sensorType
+        this.sensorId = sensorId
+        this.location = location
     }
 
-    unsafe {
-        let p = LibC.malloc<Float32>(count: arr.size)
-        if (p.isNull()) {
-            throw BusinessException(SERVICE_EXCEPTION, getErrorMsg(SERVICE_EXCEPTION))
-        }
-        for (i in 0..arr.size) {
-            p.write(i, arr[i])
-        }
-        return CArrFloat32(p, arr.size)
+    public operator override func ==(sensorDesc: SensorDescription):Bool {
+        return this.deviceId == sensorDesc.deviceId && this.sensorType == sensorDesc.sensorType &&
+            this.sensorId == sensorDesc.sensorId && this.location == sensorDesc.location 
+    }
+
+    public operator override func !=(other: SensorDescription):Bool {
+        !(this == other)
+    }
+
+    @OverflowWrapping
+    public override func hashCode(): Int64 {
+        this.deviceId.hashCode() ^ this.sensorType.hashCode() ^ this.sensorId.hashCode() ^ this.location.hashCode() 
     }
 }
 
@@ -323,10 +337,8 @@ foreign {
     func FfiSensorSubscribeSensor(sensorId: Int32, interval: Int64, callback: Int64): Int32
     func FfiSensorUnSubscribeSensor(sensorId: Int32): Int32
     func FfiSensorGetAllSensors(sensors: CPointer<CSensorArray>): Int32
-    func FfiSensorGetAngleVariation(currentRotationMatrix: CArrFloat32, preRotationMatrix: CArrFloat32,
-        angleChange: CPointer<CArrFloat32>): Int32
-    func FfiSensorGetRotationMatrix(rotationVector: CArrFloat32, rotationMatrix: CPointer<CArrFloat32>): Int32
-    func FfiSensorGetOrientation(rotationMatrix: CArrFloat32, rotationAngle: CPointer<CArrFloat32>): Int32
-    func FfiSensorGetRotationMatrixByGravityAndGeomagnetic(gravity: CArrFloat32, geomagnetic: CArrFloat32,
-        matrix: CPointer<CRotationMatrixResponse>): Int32
+
+    func FfiSensorSubscribeSensorEnhanced(interval: Int64, sensorDes: CSensorDescription, callback: Int64): Int32
+    func FfiSensorGetLocationDeviceId(deviceId: CPointer<Int32>): Bool
+    func FfiSensorUnSubscribeSensorEnhanced(sensorDes: CSensorDescription): Int32
 }
