@@ -190,7 +190,7 @@ public class VibrateAttribute {
     public var id: Int32
 
     /**
-    * Vibrator id, default is 0.
+    * Unique identifier for the device that contains one or multiple vibrators.
     */
     @!APILevel[
         since: "24",
@@ -202,6 +202,8 @@ public class VibrateAttribute {
     *
     * @param { Usage } usage - The use of vibration.
     * @param { Int32 } [ id ] - Vibrator id, default is 0.
+    * @param { Int32 } [ deviceId ] - Unique identifier for the device that contains one or multiple vibrators.
+    * By default, deviceId represents the local device.
     */
     @!APILevel[
         since: "24",
@@ -312,13 +314,17 @@ public enum Usage {
     }
 }
 
+/**
+ * Parameters of vibrator on the device. By default, VibratorInfoParam may default to querying or controlling
+ * the local default vibrator.
+ */
 @!APILevel[
     since: "24",
     syscap: "SystemCapability.Sensors.MiscDevice"
 ]
 public class VibratorInfoParam {
     /**
-    * Vibrator id, default is 0.
+    * Unique identifier for the device that contains one or multiple vibrators.
     */
     @!APILevel[
         since: "24",
@@ -326,7 +332,7 @@ public class VibratorInfoParam {
     ]
     public var deviceId: Int32
     /**
-    * Vibrator id, default is 0.
+    * Unique identifier for the vibrator itself within the device.
     */
     @!APILevel[
         since: "24",
@@ -334,10 +340,12 @@ public class VibratorInfoParam {
     ]
     public var vibratorId: Int32
     /**
-    * VibrateAttribute constructor.
+    * VibratorInfoParam constructor.
     *
-    * @param { Usage } usage - The use of vibration.
-    * @param { Int32 } [ id ] - Vibrator id, default is 0.
+    * @param { Int32 } [ deviceId ] - By default, deviceId may default to querying or controlling the
+    * local default vibrator.
+    * @param { Int32 } [ vibratorId ] - By default, vibratorId may default to querying or controlling
+    * all vibrators on the corresponding device.
     */
     @!APILevel[
         since: "24",
@@ -349,13 +357,16 @@ public class VibratorInfoParam {
     }
 }
 
+/**
+* Represents the information about a vibrator device in the system.
+*/
 @!APILevel[
     since: "24",
     syscap: "SystemCapability.Sensors.MiscDevice"
 ]
 public class VibratorInfo {
     /**
-    * Vibrator id, default is 0.
+    * Unique identifier for the device that contains one or multiple vibrators.
     */
     @!APILevel[
         since: "24",
@@ -363,7 +374,7 @@ public class VibratorInfo {
     ]
     public var deviceId: Int32
     /**
-    * Vibrator id, default is 0.
+    * Unique identifier for the vibrator itself within the device.
     */
     @!APILevel[
         since: "24",
@@ -371,7 +382,7 @@ public class VibratorInfo {
     ]
     public var vibratorId: Int32
     /**
-    * Vibrator id, default is 0.
+    * Name of the device.
     */
     @!APILevel[
         since: "24",
@@ -379,7 +390,7 @@ public class VibratorInfo {
     ]
     public var deviceName: String
     /**
-    * Vibrator id, default is 0.
+    * Indicates whether the vibrator device support HD haptic.
     */
     @!APILevel[
         since: "24",
@@ -387,7 +398,8 @@ public class VibratorInfo {
     ]
     public var isHdHapticSupported: Bool
     /**
-    * Vibrator id, default is 0.
+    * Indicates whether the vibrator is a local device or an external one.
+    * If the value is true, it represents a local device; if false, it represents an external device.
     */
     @!APILevel[
         since: "24",
@@ -397,8 +409,11 @@ public class VibratorInfo {
     /**
     * VibrateAttribute constructor.
     *
-    * @param { Usage } usage - The use of vibration.
-    * @param { Int32 } [ id ] - Vibrator id, default is 0.
+    * @param { Int32 } deviceId - The use of vibration.
+    * @param { Int32 } vibratorId - Vibrator id, default is 0.
+    * @param { String } deviceName - The use of vibration.
+    * @param { Bool } isHdHapticSupported - Vibrator id, default is 0.
+    * @param { Bool } isLocalVibrator - Vibrator id, default is 0.
     */
     @!APILevel[
         since: "24",
@@ -481,9 +496,10 @@ public func startVibration(effect: VibrateEffect, attribute: VibrateAttribute): 
 }
 
 /**
- * Stop the vibrator from vibrating.
+ * Stop the vibrator on the specified device. When all parameters are set to default, stop all local vibrators.
  *
- * @param { Option<VibratorStopMode> } [ stopMode ] - Indicate the stop mode in which the motor vibrates, {@code VibratorStopMode}.
+ * @param { VibratorInfoParam } [ param ] - Indicate the device and vibrator information that needs to be controlled,
+ *  {@code VibratorInfoParam}.
  * @throws { BusinessException } 201 - Permission denied.
  */
 @!APILevel[
@@ -504,6 +520,17 @@ public func stopVibration(param!: VibratorInfoParam = VibratorInfoParam(deviceId
     }
 }
 
+ /**
+ * Retrieve the list of vibrator information about one or all devices.
+ * @param { VibratorInfoParam } [ param ] - Indicate the device and vibrator information that needs to be controlled,
+ * VibratorInfoParam. By default, this returns all vibrators on all device when param is unspecified.
+ * @retruns { Array<VibratorInfo> } - A list of vibrator IDs containing information about the vibrator device.
+ * @throws { BusinessException } 14600101 - Device operation failed.
+ */
+ @!APILevel [
+    since: "24",
+    syscap: "SystemCapability.Sensors.MiscDevice"
+]
 public func getVibratorInfo(param!: VibratorInfoParam = VibratorInfoParam(deviceId:-1, vibratorId:-1)): Array<VibratorInfo> {
     unsafe {
         let cParam = RetVibratorInfoParam(param)

@@ -1105,3 +1105,53 @@ public func getSensorList(): Array<Sensor> {
 public func getSingleSensor(sensorType: SensorId): Sensor {
     return Sensor()
 }
+
+@!APILevel[
+    since: "24",
+    syscap: "SystemCapability.Sensors.Sensor",
+    throwexception: true,
+    workerthread: true
+]
+public func getAngleVariation(currentRotationMatrix: Array<Float32>, preRotationMatrix: Array<Float32>): Array<Float32> {
+    return Array()
+}
+
+@!APILevel[
+    since: "24",
+    syscap: "SystemCapability.Sensors.Sensor",
+    throwexception: true,
+    workerthread: true
+]
+public func getRotationMatrix(rotationVector: Array<Float32>): Array<Float32> {
+    return Array()
+}
+
+@!APILevel[
+    since: "24",
+    syscap: "SystemCapability.Sensors.Sensor",
+    throwexception: true,
+    workerthread: true
+]
+public func getRotationMatrix(gravity: Array<Float32>, geomagnetic: Array<Float32>): RotationMatrixResponse {
+    return RotationMatrixResponse()
+}
+
+@!APILevel[
+    since: "24",
+    syscap: "SystemCapability.Sensors.Sensor",
+    throwexception: true,
+    workerthread: true
+]
+public func getOrientation(rotationMatrix: Array<Float32>): Array<Float32> {
+    return Array()
+}
+
+@!APILevel[
+    since: "24",
+    syscap: "SystemCapability.Sensors.Sensor",
+    throwexception: true
+]
+public func off(sensorType: SensorId, option: Options, callback!: ?CallbackObject = None): Unit {
+    return ()
+}
+
