@@ -23,6 +23,11 @@ import ohos.ffi.{Callback1Param, SUCCESS_CODE, CArrFloat32}
 import std.deriving.Derive
 import ohos.labels.{APILevel, Hide}
 
+const DEFAULT_DEVICE_ID: Int32 = -1
+const DEFAULT_SENSOR_ID: Int32 = 0
+const IS_LOCAL_DEVICE: Int32 = 1
+const NON_LOCAL_DEVICE: Int32 = 0
+const INVALID_SUBSCRIBE_SIZE: Int32 = -1
 /**
  * Enum for obtain the type of sensor.
  */
@@ -106,10 +111,10 @@ public enum SensorId {
     ]
     Humidity
     |
-    @!Hide
+    @!Hide[isChecked: true]
     Color
     |
-    @!Hide
+    @!Hide[isChecked: true]
     Sar
     |
     /**
@@ -1507,23 +1512,18 @@ public class WearDetectionResponse <: Response {
 
 const DEFAULT_REPORTING_INTERVAL = 200_000_000
 
-func removeCallback(sensorType: SensorId, callback: CallbackObject): Int64 {
-    if (!SensorManager.isMatchType(sensorType, callback)) {
-        throw BusinessException(ERR_PARAMETER_ERROR, getErrorMsg(ERR_PARAMETER_ERROR))
-    }
-
-    let list = ON_SENSOR_MANAGER.getOrCreate(sensorType)
+func removeCallback(sensorDesc: SensorDescription, callback: CallbackObject): Int64 {
+    let list = ON_ENHANCED_SENSOR_MANAGER.getOrCreate(sensorDesc)
     list.off(callback)
     if (list.isEmpty()) {
-        ON_SENSOR_MANAGER.remove(sensorType)
+        ON_ENHANCED_SENSOR_MANAGER.removeAllCallback(sensorDesc)
         return 0
     }
-
     return list.size()
 }
 
-func removeAllCallback(sensorType: SensorId): Int64 {
-    ON_SENSOR_MANAGER.remove(sensorType)
+func removeAllCallback(sensorDesc: SensorDescription): Int64 {
+    ON_ENHANCED_SENSOR_MANAGER.removeAllCallback(sensorDesc)
     0
 }
 
@@ -1625,16 +1625,16 @@ public class Sensor {
     ]
     public var power: Float32
 
-    @!Hide
+    @!Hide[isChecked: true]
     internal var sensorIndex: ?Int32 = Option<Int32>.None
 
-    @!Hide
+    @!Hide[isChecked: true]
     internal var deviceId: ?Int32 = Option<Int32>.None
 
-    @!Hide
+    @!Hide[isChecked: true]
     internal var deviceName: ?String = Option<String>.None
 
-    @!Hide
+    @!Hide[isChecked: true]
     internal var isLocalSensor: ?Bool = Option<Bool>.None
 
     init(sensorName: String, vendorName: String, firmwareVersion: String,
@@ -1682,18 +1682,38 @@ public class Sensor {
     throwexception: true
 ]
 public func on<T>(sensorType: SensorId, callback: Callback1Argument<T>, option!: ?Options = None): Unit where T <: Response {
-    if (!SensorManager.isMatchType(sensorType, callback)) {
+    if (!SensorManagerEnhanced.isMatchType(sensorType, callback)) {
         throw BusinessException(ERR_PARAMETER_ERROR, getErrorMsg(ERR_PARAMETER_ERROR))
+    }
+    let interval = option?.interval.value ?? DEFAULT_REPORTING_INTERVAL
+    var sensorDesc = SensorDescription(getLocationDeviced(), sensorType.getValue(), DEFAULT_SENSOR_ID, IS_LOCAL_DEVICE)
+ 
+    if (let Some(v1) <- option) {
+        sensorDesc.deviceId = v1.sensorInfoParam?.deviceId ?? -1
+        sensorDesc.sensorId = v1.sensorInfoParam?.sensorIndex ?? 0
+    }
+    if (sensorDesc.deviceId != getLocationDeviced()) {
+        sensorDesc.location = NON_LOCAL_DEVICE
     }
 
     let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
-    let interval = option?.interval.value ?? DEFAULT_REPORTING_INTERVAL
-    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(sensorType.getValue(), interval, lambdaData.getID()) }
+    let cParam = unsafe { CSensorDescription(sensorDesc) }
+    let ret: Int32 = unsafe { FfiSensorSubscribeSensorEnhanced(interval, cParam, lambdaData.getID()) }
     if (ret != SUCCESS_CODE) {
         throw BusinessException(ret, getErrorMsg(ret))
     }
-    // Due to interval, no need to check type is subscribed
-    ON_SENSOR_MANAGER.getOrCreate(sensorType).on(callback)
+
+    if (ON_ENHANCED_SENSOR_MANAGER.isSensorCallbackSubscribed(sensorDesc, callback)) {
+        SENSOR_LOG.info("The callback has been subscribed")
+        return
+    }
+    ON_ENHANCED_SENSOR_MANAGER.getOrCreate(sensorDesc).on(callback)
+}
+
+func getLocationDeviced(): Int32 {
+    var localDeviceId = DEFAULT_DEVICE_ID
+    unsafe { FfiSensorGetLocationDeviceId(inout localDeviceId)}
+    return localDeviceId
 }
 
 /**
@@ -1710,22 +1730,20 @@ public func on<T>(sensorType: SensorId, callback: Callback1Argument<T>, option!:
     throwexception: true
 ]
 public func once<T>(sensorType: SensorId, callback: Callback1Argument<T>): Unit where T <: Response {
-    if (!SensorManager.isMatchType(sensorType, callback)) {
+    if (!SensorManagerEnhanced.isMatchType(sensorType, callback)) {
         throw BusinessException(ERR_PARAMETER_ERROR, getErrorMsg(ERR_PARAMETER_ERROR))
     }
 
-    if (ON_SENSOR_MANAGER.isSensorSubscribed(sensorType)) {
-        ONCE_SENSOR_MANAGER.getOrCreate(sensorType).on(callback)
-        return
+    if (!ON_ENHANCED_SENSOR_MANAGER.isSensorSubscribed(SensorDescription(DEFAULT_DEVICE_ID, sensorType.getValue(), DEFAULT_SENSOR_ID, IS_LOCAL_DEVICE))) {
+        let sensorDesc = CSensorDescription(SensorDescription(DEFAULT_DEVICE_ID, sensorType.getValue(), DEFAULT_SENSOR_ID, IS_LOCAL_DEVICE))
+        let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+        let ret: Int32 = unsafe { FfiSensorSubscribeSensorEnhanced(DEFAULT_REPORTING_INTERVAL, sensorDesc, lambdaData.getID()) }
+        if (ret != SUCCESS_CODE) {
+            throw BusinessException(ret, getErrorMsg(ret))
+        }
     }
 
-    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
-    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(sensorType.getValue(), DEFAULT_REPORTING_INTERVAL, lambdaData.getID()) }
-    if (ret != SUCCESS_CODE) {
-        throw BusinessException(ret, getErrorMsg(ret))
-    }
-
-    ONCE_SENSOR_MANAGER.getOrCreate(sensorType).on(callback)
+    ONCE_ENHANCED_SENSOR_MANAGER.getOrCreate(SensorDescription(DEFAULT_DEVICE_ID, sensorType.getValue(), DEFAULT_SENSOR_ID, IS_LOCAL_DEVICE)).on(callback)
 }
 
 /**
@@ -1742,20 +1760,66 @@ public func once<T>(sensorType: SensorId, callback: Callback1Argument<T>): Unit 
     throwexception: true
 ]
 public func off(sensorType: SensorId, callback!: ?CallbackObject = None): Unit {
-    if (!ON_SENSOR_MANAGER.isSensorSubscribed(sensorType)) {
+    var sensorDesc = SensorDescription(DEFAULT_DEVICE_ID, sensorType.getValue(), DEFAULT_SENSOR_ID, IS_LOCAL_DEVICE)
+    if (!ON_ENHANCED_SENSOR_MANAGER.isSensorSubscribed(sensorDesc)) {
         return
     }
-
-    let size = match (callback) {
-        case Some(v) => removeCallback(sensorType, v)
-        case None => removeAllCallback(sensorType)
+    var size = 0
+    if (let Some(v) <- callback) {
+        size = removeCallback(sensorDesc, v)
+    } else {
+        size = removeAllCallback(sensorDesc)
     }
 
     if (size > 0) {
         return
     }
 
-    let ret = unsafe { FfiSensorUnSubscribeSensor(sensorType.getValue()) }
+    let cSensorDesc = CSensorDescription(sensorDesc)
+    let ret = unsafe { FfiSensorUnSubscribeSensorEnhanced(cSensorDesc) }
+
+    if (ret == ERR_PARAMETER_ERROR || ret == ERR_NO_PERMISSION) {
+        throw BusinessException(ret, getErrorMsg(ret))
+    }
+}
+
+/**
+ * Unsubscribe from sensor data.
+ * @param { SensorId } sensorType - Indicates the sensor type to unsubscribe from.
+ * @param { CallbackObject } [callback] - Indicates the callback function to remove. If not provided, all callbacks for
+ * the sensor type will be removed.
+ * @throws { BusinessException } 201 - Permission verification failed. The application does not have permission to call
+ * the API.
+ */
+@!APILevel[
+    since: "24",
+    syscap: "SystemCapability.Sensors.Sensor",
+    throwexception: true
+]
+public func off(sensorType: SensorId, option: Options, callback!: ?CallbackObject = None): Unit {
+    var sensorDesc = SensorDescription(DEFAULT_DEVICE_ID, sensorType.getValue(), DEFAULT_SENSOR_ID, IS_LOCAL_DEVICE)
+    sensorDesc.deviceId = option.sensorInfoParam?.deviceId ?? -1
+    sensorDesc.sensorId = option.sensorInfoParam?.sensorIndex ?? 0
+    if (sensorDesc.deviceId != getLocationDeviced()) {
+        sensorDesc.location = NON_LOCAL_DEVICE
+    }
+    if (!ON_ENHANCED_SENSOR_MANAGER.isSensorSubscribed(sensorDesc)) {
+        return
+    }
+
+    var size = 0
+    if (let Some(v) <- callback) {
+        size = removeCallback(sensorDesc, v)
+    } else {
+        size = removeAllCallback(sensorDesc)
+    }
+    if (size > 0) {
+        return
+    }
+
+    let cSensorDesc = CSensorDescription(sensorDesc)
+    let ret = unsafe { FfiSensorUnSubscribeSensorEnhanced(cSensorDesc) }
+
     if (ret == ERR_PARAMETER_ERROR || ret == ERR_NO_PERMISSION) {
         throw BusinessException(ret, getErrorMsg(ret))
     }

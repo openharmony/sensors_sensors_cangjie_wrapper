@@ -21,8 +21,8 @@ import ohos.callback_invoke.{ CallbackObject, Callback1Argument}
 import std.collection.{ArrayList, HashMap}
 import std.sync.Mutex
 
-let ON_SENSOR_MANAGER = SensorManager()
-let ONCE_SENSOR_MANAGER = SensorManager()
+let ON_ENHANCED_SENSOR_MANAGER = SensorManagerEnhanced()
+let ONCE_ENHANCED_SENSOR_MANAGER = SensorManagerEnhanced()
 
 class CallbackList {
     private let callbackList: ArrayList<CallbackObject>
@@ -57,7 +57,7 @@ class CallbackList {
         }
     }
 
-    func contains(target: Callback1Argument<Response>): Bool {
+    func contains(target: CallbackObject): Bool {
         synchronized(callBackMutex) {
             for (callback in callbackList) {
                 if (refEq(callback, target)) {
@@ -87,38 +87,38 @@ class CallbackList {
     }
 }
 
-class SensorManager {
-    private let sensorMap: HashMap<Int32, CallbackList>
+class SensorManagerEnhanced {
+    private let sensorMap: HashMap<SensorDescription, CallbackList>
     private let mutex: Mutex
 
     init() {
-        sensorMap = HashMap<Int32, CallbackList>()
+        sensorMap = HashMap<SensorDescription, CallbackList>()
         mutex = Mutex()
     }
 
-    func get(sensorId: Int32): ?CallbackList {
+    func get(sensorDesc: SensorDescription): ?CallbackList {
         synchronized(mutex) {
-            sensorMap.get(sensorId)
+            sensorMap.get(sensorDesc)
         }
     }
 
-    func consume(sensorId: Int32): ?CallbackList {
+    func consume(sensorDesc: SensorDescription): ?CallbackList {
         synchronized(mutex) {
-            sensorMap.remove(sensorId)
+            sensorMap.remove(sensorDesc)
         }
     }
 
-    func getOrCreate(sensorType: SensorId): CallbackList {
+    func getOrCreate(sensorDesc: SensorDescription): CallbackList {
         synchronized(mutex) {
-            if (let Some(v) <- sensorMap.get(sensorType.getValue())) {
+            if (let Some(v) <- sensorMap.get(sensorDesc)) {
                 return v
             }
             let list = CallbackList()
-            sensorMap.add(sensorType.getValue(), list)
+            sensorMap.add(sensorDesc, list)
             list
         }
     }
-
+    
     static func isMatchType(`type`: SensorId, callback: CallbackObject): Bool {
         match (`type`) {
             case Accelerometer => callback is Callback1Argument<AccelerometerResponse>
@@ -146,19 +146,27 @@ class SensorManager {
         }
     }
 
-    func isSensorSubscribed(`type`: SensorId): Bool {
-        isSensorSubscribed(`type`.getValue())
+    func isSensorCallbackSubscribed(sensorDesc: SensorDescription, callback: CallbackObject): Bool {
+        if (let Some(v) <- sensorMap.get(sensorDesc)) {
+            if (v.contains(callback)) {
+                return true
+            }
+        }
+        return false
     }
 
-    func isSensorSubscribed(`type`: Int32): Bool {
-        synchronized(mutex) {
-            !(sensorMap.get(`type`)?.isEmpty() ?? true)
+    func isSensorSubscribed(sensorDesc: SensorDescription): Bool {
+        if (let Some(v) <- sensorMap.get(sensorDesc)) {
+            return true
+        } else {
+            return false
         }
     }
 
-    func remove(sensorType: SensorId) {
+
+    func removeAllCallback(sensorDesc: SensorDescription): Unit {
         synchronized(mutex) {
-            sensorMap.remove(sensorType.getValue())
+            sensorMap.remove(sensorDesc)
         }
     }
 }
@@ -177,35 +185,37 @@ func dataCallbackImpl(data: CPointer<CSensorCallbackData>): Unit {
         case Some(v) => v
     }
 
-    let onCallbackListOpt = ON_SENSOR_MANAGER.get(callbackData.sensorTypeId)?.getAllCallbacks()
-    emitSensorCallback(callbackData.sensorTypeId, onCallbackListOpt, responseData)
+    let desc = SensorDescription(callbackData.deviceId, callbackData.sensorTypeId, callbackData.sensorId, callbackData.location)
+    let onCallbackListOpt = ON_ENHANCED_SENSOR_MANAGER.get(desc)?.getAllCallbacks()
+    emitSensorCallback(desc, onCallbackListOpt, responseData)
 
-    let onceCallbackListOpt = ONCE_SENSOR_MANAGER.consume(callbackData.sensorTypeId)?.getAllCallbacks()
-    emitSensorCallback(callbackData.sensorTypeId, onceCallbackListOpt, responseData)
-    if (!ON_SENSOR_MANAGER.isSensorSubscribed(callbackData.sensorTypeId)) {
-        let ret = unsafe { FfiSensorUnSubscribeSensor(callbackData.sensorTypeId) }
+    let onceCallbackListOpt = ONCE_ENHANCED_SENSOR_MANAGER.consume(desc)?.getAllCallbacks()
+    emitSensorCallback(desc, onceCallbackListOpt, responseData)
+    if (!ON_ENHANCED_SENSOR_MANAGER.isSensorSubscribed(desc)) {
+        let cParam = unsafe { CSensorDescription(desc) }
+        let ret = unsafe { FfiSensorUnSubscribeSensorEnhanced(cParam) }
         if (ret != 0) {
             SENSOR_LOG.error("dataCallbackImpl Unsubscribe failed, ret=${ret}.")
         }
     }
 }
 
-func emitSensorCallback(sensorTypeId: Int32, callbackListOpt: ?Array<CallbackObject>, responseData: Response): Unit {
+func emitSensorCallback(sensorDesc: SensorDescription, callbackListOpt: ?Array<CallbackObject>, responseData: Response): Unit {
     if (let Some(callbackList) <- callbackListOpt) {
         try {
-            emitOneSensorTypeCallbacks(sensorTypeId, callbackList, responseData)
+            emitOneSensorTypeCallbacks(sensorDesc, callbackList, responseData)
         } catch (e: Exception) {
-            SENSOR_LOG.error("convertToResponse error, callbackList sensorid:${sensorTypeId}")
+            SENSOR_LOG.error("convertToResponse error, callbackList sensorid:${sensorDesc.sensorType}")
             return
         }
     } else {
-        SENSOR_LOG.debug("Fail to find sensor onceCallback id:${sensorTypeId} or callbackList is empty.")
+        SENSOR_LOG.debug("Fail to find sensor onceCallback id:${sensorDesc.sensorType} or callbackList is empty.")
     }
 }
 
-func emitOneSensorTypeCallbacks(sensorTypeId: Int32, callbackList: Array<CallbackObject>, responseData: Response): Unit {
+func emitOneSensorTypeCallbacks(sensorDesc: SensorDescription, callbackList: Array<CallbackObject>, responseData: Response): Unit {
     for (callback in callbackList) {
-        match (sensorTypeId) {
+        match (sensorDesc.sensorType) {
             case 1 => emitCallbackFunc<AccelerometerResponse>(callback, responseData)
             case 2 => emitCallbackFunc<GyroscopeResponse>(callback, responseData)
             case 5 => emitCallbackFunc<LightResponse>(callback, responseData)

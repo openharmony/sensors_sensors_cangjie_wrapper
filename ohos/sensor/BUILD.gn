@@ -17,13 +17,18 @@ import("//build/ohos.gni")
 import("//build/templates/cangjie/cjc.gni")
 
 ohos_cangjie_shared_library("ohos.sensor") {
-  sources = [
-    "error.cj",
-    "ffi.cj",
-    "log.cj",
-    "sensor.cj",
-    "sensor_manager.cj",
-  ]
+
+  if (is_mingw || is_mac){
+    sources = [ "../../mock/ohos.sensor.cj" ]
+  } else {
+    sources = [
+      "error.cj",
+      "ffi.cj",
+      "log.cj",
+      "sensor.cj",
+      "sensor_manager.cj",
+    ]
+  }
 
   cj_external_deps = [
     "cangjie_ark_interop:ohos.business_exception",

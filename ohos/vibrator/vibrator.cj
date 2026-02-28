@@ -18,7 +18,7 @@
 package ohos.vibrator
 
 import ohos.business_exception.{BusinessException, ERR_PARAMETER_ERROR, getUniversalErrorMsg}
-import ohos.ffi.{SUCCESS_CODE}
+import ohos.ffi.{SUCCESS_CODE,cArr2cjArr}
 import std.collection.HashMap
 import ohos.file.fs.FileIo
 import ohos.labels.{APILevel}
@@ -188,19 +188,31 @@ public class VibrateAttribute {
         syscap: "SystemCapability.Sensors.MiscDevice"
     ]
     public var id: Int32
+
     /**
-    * VibrateAttribute constructor.
-    *
-    * @param { Usage } usage - The use of vibration.
-    * @param { Int32 } [ id ] - Vibrator id, default is 0.
+    * Unique identifier for the device that contains one or multiple vibrators.
     */
     @!APILevel[
         since: "24",
         syscap: "SystemCapability.Sensors.MiscDevice"
     ]
-    public init(usage: Usage, id!: Int32 = 0) {
+    public var deviceId: Int32
+    /**
+    * VibrateAttribute constructor.
+    *
+    * @param { Usage } usage - The use of vibration.
+    * @param { Int32 } [ id ] - Vibrator id, default is 0.
+    * @param { Int32 } [ deviceId ] - Unique identifier for the device that contains one or multiple vibrators.
+    * By default, deviceId represents the local device.
+    */
+    @!APILevel[
+        since: "24",
+        syscap: "SystemCapability.Sensors.MiscDevice"
+    ]
+    public init(usage: Usage, id!: Int32 = 0, deviceId!: Int32 = -1) {
         this.usage = usage
         this.id = id
+        this.deviceId = deviceId
     }
 }
 
@@ -303,31 +315,125 @@ public enum Usage {
 }
 
 /**
- * Vibrator vibration stop mode.
+ * Parameters of vibrator on the device. By default, VibratorInfoParam may default to querying or controlling
+ * the local default vibrator.
  */
-@Derive[ToString]
 @!APILevel[
     since: "24",
     syscap: "SystemCapability.Sensors.MiscDevice"
 ]
-public enum VibratorStopMode {
+public class VibratorInfoParam {
     /**
-    * Indicates the mode of stopping a one-shot vibration effect.
+    * Unique identifier for the device that contains one or multiple vibrators.
     */
     @!APILevel[
         since: "24",
         syscap: "SystemCapability.Sensors.MiscDevice"
     ]
-    VibratorStopModeTime
+    public var deviceId: Int32
     /**
-    * Indicates the mode of stopping a preset vibration effect.
+    * Unique identifier for the vibrator itself within the device.
     */
-   | @!APILevel[
+    @!APILevel[
         since: "24",
         syscap: "SystemCapability.Sensors.MiscDevice"
     ]
-    VibratorStopModePreset
-    | ...
+    public var vibratorId: Int32
+    /**
+    * VibratorInfoParam constructor.
+    *
+    * @param { Int32 } [ deviceId ] - By default, deviceId may default to querying or controlling the
+    * local default vibrator.
+    * @param { Int32 } [ vibratorId ] - By default, vibratorId may default to querying or controlling
+    * all vibrators on the corresponding device.
+    */
+    @!APILevel[
+        since: "24",
+        syscap: "SystemCapability.Sensors.MiscDevice"
+    ]
+    public init(deviceId!: Int32 = -1, vibratorId!: Int32 = 0) {
+        this.deviceId = deviceId
+        this.vibratorId = vibratorId
+    }
+}
+
+/**
+* Represents the information about a vibrator device in the system.
+*/
+@!APILevel[
+    since: "24",
+    syscap: "SystemCapability.Sensors.MiscDevice"
+]
+public class VibratorInfo {
+    /**
+    * Unique identifier for the device that contains one or multiple vibrators.
+    */
+    @!APILevel[
+        since: "24",
+        syscap: "SystemCapability.Sensors.MiscDevice"
+    ]
+    public var deviceId: Int32
+    /**
+    * Unique identifier for the vibrator itself within the device.
+    */
+    @!APILevel[
+        since: "24",
+        syscap: "SystemCapability.Sensors.MiscDevice"
+    ]
+    public var vibratorId: Int32
+    /**
+    * Name of the device.
+    */
+    @!APILevel[
+        since: "24",
+        syscap: "SystemCapability.Sensors.MiscDevice"
+    ]
+    public var deviceName: String
+    /**
+    * Indicates whether the vibrator device support HD haptic.
+    */
+    @!APILevel[
+        since: "24",
+        syscap: "SystemCapability.Sensors.MiscDevice"
+    ]
+    public var isHdHapticSupported: Bool
+    /**
+    * Indicates whether the vibrator is a local device or an external one.
+    * If the value is true, it represents a local device; if false, it represents an external device.
+    */
+    @!APILevel[
+        since: "24",
+        syscap: "SystemCapability.Sensors.MiscDevice"
+    ]
+    public var isLocalVibrator: Bool
+    /**
+    * VibrateAttribute constructor.
+    *
+    * @param { Int32 } deviceId - The use of vibration.
+    * @param { Int32 } vibratorId - Vibrator id, default is 0.
+    * @param { String } deviceName - The use of vibration.
+    * @param { Bool } isHdHapticSupported - Vibrator id, default is 0.
+    * @param { Bool } isLocalVibrator - Vibrator id, default is 0.
+    */
+    @!APILevel[
+        since: "24",
+        syscap: "SystemCapability.Sensors.MiscDevice"
+    ]
+    public init(deviceId: Int32, vibratorId: Int32, deviceName: String, isHdHapticSupported: Bool, isLocalVibrator: Bool) {
+        this.deviceId = deviceId
+        this.vibratorId = vibratorId
+        this.deviceName = deviceName
+        this.isHdHapticSupported = isHdHapticSupported
+        this.isLocalVibrator = isLocalVibrator
+    }   
+
+    init(ret: RetVibratorInfo) {
+        this.deviceId = ret.deviceId
+        this.vibratorId = ret.vibratorId
+        this.deviceName = ret.deviceName.toString()
+        this.isHdHapticSupported = ret.isHdHapticSupported
+        this.isLocalVibrator = ret.isLocalVibrator
+    }
 }
 
 const SERVICE_STATUS_ERROR = 14600101i32
@@ -361,15 +467,15 @@ func getErrorMsg(code: Int32): String {
 ]
 public func startVibration(effect: VibrateEffect, attribute: VibrateAttribute): Unit {
     unsafe {
-        let cAttribute = RetVibrateAttribute(attribute)
+        let cAttribute = RetVibrateAttributeEnhanced(attribute)
         var code = 0i32
         match (effect) {
             case v: VibrateTime =>
                 let cEffectTime = RetVibrateTime(v)
-                FfiVibratorStartVibrationTime(cEffectTime, cAttribute, inout code)
+                FfiVibratorStartVibrationTimeEnhanced(cEffectTime, cAttribute, inout code)
             case v: VibratePreset =>
                 let cEffectPreset = RetVibratePreset(v)
-                FfiVibratorStartVibrationPreset(cEffectPreset, cAttribute, inout code)
+                FfiVibratorStartVibrationPresetEnhanced(cEffectPreset, cAttribute, inout code)
                 cEffectPreset.free()
             case v: VibrateFromFile =>
                 if (v.hapticFd.offSet < 0 || v.hapticFd.offSet > FileIo.stat(v.hapticFd.fd).size || v.hapticFd.length > FileIo
@@ -378,7 +484,7 @@ public func startVibration(effect: VibrateEffect, attribute: VibrateAttribute): 
                         "startVibration failed: ${getErrorMsg(ERR_PARAMETER_ERROR)}")
                 }
                 let cEffectFile = RetVibrateFromFile(v)
-                FfiVibratorStartVibrationFile(cEffectFile, cAttribute, inout code)
+                FfiVibratorStartVibrationFileEnhanced(cEffectFile, cAttribute, inout code)
             case _ =>
                 throw BusinessException(14600101, "Device operation failed.")
         }
@@ -390,9 +496,10 @@ public func startVibration(effect: VibrateEffect, attribute: VibrateAttribute): 
 }
 
 /**
- * Stop the vibrator from vibrating.
+ * Stop the vibrator on the specified device. When all parameters are set to default, stop all local vibrators.
  *
- * @param { Option<VibratorStopMode> } [ stopMode ] - Indicate the stop mode in which the motor vibrates, {@code VibratorStopMode}.
+ * @param { VibratorInfoParam } [ param ] - Indicate the device and vibrator information that needs to be controlled,
+ *  {@code VibratorInfoParam}.
  * @throws { BusinessException } 201 - Permission denied.
  */
 @!APILevel[
@@ -402,18 +509,38 @@ public func startVibration(effect: VibrateEffect, attribute: VibrateAttribute): 
     throwexception: true,
     workerthread: true
 ]
-public func stopVibration(stopMode!: Option<VibratorStopMode> = None): Unit {
+public func stopVibration(param!: VibratorInfoParam = VibratorInfoParam(deviceId:-1, vibratorId:-1)): Unit {
     unsafe {
         var code = 0i32
-        if (let Some(v) <- stopMode) {
-            let cStr = LibC.mallocCString(v.toString())
-            FfiVibratorStopVibrationMode(cStr, inout code)
-            LibC.free(cStr)
-        } else {
-            FfiVibratorStopVibration(inout code)
-        }
+        let cParam = RetVibratorInfoParam(param)
+        FfiVibratorStopVibrationEnhanced(cParam, inout code)
         if (code != SUCCESS_CODE) {
             throw BusinessException(code, "stopVibration failed: ${getErrorMsg(code)}")
         }
+    }
+}
+
+ /**
+ * Retrieve the list of vibrator information about one or all devices.
+ * @param { VibratorInfoParam } [ param ] - Indicate the device and vibrator information that needs to be controlled,
+ * VibratorInfoParam. By default, this returns all vibrators on all device when param is unspecified.
+ * @retruns { Array<VibratorInfo> } - A list of vibrator IDs containing information about the vibrator device.
+ * @throws { BusinessException } 14600101 - Device operation failed.
+ */
+ @!APILevel [
+    since: "24",
+    syscap: "SystemCapability.Sensors.MiscDevice"
+]
+public func getVibratorInfo(param!: VibratorInfoParam = VibratorInfoParam(deviceId:-1, vibratorId:-1)): Array<VibratorInfo> {
+    unsafe {
+        let cParam = RetVibratorInfoParam(param)
+        var code = 0i32
+        let ret = FfiVibratorGetVibratorInfo(cParam, inout code)
+        let infoArr = cArr2cjArr<RetVibratorInfo, VibratorInfo>(ret.size, ret.head, { item => VibratorInfo(item) })
+        ret.free()
+        if (code != SUCCESS_CODE) {
+            throw BusinessException(code, "getVibratorInfo failed: ${getErrorMsg(code)}")
+        }
+        return infoArr
     }
 }

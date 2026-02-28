@@ -200,7 +200,10 @@ struct CSensorCallbackData {
         let option: Int32,
         let mode: Int32,
         let data: CPointer<UInt8>,
-        let dataLen: Int32
+        let dataLen: Int32,
+        let deviceId: Int32,
+        let sensorId: Int32,
+        let location: Int32
     ) {}
 
     func convertToResponseOption(): ?Response {
@@ -302,6 +305,49 @@ struct CSensorArray {
     }
 }
 
+@C
+struct CSensorDescription {
+    let deviceId: Int32
+    let sensorType: Int32
+    let sensorId: Int32
+    let location: Int32
+
+    init(param: SensorDescription) {
+        this.deviceId = param.deviceId
+        this.sensorType = param.sensorType
+        this.sensorId = param.sensorId
+        this.location = param.location
+    }
+}
+
+class SensorDescription <: Equatable<SensorDescription> & Hashable {
+    public var deviceId: Int32
+    public var sensorType: Int32
+    public var sensorId: Int32
+    public var location: Int32
+
+    init(deviceId: Int32, sensorType: Int32, sensorId: Int32, location: Int32) {
+        this.deviceId = deviceId
+        this.sensorType = sensorType
+        this.sensorId = sensorId
+        this.location = location
+    }
+
+    public operator override func ==(sensorDesc: SensorDescription):Bool {
+        return this.deviceId == sensorDesc.deviceId && this.sensorType == sensorDesc.sensorType &&
+            this.sensorId == sensorDesc.sensorId && this.location == sensorDesc.location 
+    }
+
+    public operator override func !=(other: SensorDescription):Bool {
+        !(this == other)
+    }
+
+    @OverflowWrapping
+    public override func hashCode(): Int64 {
+        this.deviceId.hashCode() ^ this.sensorType.hashCode() ^ this.sensorId.hashCode() ^ this.location.hashCode()
+    }
+}
+
 func toCArrayFloat32(arr: Array<Float32>): CArrFloat32 {
     if (arr.isEmpty()) {
         throw BusinessException(SERVICE_EXCEPTION, getErrorMsg(SERVICE_EXCEPTION))
@@ -323,6 +369,10 @@ foreign {
     func FfiSensorSubscribeSensor(sensorId: Int32, interval: Int64, callback: Int64): Int32
     func FfiSensorUnSubscribeSensor(sensorId: Int32): Int32
     func FfiSensorGetAllSensors(sensors: CPointer<CSensorArray>): Int32
+
+    func FfiSensorSubscribeSensorEnhanced(interval: Int64, sensorDes: CSensorDescription, callback: Int64): Int32
+    func FfiSensorGetLocationDeviceId(deviceId: CPointer<Int32>): Bool
+    func FfiSensorUnSubscribeSensorEnhanced(sensorDes: CSensorDescription): Int32
     func FfiSensorGetAngleVariation(currentRotationMatrix: CArrFloat32, preRotationMatrix: CArrFloat32,
         angleChange: CPointer<CArrFloat32>): Int32
     func FfiSensorGetRotationMatrix(rotationVector: CArrFloat32, rotationMatrix: CPointer<CArrFloat32>): Int32
