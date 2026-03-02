@@ -1155,3 +1155,24 @@ public func off(sensorType: SensorId, option: Options, callback!: ?CallbackObjec
     return ()
 }
 
+@!APILevel[
+    since: "24",
+    syscap: "SystemCapability.Sensors.Sensor"
+]
+public class RotationMatrixResponse {
+    @!APILevel[
+        since: "24",
+        syscap: "SystemCapability.Sensors.Sensor"
+    ]
+    public var rotation: Array<Float32>
+
+    @!APILevel[
+        since: "24",
+        syscap: "SystemCapability.Sensors.Sensor"
+    ]
+    public var inclination: Array<Float32>
+
+    init() {
+        (rotation, inclination) = (Array<Float32>(), Array<Float32>())
+    }
+}
