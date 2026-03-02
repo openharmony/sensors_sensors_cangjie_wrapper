@@ -91,7 +91,7 @@ public class VibrateAttribute {
     ]
     public init() {
         super()
-        this.usage = Usage()
+        this.usage = Unknown
         this.id = 0i32
         this.deviceId = 0i32
     }
@@ -184,7 +184,7 @@ public class VibratorInfoParam {
         since: "24",
         syscap: "SystemCapability.Sensors.MiscDevice"
     ]
-    public init() {
+    public init(deviceId!: Int32 = -1, vibratorId!: Int32 = 0) {
         super()
         this.deviceId = 0i32
         this.vibratorId = 0i32
