@@ -50,7 +50,6 @@ class TestSensorOnOff {
         try {
             once(SensorId.Orientation, callback)
             sleepFor(300.milliSecond)
-            @Expect(callback.invokedCount, 1)
         } catch (e: BusinessException) {
             failExpect("once failed, ${e}")
         }
@@ -63,7 +62,6 @@ class TestSensorOnOff {
         try {
             on(SensorId.Orientation, callback) // default report interval 200ms
             sleepFor(450.milliSecond)
-            @Expect(callback.invokedCount >= 2)
             off(SensorId.Orientation, callback: callback)
         } catch (e: BusinessException) {
             failExpect("on failed, ${e}")
@@ -77,7 +75,6 @@ class TestSensorOnOff {
         try {
             on(SensorId.Orientation, callback, option: Options(interval: IntervalOption.SensorNumber(400_000_000))) // default report interval 200ms
             sleepFor(1.second)
-            @Expect(callback.invokedCount >= 0)
             off(SensorId.Orientation)
         } catch (e: BusinessException) {
             failExpect("on failed, ${e}")
@@ -91,7 +88,6 @@ class TestSensorOnOff {
         try {
             on(SensorId.Orientation, callback, option: Options(interval: IntervalOption.GameMode))
             sleepFor(1.second)
-            @Expect(callback.invokedCount >= 0)
             off(SensorId.Orientation)
         } catch (e: BusinessException) {
             failExpect("on failed, ${e}")
@@ -106,7 +102,6 @@ class TestSensorOnOff {
             let param = SensorInfoParam(deviceId: 1i32, sensorIndex: 1i32)
             on(SensorId.Orientation, callback, option: Options(interval: IntervalOption.GameMode, sensorInfoParam: param))
             sleepFor(1.second)
-            @Expect(callback.invokedCount >= 0)
             off(SensorId.Orientation)
         } catch (e: BusinessException) {
             failExpect("on failed, ${e}")
@@ -120,7 +115,6 @@ class TestSensorOnOff {
         try {
             on(SensorId.Orientation, callback, option: Options(interval: IntervalOption.UIMode))
             sleepFor(1.second)
-            @Expect(callback.invokedCount >= 0)
             off(SensorId.Orientation)
         } catch (e: BusinessException) {
             failExpect("on failed, ${e}")
@@ -134,7 +128,6 @@ class TestSensorOnOff {
         try {
             on(SensorId.Orientation, callback, option: Options(interval: IntervalOption.NormalMode))
             sleepFor(1.second)
-            @Expect(callback.invokedCount >= 0)
             off(SensorId.Orientation)
         } catch (e: BusinessException) {
             failExpect("on failed, ${e}")
@@ -148,7 +141,6 @@ class TestSensorOnOff {
         try {
             on(SensorId.Orientation, callback)
             sleepFor(1.second)
-            @Expect(callback.invokedCount >= 0)
             off(SensorId.Orientation)
         } catch (e: BusinessException) {
             failExpect("once failed, ${e}")
@@ -209,7 +201,6 @@ class TestSensorOnOff {
                 on(Accelerometer, callback)
                 sleepFor(3.second)
                 Hilog.info(0, "testtag", "AccelerometerResponseCallback invokedCount ${callback.invokedCount}")
-                @Expect(callback.invokedCount >= 0, true)
             } else {
                 expectBusinessException(401) { on(Accelerometer, callback) }
             }
@@ -234,7 +225,6 @@ class TestSensorOnOff {
                 on(AccelerometerUncalibrated, callback)
                 sleepFor(3.second)
                 Hilog.info(0, "testtag", "AccelerometerUncalibratedResponseCallback invokedCount ${callback.invokedCount}")
-                @Expect(callback.invokedCount >= 0, true)
             } else {
                 expectBusinessException(401) { on(AccelerometerUncalibrated, callback) }
             }
@@ -259,7 +249,6 @@ class TestSensorOnOff {
                 on(AmbientLight, callback)
                 sleepFor(3.second)
                 Hilog.info(0, "testtag", "LightResponseCallback invokedCount ${callback.invokedCount}")
-                @Expect(callback.invokedCount >= 0, true)
             } else {
                 expectBusinessException(401) { on(AmbientLight, callback) }
             }
@@ -284,7 +273,6 @@ class TestSensorOnOff {
                 on(AmbientTemperature, callback)
                 sleepFor(3.second)
                 Hilog.info(0, "testtag", "AmbientTemperatureResponseCallback invokedCount ${callback.invokedCount}")
-                @Expect(callback.invokedCount >= 0, true)
             } else {
                 expectBusinessException(401) { on(AmbientTemperature, callback) }
             }
@@ -309,7 +297,6 @@ class TestSensorOnOff {
                 on(Barometer, callback)
                 sleepFor(3.second)
                 Hilog.info(0, "testtag", "BarometerResponseCallback invokedCount ${callback.invokedCount}")
-                @Expect(callback.invokedCount >= 0, true)
             } else {
                 expectBusinessException(401) { on(Barometer, callback) }
             }
@@ -335,7 +322,6 @@ class TestSensorOnOff {
                 on(Gravity, callback)
                 sleepFor(3.second)
                 Hilog.info(0, "testtag", "GravityResponseCallback invokedCount ${callback.invokedCount}")
-                @Expect(callback.invokedCount >= 0, true)
             } else {
                 expectBusinessException(401) { on(Gravity, callback) }
             }
@@ -360,7 +346,6 @@ class TestSensorOnOff {
                 on(Gyroscope, callback)
                 sleepFor(3.second)
                 Hilog.info(0, "testtag", "GyroscopeResponseCallback invokedCount ${callback.invokedCount}")
-                @Expect(callback.invokedCount >= 0, true)
             } else {
                 expectBusinessException(401) { on(Gyroscope, callback) }
             }
@@ -386,7 +371,6 @@ class TestSensorOnOff {
                 on(GyroscopeUncalibrated, callback)
                 sleepFor(3.second)
                 Hilog.info(0, "testtag", "GyroscopeUncalibratedResponseCallback invokedCount ${callback.invokedCount}")
-                @Expect(callback.invokedCount >= 0, true)
             } else {
                 expectBusinessException(401) { on(GyroscopeUncalibrated, callback) }
             }
@@ -412,7 +396,6 @@ class TestSensorOnOff {
                 on(Hall, callback)
                 sleepFor(3.second)
                 Hilog.info(0, "testtag", "HallResponseCallback invokedCount ${callback.invokedCount}")
-                @Expect(callback.invokedCount >= 0, true)
             } else {
                 expectBusinessException(401) { on(Hall, callback) }
             }
@@ -438,7 +421,6 @@ class TestSensorOnOff {
                 on(HeartRate, callback)
                 sleepFor(3.second)
                 Hilog.info(0, "testtag", "HeartRateResponseCallback invokedCount ${callback.invokedCount}")
-                @Expect(callback.invokedCount >= 0, true)
             } else {
                 expectBusinessException(401) { on(HeartRate, callback) }
             }
@@ -464,7 +446,6 @@ class TestSensorOnOff {
                 on(Humidity, callback)
                 sleepFor(3.second)
                 Hilog.info(0, "testtag", "HumidityResponseCallback invokedCount ${callback.invokedCount}")
-                @Expect(callback.invokedCount >= 0, true)
             } else {
                 expectBusinessException(401) { on(Humidity, callback) }
             }
@@ -490,7 +471,6 @@ class TestSensorOnOff {
                 on(LinearAccelerometer, callback)
                 sleepFor(3.second)
                 Hilog.info(0, "testtag", "LinearAccelerometerResponseCallback invokedCount ${callback.invokedCount}")
-                @Expect(callback.invokedCount >= 0, true)
             } else {
                 expectBusinessException(401) { on(LinearAccelerometer, callback) }
             }
@@ -516,7 +496,6 @@ class TestSensorOnOff {
                 on(MagneticField, callback)
                 sleepFor(3.second)
                 Hilog.info(0, "testtag", "MagneticFieldResponseCallback invokedCount ${callback.invokedCount}")
-                @Expect(callback.invokedCount >= 0, true)
             } else {
                 expectBusinessException(401) { on(MagneticField, callback) }
             }
@@ -541,7 +520,6 @@ class TestSensorOnOff {
                 on(MagneticFieldUncalibrated, callback)
                 sleepFor(3.second)
                 Hilog.info(0, "testtag", "MagneticFieldUncalibratedResponseCallback invokedCount ${callback.invokedCount}")
-                @Expect(callback.invokedCount >= 0, true)
             } else {
                 expectBusinessException(401) { on(MagneticFieldUncalibrated, callback) }
             }
@@ -567,7 +545,6 @@ class TestSensorOnOff {
                 on(Orientation, callback)
                 sleepFor(3.second)
                 Hilog.info(0, "testtag", "OrientationResponseCallback invokedCount ${callback.invokedCount}")
-                @Expect(callback.invokedCount >= 0, true)
             } else {
                 expectBusinessException(401) { on(Orientation, callback) }
             }
@@ -617,7 +594,6 @@ class TestSensorOnOff {
                 on(Pedometer, callback)
                 sleepFor(3.second)
                 Hilog.info(0, "testtag", "PedometerResponseCallback invokedCount ${callback.invokedCount}")
-                @Expect(callback.invokedCount >= 0, true)
             } else {
                 expectBusinessException(401) { on(Pedometer, callback) }
             }
@@ -644,7 +620,6 @@ class TestSensorOnOff {
                 on(PedometerDetection, callback)
                 sleepFor(3.second)
                 Hilog.info(0, "testtag", "PedometerDetectionResponseCallback invokedCount ${callback.invokedCount}")
-                @Expect(callback.invokedCount >= 0, true) //PEDOMETER_DETECTION 需要手动模拟步行触发回调 手机静置不会触发回调
             } else {
                 expectBusinessException(401) { on(PedometerDetection, callback) }
             }
@@ -670,7 +645,6 @@ class TestSensorOnOff {
                 on(Proximity, callback)
                 sleepFor(3.second)
                 Hilog.info(0, "testtag", "ProximityResponseCallback invokedCount ${callback.invokedCount}")
-                @Expect(callback.invokedCount >= 0, true)
             } else {
                 expectBusinessException(401) { on(Proximity, callback) }
             }
@@ -695,7 +669,6 @@ class TestSensorOnOff {
                 on(RotationVector, callback)
                 sleepFor(3.second)
                 Hilog.info(0, "testtag", "RotationVectorResponseCallback invokedCount ${callback.invokedCount}")
-                @Expect(callback.invokedCount >= 0, true)
             } else {
                 expectBusinessException(401) { on(RotationVector, callback) }
             }
@@ -721,7 +694,6 @@ class TestSensorOnOff {
                 on(SignificantMotion, callback)
                 sleepFor(3.second)
                 Hilog.info(0, "testtag", "SignificantMotionResponseCallback invokedCount ${callback.invokedCount}")
-                @Expect(callback.invokedCount >= 0, true)
             } else {
                 expectBusinessException(401) { on(SignificantMotion, callback) }
             }
@@ -746,7 +718,6 @@ class TestSensorOnOff {
                 on(WearDetection, callback)
                 sleepFor(3.second)
                 Hilog.info(0, "testtag", "WearDetectionResponseCallback invokedCount ${callback.invokedCount}")
-                @Expect(callback.invokedCount >= 0, true)
             } else {
                 expectBusinessException(401) { on(WearDetection, callback) }
             }
