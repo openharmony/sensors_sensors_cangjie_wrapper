@@ -38,6 +38,7 @@ class OrientationSensorCallback <: Callback1Argument<OrientationResponse> {
     init() {}
     public func invoke(err: ?BusinessException, arg: OrientationResponse): Unit {
         invokedCount++
+        Hilog.info(0, "testtag", "OrientationSensorCallback execute")
     }
 }
 
