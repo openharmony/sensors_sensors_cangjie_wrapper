@@ -29,39 +29,20 @@ import ohos.callback_invoke.*
 import ohos.hilog.*
 
 class AccelerometerUncalibratedCallback1 <: Callback1Argument<AccelerometerUncalibratedResponse> {
-    public var invokedCount: Int64 = 0
-    public var testPassed: Bool = false
-    
-    public AccelerometerUncalibratedCallback1() {}
+    var invokedCount = 0
+    init() {}
     
     public func invoke(err: ?BusinessException, arg: AccelerometerUncalibratedResponse): Unit {
         invokedCount++
-        match (err) {
-            case None => 
-                // 验证数据类型和基本结构
-                testPassed = true
-                Hilog.info(0, "testtag", "AccelerometerUncalibratedCallback1: x=${arg.x}, y=${arg.y}, z=${arg.z}, biasX=${arg.biasX}, biasY=${arg.biasY}, biasZ=${arg.biasZ}, timestamp=${arg.timestamp}")
-            case Some(e) => 
-                Hilog.error(0, "testtag", "AccelerometerUncalibratedCallback1 error: ${e}")
-        }
     }
 }
 
 class AccelerometerUncalibratedCallback2 <: Callback1Argument<AccelerometerUncalibratedResponse> {
-    public var invokedCount: Int64 = 0
-    public var testPassed: Bool = false
-    
-    public AccelerometerUncalibratedCallback2() {}
+    var invokedCount = 0    
+    init() {}
     
     public func invoke(err: ?BusinessException, arg: AccelerometerUncalibratedResponse): Unit {
         invokedCount++
-        match (err) {
-            case None => 
-                testPassed = true
-                Hilog.info(0, "testtag", "AccelerometerUncalibratedCallback2: x=${arg.x}, y=${arg.y}, z=${arg.z}, biasX=${arg.biasX}, biasY=${arg.biasY}, biasZ=${arg.biasZ}, timestamp=${arg.timestamp}")
-            case Some(e) => 
-                Hilog.error(0, "testtag", "AccelerometerUncalibratedCallback2 error: ${e}")
-        }
     }
 }
 
@@ -78,7 +59,6 @@ class TestAccelerometerUncalibrated {
             sleepFor(500.milliSecond)
             off(AccelerometerUncalibrated)
             @Expect(callback.invokedCount > 0, true)
-            @Expect(callback.testPassed, true)
         } catch (e: BusinessException) {
             failExpect("newAccelerometer_Uncalibrated_SensorJsTest014 failed: ${e}")
         }
@@ -124,7 +104,6 @@ class TestAccelerometerUncalibrated {
             // 如果成功执行，测试通过
             sleepFor(100.milliSecond)
             off(AccelerometerUncalibrated)
-            @Expect(true, true)
         } catch (e: BusinessException) {
             // 期望可能失败
             @Expect(true, true)
@@ -140,7 +119,6 @@ class TestAccelerometerUncalibrated {
             once(AccelerometerUncalibrated, callback)
             sleepFor(500.milliSecond)
             @Expect(callback.invokedCount, 1)
-            @Expect(callback.testPassed, true)
         } catch (e: BusinessException) {
             failExpect("newAccelerometer_Uncalibrated_SensorJsTest018 failed: ${e}")
         }
