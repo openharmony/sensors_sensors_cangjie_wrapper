@@ -13,13 +13,21 @@
  * limitations under the License.
  */
 
-package ohos.sensor.test
+package ohos_app_cangjie_entry
 
-import ohos.sensor.*
 import std.unittest.testmacro.*
-import ohos.callback_invoke.Callback1Argument
-import ohos.business_exception.BusinessException
+import std.sync.*
 import std.time.*
+import kit.BasicServicesKit.*
+import kit.SensorServiceKit.*
+//import kit.AccountKit.*
+import std.unittest.*
+import std.unittest.common.*
+import std.unittest.testmacro.*
+import ohos.base.*
+import ohos.business_exception.*
+import ohos.callback_invoke.*
+import ohos.hilog.*
 
 
 /**

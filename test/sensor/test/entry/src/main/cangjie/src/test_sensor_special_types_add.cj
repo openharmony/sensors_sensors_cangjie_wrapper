@@ -29,13 +29,6 @@ import ohos.business_exception.*
 import ohos.callback_invoke.*
 import ohos.hilog.*
 
-/**
- * 等待指定时长
- * @param someDuration 等待时长
- */
-public func sleepFor(someDuration: Duration): Unit {
-    sleep(someDuration)
-}
 
 // 显著运动传感器回调
 class SignificantMotionCallback <: Callback1Argument<SignificantMotionResponse> {
@@ -86,6 +79,7 @@ class TestSensorSpecialTypesAdd {
             @Expect(sensor.sensorId == SensorId.SignificantMotion.getValue())
         } catch (e: BusinessException) {
             failExpect("on failed, ${e}")
+            @Expect(true)
         }
     }
 
@@ -114,6 +108,7 @@ class TestSensorSpecialTypesAdd {
             @Expect(sensor.sensorId == SensorId.WearDetection.getValue())
         } catch (e: BusinessException) {
             failExpect("on failed, ${e}")
+            @Expect(true)
         }
     }
 

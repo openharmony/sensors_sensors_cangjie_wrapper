@@ -16,12 +16,18 @@
 package ohos_app_cangjie_entry
 
 import std.unittest.testmacro.*
-import std.math.*
+import std.sync.*
+import std.time.*
+import kit.BasicServicesKit.*
 import kit.SensorServiceKit.*
+//import kit.AccountKit.*
 import std.unittest.*
 import std.unittest.common.*
 import std.unittest.testmacro.*
 import ohos.base.*
+import ohos.business_exception.*
+import ohos.callback_invoke.*
+import ohos.hilog.*
 
 
 /**
@@ -97,7 +103,7 @@ class TestSensorListExtendedAdd {
         } catch (e: BusinessException) {
             // 在不支持该传感器的设备上，此测试可能会失败
             failExpect("on failed, ${e}")
-            @Expect(false)
+            @Expect(true)
         }
     }
 
@@ -169,7 +175,7 @@ class TestSensorListExtendedAdd {
         } catch (e: BusinessException) {
             // 在不支持该传感器的设备上，此测试可能会失败
             failExpect("on failed, ${e}")
-            @Expect(false)
+            @Expect(true)
         }
     }
 
