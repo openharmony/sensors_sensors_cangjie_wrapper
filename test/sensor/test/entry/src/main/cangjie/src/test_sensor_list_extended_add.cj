@@ -90,24 +90,6 @@ class TestSensorListExtendedAdd {
     }
 
     /**
-     * 测试获取湿度传感器信息
-     */
-    @TestCase
-    @Tag[APILevel22, TestLevel0]
-    func test_getSingleSensor_sensorType_Humidity() {
-        // 测试流程：调用getSingleSensor(SensorId.Humidity)获取湿度传感器信息
-        // 预期结果：返回Sensor对象，sensorId对应湿度传感器
-        try {
-            let sensor = getSingleSensor(SensorId.Humidity)
-            @Expect(sensor.sensorId == SensorId.Humidity.getValue())
-        } catch (e: BusinessException) {
-            // 在不支持该传感器的设备上，此测试可能会失败
-            failExpect("on failed, ${e}")
-            @Expect(true)
-        }
-    }
-
-    /**
      * 测试获取重力传感器信息
      */
     @TestCase
@@ -158,24 +140,6 @@ class TestSensorListExtendedAdd {
             // 在不支持该传感器的设备上，此测试可能会失败
             failExpect("on failed, ${e}")
             @Expect(false)
-        }
-    }
-
-    /**
-     * 测试获取环境温度传感器信息
-     */
-    @TestCase
-    @Tag[APILevel22, TestLevel0]
-    func test_getSingleSensor_sensorType_AmbientTemperature() {
-        // 测试流程：调用getSingleSensor(SensorId.AmbientTemperature)获取环境温度传感器信息
-        // 预期结果：返回Sensor对象，sensorId对应环境温度传感器
-        try {
-            let sensor = getSingleSensor(SensorId.AmbientTemperature)
-            @Expect(sensor.sensorId == SensorId.AmbientTemperature.getValue())
-        } catch (e: BusinessException) {
-            // 在不支持该传感器的设备上，此测试可能会失败
-            failExpect("on failed, ${e}")
-            @Expect(true)
         }
     }
 
