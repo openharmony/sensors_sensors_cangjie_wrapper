@@ -43,7 +43,7 @@ class TestSensorListExtendedAdd {
         } catch (e: BusinessException) {
             // 在不支持该传感器的设备上，此测试可能会失败
             failExpect("on failed, ${e}")
-            @Expect(true)
+            @Expect(false)
         }
     }
 
@@ -61,7 +61,7 @@ class TestSensorListExtendedAdd {
         } catch (e: BusinessException) {
             // 在不支持该传感器的设备上，此测试可能会失败
             failExpect("on failed, ${e}")
-            @Expect(true)
+            @Expect(false)
         }
     }
 
@@ -79,7 +79,7 @@ class TestSensorListExtendedAdd {
         } catch (e: BusinessException) {
             // 在不支持该传感器的设备上，此测试可能会失败
             failExpect("on failed, ${e}")
-            @Expect(true)
+            @Expect(false)
         }
     }
 
@@ -97,7 +97,7 @@ class TestSensorListExtendedAdd {
         } catch (e: BusinessException) {
             // 在不支持该传感器的设备上，此测试可能会失败
             failExpect("on failed, ${e}")
-            @Expect(true)
+            @Expect(false)
         }
     }
 
@@ -115,7 +115,7 @@ class TestSensorListExtendedAdd {
         } catch (e: BusinessException) {
             // 在不支持该传感器的设备上，此测试可能会失败
             failExpect("on failed, ${e}")
-            @Expect(true)
+            @Expect(false)
         }
     }
 
@@ -133,7 +133,7 @@ class TestSensorListExtendedAdd {
         } catch (e: BusinessException) {
             // 在不支持该传感器的设备上，此测试可能会失败
             failExpect("on failed, ${e}")
-            @Expect(true)
+            @Expect(false)
         }
     }
 
@@ -151,7 +151,7 @@ class TestSensorListExtendedAdd {
         } catch (e: BusinessException) {
             // 在不支持该传感器的设备上，此测试可能会失败
             failExpect("on failed, ${e}")
-            @Expect(true)
+            @Expect(false)
         }
     }
 
@@ -169,7 +169,7 @@ class TestSensorListExtendedAdd {
         } catch (e: BusinessException) {
             // 在不支持该传感器的设备上，此测试可能会失败
             failExpect("on failed, ${e}")
-            @Expect(true)
+            @Expect(false)
         }
     }
 
@@ -187,7 +187,7 @@ class TestSensorListExtendedAdd {
         } catch (e: BusinessException) {
             // 在不支持该传感器的设备上，此测试可能会失败
             failExpect("on failed, ${e}")
-            @Expect(true)
+            @Expect(false)
         }
     }
 
@@ -205,7 +205,7 @@ class TestSensorListExtendedAdd {
         } catch (e: BusinessException) {
             // 在不支持该传感器的设备上，此测试可能会失败
             failExpect("on failed, ${e}")
-            @Expect(true)
+            @Expect(false)
         }
     }
 }
