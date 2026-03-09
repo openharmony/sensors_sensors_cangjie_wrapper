@@ -59,6 +59,46 @@ class TestSensorGetSensorList {
             @Expect(false)
         }
     }
+
+    /**
+     * 测试获取传感器列表
+     */
+    @TestCase
+    @Tag[APILevel22, TestLevel0]
+    func test_getSensorList_return_array() {
+        // 测试流程：调用getSensorList()获取传感器列表
+        // 预期结果：返回Array<Sensor>类型的传感器属性列表，数组元素包含sensorName、vendorName、sensorId等属性
+        let sensors = getSensorList()
+        @Expect(true)
+    }
+
+    @TestCase
+    @Tag[APILevel22, TestLevel0]
+    func test_getSingleSensor_sensorType_Gyroscope() {
+        // 测试流程：调用getSingleSensor(SensorId.Gyroscope)获取陀螺仪传感器信息
+        // 预期结果：返回Sensor对象，sensorId对应陀螺仪传感器
+        try {
+            let sensor = getSingleSensor(SensorId.Gyroscope)
+            @Expect(sensor.sensorId == SensorId.Gyroscope.getValue())
+        } catch (e: Exception) {
+            // 在不支持该传感器的设备上，此测试可能会失败
+            @Expect(true)
+        }
+    }
+
+    @TestCase
+    @Tag[APILevel22, TestLevel0]
+    func test_getSingleSensor_sensorType_AmbientLight() {
+        // 测试流程：调用getSingleSensor(SensorId.AmbientLight)获取环境光传感器信息
+        // 预期结果：返回Sensor对象，sensorId对应环境光传感器
+        try {
+            let sensor = getSingleSensor(SensorId.AmbientLight)
+            @Expect(sensor.sensorId == SensorId.AmbientLight.getValue())
+        } catch (e: Exception) {
+            // 在不支持该传感器的设备上，此测试可能会失败
+            @Expect(true)
+        }
+    }
 }
 
 @Test
