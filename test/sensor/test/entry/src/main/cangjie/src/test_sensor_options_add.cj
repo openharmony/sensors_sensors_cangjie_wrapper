@@ -42,8 +42,12 @@ class TestSensorOptionsAdd {
     func test_Options_init_default() {
         // 测试流程：使用默认参数调用Options构造函数
         // 预期结果：成功创建Options实例
-        let options = Options()
-        @Expect(true)
+        try {
+            let options = Options()
+            @Expect(true)
+        } catch(e: BusinessException) {
+            failExpect("on failed, ${e}")
+        } 
     }
 
     /**
@@ -54,8 +58,12 @@ class TestSensorOptionsAdd {
     func test_Options_init_GameMode() {
         // 测试流程：使用GameMode调用Options构造函数
         // 预期结果：成功创建Options实例
-        let options = Options(interval: IntervalOption.GameMode)
-        @Expect(true)
+        try {
+            let options = Options(interval: IntervalOption.GameMode)
+            @Expect(true)
+        } catch(e: BusinessException) {
+            failExpect("on failed, ${e}")
+        }
     }
 
     /**
@@ -66,8 +74,12 @@ class TestSensorOptionsAdd {
     func test_Options_init_UIMode() {
         // 测试流程：使用UIMode调用Options构造函数
         // 预期结果：成功创建Options实例
-        let options = Options(interval: IntervalOption.UIMode)
-        @Expect(true)
+        try {
+            let options = Options(interval: IntervalOption.UIMode)
+            @Expect(true)
+        } catch(e: BusinessException) {
+            failExpect("on failed, ${e}")
+        }
     }
 
     /**
@@ -78,8 +90,12 @@ class TestSensorOptionsAdd {
     func test_Options_init_NormalMode() {
         // 测试流程：使用NormalMode调用Options构造函数
         // 预期结果：成功创建Options实例
-        let options = Options(interval: IntervalOption.NormalMode)
-        @Expect(true)
+        try {
+            let options = Options(interval: IntervalOption.NormalMode)
+            @Expect(true)
+        } catch(e: BusinessException) {
+            failExpect("on failed, ${e}")
+        }
     }
 
     /**
@@ -90,8 +106,12 @@ class TestSensorOptionsAdd {
     func test_Options_init_SensorNumber() {
         // 测试流程：使用自定义频率调用Options构造函数
         // 预期结果：成功创建Options实例
-        let options = Options(interval: IntervalOption.SensorNumber(100000000))
-        @Expect(true)
+        try {
+            let options = Options(interval: IntervalOption.SensorNumber(100000000))
+            @Expect(true)
+        } catch(e: BusinessException) {
+            failExpect("on failed, ${e}")
+        }
     }
 
     /**
@@ -102,9 +122,13 @@ class TestSensorOptionsAdd {
     func test_Options_init_with_SensorInfoParam() {
         // 测试流程：使用SensorInfoParam调用Options构造函数
         // 预期结果：成功创建Options实例
-        let sensorInfoParam = SensorInfoParam(deviceId: -1, sensorIndex: 0)
-        let options = Options(interval: IntervalOption.NormalMode, sensorInfoParam: sensorInfoParam)
-        @Expect(true)
+        try {
+            let sensorInfoParam = SensorInfoParam(deviceId: -1, sensorIndex: 0)
+            let options = Options(interval: IntervalOption.NormalMode, sensorInfoParam: sensorInfoParam)
+            @Expect(true)
+        } catch(e: BusinessException) {
+            failExpect("on failed, ${e}")
+        }
     }
 
     /**
@@ -115,8 +139,12 @@ class TestSensorOptionsAdd {
     func test_SensorInfoParam_init_default() {
         // 测试流程：使用默认参数调用SensorInfoParam构造函数
         // 预期结果：成功创建SensorInfoParam实例
-        let sensorInfoParam = SensorInfoParam()
-        @Expect(true)
+        try {
+            let sensorInfoParam = SensorInfoParam()
+            @Expect(true)
+        } catch(e: BusinessException) {
+            failExpect("on failed, ${e}")
+        }
     }
 
     /**
@@ -127,8 +155,12 @@ class TestSensorOptionsAdd {
     func test_SensorInfoParam_init_local_default() {
         // 测试流程：使用deviceId=-1, sensorIndex=0调用SensorInfoParam构造函数
         // 预期结果：成功创建SensorInfoParam实例
-        let sensorInfoParam = SensorInfoParam(deviceId: -1, sensorIndex: 0)
-        @Expect(true)
+        try {
+            let sensorInfoParam = SensorInfoParam(deviceId: -1, sensorIndex: 0)
+            @Expect(true)
+        } catch(e: BusinessException) {
+            failExpect("on failed, ${e}")
+        }
     }
 
     /**
@@ -139,7 +171,11 @@ class TestSensorOptionsAdd {
     func test_SensorInfoParam_init_specific_device() {
         // 测试流程：使用deviceId=0调用SensorInfoParam构造函数
         // 预期结果：成功创建SensorInfoParam实例
-        let sensorInfoParam = SensorInfoParam(deviceId: 0, sensorIndex: 0)
-        @Expect(true)
+        try {
+            let sensorInfoParam = SensorInfoParam(deviceId: 0, sensorIndex: 0)
+            @Expect(true)
+        } catch(e: BusinessException) {
+            failExpect("on failed, ${e}")
+        }
     }
 }
