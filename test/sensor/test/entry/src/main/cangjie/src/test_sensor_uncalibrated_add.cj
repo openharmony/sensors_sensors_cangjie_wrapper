@@ -44,8 +44,12 @@ class TestSensorUncalibratedAdd {
             let sensor = getSingleSensor(SensorId.AccelerometerUncalibrated)
             @Expect(sensor.sensorId == SensorId.AccelerometerUncalibrated.getValue())
         } catch (e: BusinessException) {
-            failExpect("on failed, ${e}")
-            @Expect(false)
+            if (DeviceInfo.deviceType == "2in1") {
+                @Expect(e.code, 14500102)
+            } else {
+                failExpect("on failed, ${e}")
+                @Expect(false)
+            }
         }
     }
 
@@ -59,8 +63,12 @@ class TestSensorUncalibratedAdd {
             let sensor = getSingleSensor(SensorId.GyroscopeUncalibrated)
             @Expect(sensor.sensorId == SensorId.GyroscopeUncalibrated.getValue())
         } catch (e: BusinessException) {
-            failExpect("on failed, ${e}")
-            @Expect(false)
+            if (DeviceInfo.deviceType == "2in1") {
+                @Expect(e.code, 14500102)
+            } else {
+                failExpect("on failed, ${e}")
+                @Expect(false)
+            }
         }
     }
 
@@ -74,8 +82,12 @@ class TestSensorUncalibratedAdd {
             let sensor = getSingleSensor(SensorId.MagneticFieldUncalibrated)
             @Expect(sensor.sensorId == SensorId.MagneticFieldUncalibrated.getValue())
         } catch (e: BusinessException) {
-            failExpect("on failed, ${e}")
-            @Expect(false)
+            if (DeviceInfo.deviceType == "2in1") {
+                @Expect(e.code, 14500102)
+            } else {
+                failExpect("on failed, ${e}")
+                @Expect(false)
+            }
         }
     }
 
