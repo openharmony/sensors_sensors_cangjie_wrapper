@@ -559,11 +559,20 @@ class TestSensorOnOff {
     @Tag[APILevel22, TestLevel0]
     func On_NoPermissionSensorId_ThrowException() {
         // user granted permission: ACTIVITY_MOTION
-        expectBusinessException(201) {
-            on(Pedometer, PedometerResponseCallback())
-        }
-        expectBusinessException(201) {
-            on(PedometerDetection, PedometerDetectionResponseCallback())
+        if (DeviceInfo.deviceType == "2in1") {
+            expectBusinessException(401) {
+                on(Pedometer, PedometerResponseCallback())
+            }
+            expectBusinessException(401) {
+                on(PedometerDetection, PedometerDetectionResponseCallback())
+            } 
+        } else {
+            expectBusinessException(201) {
+                on(Pedometer, PedometerResponseCallback())
+            }
+            expectBusinessException(201) {
+                on(PedometerDetection, PedometerDetectionResponseCallback())
+            }
         }
     }
 
