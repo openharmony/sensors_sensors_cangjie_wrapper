@@ -48,8 +48,12 @@ class TestSensorListExtendedAdd {
             @Expect(sensor.sensorId == SensorId.MagneticField.getValue())
         } catch (e: BusinessException) {
             // 在不支持该传感器的设备上，此测试可能会失败
-            failExpect("on failed, ${e}")
-            @Expect(false)
+            if (DeviceInfo.deviceType == "car") {
+                @Expect(e.code, 14500102)
+            } else {
+                failExpect("on failed, ${e}")
+                @Expect(false)
+            }
         }
     }
 
@@ -66,7 +70,7 @@ class TestSensorListExtendedAdd {
             @Expect(sensor.sensorId == SensorId.Barometer.getValue())
         } catch (e: BusinessException) {
             // 在不支持该传感器的设备上，此测试可能会失败
-            if (DeviceInfo.deviceType == "2in1") {
+            if (DeviceInfo.deviceType == "2in1" || DeviceInfo.deviceType == "car") {
                 @Expect(e.code, 14500102)
             } else {
                 failExpect("on failed, ${e}")
@@ -88,7 +92,7 @@ class TestSensorListExtendedAdd {
             @Expect(sensor.sensorId == SensorId.Hall.getValue())
         } catch (e: BusinessException) {
             // 在不支持该传感器的设备上，此测试可能会失败
-            if (DeviceInfo.deviceType == "2in1") {
+            if (DeviceInfo.deviceType == "2in1"|| DeviceInfo.deviceType == "car") {
                 @Expect(e.code, 14500102)
             } else {
                 failExpect("on failed, ${e}")
@@ -110,8 +114,12 @@ class TestSensorListExtendedAdd {
             @Expect(sensor.sensorId == SensorId.Gravity.getValue())
         } catch (e: BusinessException) {
             // 在不支持该传感器的设备上，此测试可能会失败
-            failExpect("on failed, ${e}")
-            @Expect(false)
+            if (DeviceInfo.deviceType == "car") {
+                @Expect(e.code, 14500102)
+            } else {
+                failExpect("on failed, ${e}")
+                @Expect(false)
+            }
         }
     }
 
@@ -128,8 +136,12 @@ class TestSensorListExtendedAdd {
             @Expect(sensor.sensorId == SensorId.LinearAccelerometer.getValue())
         } catch (e: BusinessException) {
             // 在不支持该传感器的设备上，此测试可能会失败
-            failExpect("on failed, ${e}")
-            @Expect(false)
+            if (DeviceInfo.deviceType == "car") {
+                @Expect(e.code, 14500102)
+            } else {
+                failExpect("on failed, ${e}")
+                @Expect(false)
+            }
         }
     }
 
@@ -146,8 +158,12 @@ class TestSensorListExtendedAdd {
             @Expect(sensor.sensorId == SensorId.RotationVector.getValue())
         } catch (e: BusinessException) {
             // 在不支持该传感器的设备上，此测试可能会失败
-            failExpect("on failed, ${e}")
-            @Expect(false)
+            if (DeviceInfo.deviceType == "car") {
+                @Expect(e.code, 14500102)
+            } else {
+                failExpect("on failed, ${e}")
+                @Expect(false)
+            }
         }
     }
 
@@ -164,7 +180,7 @@ class TestSensorListExtendedAdd {
             @Expect(sensor.sensorId == SensorId.Proximity.getValue())
         } catch (e: BusinessException) {
             // 在不支持该传感器的设备上，此测试可能会失败
-            if (DeviceInfo.deviceType == "2in1") {
+            if (DeviceInfo.deviceType == "2in1" || DeviceInfo.deviceType == "car") {
                 @Expect(e.code, 14500102)
             } else {
                 failExpect("on failed, ${e}")
@@ -186,8 +202,12 @@ class TestSensorListExtendedAdd {
             @Expect(sensor.sensorId == SensorId.Orientation.getValue())
         } catch (e: BusinessException) {
             // 在不支持该传感器的设备上，此测试可能会失败
-            failExpect("on failed, ${e}")
-            @Expect(false)
+            if (DeviceInfo.deviceType == "car") {
+                @Expect(e.code, 14500102)
+            } else {
+                failExpect("on failed, ${e}")
+                @Expect(false)
+            }
         }
     }
 }
