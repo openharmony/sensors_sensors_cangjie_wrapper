@@ -609,7 +609,8 @@ class TestSensorOnOff {
     @Tag[APILevel22, TestLevel0]
     func On_NoPermissionSensorId_ThrowException() {
         // user granted permission: ACTIVITY_MOTION
-        if (DeviceInfo.deviceType == "2in1" || DeviceInfo.deviceType == "car") {
+        if (DeviceInfo.deviceType == "2in1" || DeviceInfo.deviceType == "car"
+            || DeviceInfo.deviceType == "tv") {
             expectBusinessException(401) {
                 on(Pedometer, PedometerResponseCallback())
             }

@@ -70,7 +70,8 @@ class TestSensorListExtendedAdd {
             @Expect(sensor.sensorId == SensorId.Barometer.getValue())
         } catch (e: BusinessException) {
             // 在不支持该传感器的设备上，此测试可能会失败
-            if (DeviceInfo.deviceType == "2in1" || DeviceInfo.deviceType == "car") {
+            if (DeviceInfo.deviceType == "2in1" || DeviceInfo.deviceType == "car"
+                || DeviceInfo.deviceType == "tv") {
                 @Expect(e.code, 14500102)
             } else {
                 failExpect("on failed, ${e}")
@@ -92,7 +93,8 @@ class TestSensorListExtendedAdd {
             @Expect(sensor.sensorId == SensorId.Hall.getValue())
         } catch (e: BusinessException) {
             // 在不支持该传感器的设备上，此测试可能会失败
-            if (DeviceInfo.deviceType == "2in1"|| DeviceInfo.deviceType == "car") {
+            if (DeviceInfo.deviceType == "2in1" || DeviceInfo.deviceType == "car"
+                || DeviceInfo.deviceType == "tv") {
                 @Expect(e.code, 14500102)
             } else {
                 failExpect("on failed, ${e}")
@@ -180,7 +182,8 @@ class TestSensorListExtendedAdd {
             @Expect(sensor.sensorId == SensorId.Proximity.getValue())
         } catch (e: BusinessException) {
             // 在不支持该传感器的设备上，此测试可能会失败
-            if (DeviceInfo.deviceType == "2in1" || DeviceInfo.deviceType == "car") {
+            if (DeviceInfo.deviceType == "2in1" || DeviceInfo.deviceType == "car"
+                || DeviceInfo.deviceType == "tv") {
                 @Expect(e.code, 14500102)
             } else {
                 failExpect("on failed, ${e}")
