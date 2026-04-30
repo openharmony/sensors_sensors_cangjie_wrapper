@@ -25,6 +25,8 @@ import std.unittest.*
 import std.unittest.common.*
 import std.unittest.testmacro.*
 import ohos.base.*
+import ohos.device_info.*
+import ohos.business_exception.*
 
 extend Sensor {
     public operator func ==(other: Sensor): Bool {
@@ -68,9 +70,13 @@ class TestSensorGetSensorList {
         try {
             let sensor = getSingleSensor(SensorId.Gyroscope)
             @Expect(sensor.sensorId == SensorId.Gyroscope.getValue())
-        } catch (e: Exception) {
+        } catch (e: BusinessException) {
             // 在不支持该传感器的设备上，此测试可能会失败
-            @Expect(false)
+            if (DeviceInfo.deviceType == "car") {
+                @Expect(e.code, 14500102)
+            } else {
+                @Expect(false)
+            }
         }
     }
 
@@ -82,9 +88,13 @@ class TestSensorGetSensorList {
         try {
             let sensor = getSingleSensor(SensorId.AmbientLight)
             @Expect(sensor.sensorId == SensorId.AmbientLight.getValue())
-        } catch (e: Exception) {
+        } catch (e: BusinessException) {
             // 在不支持该传感器的设备上，此测试可能会失败
-            @Expect(false)
+            if (DeviceInfo.deviceType == "car") {
+                @Expect(e.code, 14500102)
+            } else {
+                @Expect(false)
+            }
         }
     }
 }

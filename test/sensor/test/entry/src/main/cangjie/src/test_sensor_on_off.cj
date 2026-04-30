@@ -52,7 +52,12 @@ class TestSensorOnOff {
             once(SensorId.Orientation, callback)
             sleepFor(300.milliSecond)
         } catch (e: BusinessException) {
-            failExpect("once failed, ${e}")
+            if (DeviceInfo.deviceType == "car") {
+                @Expect(e.code, 401)
+            } else {
+                failExpect("on failed, ${e}")
+                @Expect(false)
+            }
         }
     }
 
@@ -65,7 +70,12 @@ class TestSensorOnOff {
             sleepFor(450.milliSecond)
             off(SensorId.Orientation, callback: callback)
         } catch (e: BusinessException) {
-            failExpect("on failed, ${e}")
+            if (DeviceInfo.deviceType == "car") {
+                @Expect(e.code, 401)
+            } else {
+                failExpect("on failed, ${e}")
+                @Expect(false)
+            }
         }
     }
 
@@ -78,7 +88,12 @@ class TestSensorOnOff {
             sleepFor(1.second)
             off(SensorId.Orientation)
         } catch (e: BusinessException) {
-            failExpect("on failed, ${e}")
+            if (DeviceInfo.deviceType == "car") {
+                @Expect(e.code, 401)
+            } else {
+                failExpect("on failed, ${e}")
+                @Expect(false)
+            }
         }
     }
 
@@ -91,7 +106,12 @@ class TestSensorOnOff {
             sleepFor(1.second)
             off(SensorId.Orientation)
         } catch (e: BusinessException) {
-            failExpect("on failed, ${e}")
+            if (DeviceInfo.deviceType == "car") {
+                @Expect(e.code, 401)
+            } else {
+                failExpect("on failed, ${e}")
+                @Expect(false)
+            }
         }
     }
 
@@ -105,7 +125,12 @@ class TestSensorOnOff {
             sleepFor(1.second)
             off(SensorId.Orientation)
         } catch (e: BusinessException) {
-            failExpect("on failed, ${e}")
+            if (DeviceInfo.deviceType == "car") {
+                @Expect(e.code, 401)
+            } else {
+                failExpect("on failed, ${e}")
+                @Expect(false)
+            }
         }
     }
 
@@ -118,7 +143,12 @@ class TestSensorOnOff {
             sleepFor(1.second)
             off(SensorId.Orientation)
         } catch (e: BusinessException) {
-            failExpect("on failed, ${e}")
+            if (DeviceInfo.deviceType == "car") {
+                @Expect(e.code, 401)
+            } else {
+                failExpect("on failed, ${e}")
+                @Expect(false)
+            }
         }
     }
 
@@ -131,7 +161,12 @@ class TestSensorOnOff {
             sleepFor(1.second)
             off(SensorId.Orientation)
         } catch (e: BusinessException) {
-            failExpect("on failed, ${e}")
+            if (DeviceInfo.deviceType == "car") {
+                @Expect(e.code, 401)
+            } else {
+                failExpect("on failed, ${e}")
+                @Expect(false)
+            }
         }
     }
 
@@ -144,7 +179,12 @@ class TestSensorOnOff {
             sleepFor(1.second)
             off(SensorId.Orientation)
         } catch (e: BusinessException) {
-            failExpect("once failed, ${e}")
+            if (DeviceInfo.deviceType == "car") {
+                @Expect(e.code, 401)
+            } else {
+                failExpect("on failed, ${e}")
+                @Expect(false)
+            }
         }
     }
 
@@ -162,7 +202,12 @@ class TestSensorOnOff {
             @Expect(offcallback1InvokeCnt, callback2.invokedCount)
             off(SensorId.Orientation)
         } catch (e: BusinessException) {
-            failExpect("on failed, ${e}")
+            if (DeviceInfo.deviceType == "car") {
+                @Expect(e.code, 401)
+            } else {
+                failExpect("on failed, ${e}")
+                @Expect(false)
+            }
         }
     }
 
@@ -182,7 +227,12 @@ class TestSensorOnOff {
             @Expect(offcallback1InvokeCnt, callback1.invokedCount)
             @Expect(offcallback2InvokeCnt, callback2.invokedCount)
         } catch (e: BusinessException) {
-            failExpect("on failed, ${e}")
+            if (DeviceInfo.deviceType == "car") {
+                @Expect(e.code, 401)
+            } else {
+                failExpect("on failed, ${e}")
+                @Expect(false)
+            }
         }
     }
 
@@ -559,7 +609,7 @@ class TestSensorOnOff {
     @Tag[APILevel22, TestLevel0]
     func On_NoPermissionSensorId_ThrowException() {
         // user granted permission: ACTIVITY_MOTION
-        if (DeviceInfo.deviceType == "2in1") {
+        if (DeviceInfo.deviceType == "2in1" || DeviceInfo.deviceType == "car") {
             expectBusinessException(401) {
                 on(Pedometer, PedometerResponseCallback())
             }
