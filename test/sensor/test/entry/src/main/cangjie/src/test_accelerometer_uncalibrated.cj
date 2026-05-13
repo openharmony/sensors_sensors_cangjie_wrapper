@@ -61,7 +61,7 @@ class TestAccelerometerUncalibrated {
             sleepFor(500.milliSecond)
             off(AccelerometerUncalibrated)
         } catch (e: BusinessException) {
-            if (DeviceInfo.deviceType == "2in1" || DeviceInfo.deviceType == "tv") {
+            if (DeviceInfo.deviceType == "2in1" || DeviceInfo.deviceType == "car" || DeviceInfo.deviceType == "tv") {
                 @Expect(e.code, 401)
             } else {
                 failExpect("newAccelerometer_Uncalibrated_SensorJsTest014 failed: ${e}")
@@ -93,7 +93,7 @@ class TestAccelerometerUncalibrated {
             sleepFor(500.milliSecond)
             off(AccelerometerUncalibrated)
         } catch (e: BusinessException) {
-            if (DeviceInfo.deviceType == "2in1" || DeviceInfo.deviceType == "tv") {
+            if (DeviceInfo.deviceType == "2in1" || DeviceInfo.deviceType == "car" || DeviceInfo.deviceType == "tv") {
                 @Expect(e.code, 401)
             } else {
                 failExpect("newAccelerometer_Uncalibrated_SensorJsTest016 failed: ${e}")
@@ -127,7 +127,7 @@ class TestAccelerometerUncalibrated {
             once(AccelerometerUncalibrated, callback)
             sleepFor(500.milliSecond)
         } catch (e: BusinessException) {
-            if (DeviceInfo.deviceType == "2in1" || DeviceInfo.deviceType == "tv") {
+            if (DeviceInfo.deviceType == "2in1" || DeviceInfo.deviceType == "car" || DeviceInfo.deviceType == "tv") {
                 @Expect(e.code, 401)
             } else {
                 failExpect("newAccelerometer_Uncalibrated_SensorJsTest018 failed: ${e}")
@@ -177,7 +177,7 @@ class TestAccelerometerUncalibrated {
             sleepFor(200.milliSecond)
             @Expect(callback.invokedCount, countAfterOff)
         } catch (e: BusinessException) {
-            if (DeviceInfo.deviceType == "2in1" || DeviceInfo.deviceType == "tv") {
+            if (DeviceInfo.deviceType == "2in1" || DeviceInfo.deviceType == "car" || DeviceInfo.deviceType == "tv") {
                 @Expect(e.code, 401)
             } else {
                 failExpect("newAccelerometer_Uncalibrated_SensorJsTest022 failed: ${e}")
@@ -197,7 +197,7 @@ class TestAccelerometerUncalibrated {
             sleepFor(1000.milliSecond)
             off(AccelerometerUncalibrated)
         } catch (e: BusinessException) {
-            if (DeviceInfo.deviceType == "2in1" || DeviceInfo.deviceType == "tv") {
+            if (DeviceInfo.deviceType == "2in1" || DeviceInfo.deviceType == "car" || DeviceInfo.deviceType == "tv") {
                 @Expect(e.code, 401)
             } else {
                 failExpect("newAccelerometer_Uncalibrated_SensorJsTest024 failed: ${e}")
@@ -217,7 +217,7 @@ class TestAccelerometerUncalibrated {
             sleepFor(1000.milliSecond)
             off(AccelerometerUncalibrated)
         } catch (e: BusinessException) {
-            if (DeviceInfo.deviceType == "2in1" || DeviceInfo.deviceType == "tv") {
+            if (DeviceInfo.deviceType == "2in1" || DeviceInfo.deviceType == "car" || DeviceInfo.deviceType == "tv") {
                 @Expect(e.code, 401)
             } else {
                 failExpect("newAccelerometer_Uncalibrated_SensorJsTest026 failed: ${e}")
@@ -237,7 +237,7 @@ class TestAccelerometerUncalibrated {
             sleepFor(1000.milliSecond)
             off(AccelerometerUncalibrated)
         } catch (e: BusinessException) {
-            if (DeviceInfo.deviceType == "2in1" || DeviceInfo.deviceType == "tv") {
+            if (DeviceInfo.deviceType == "2in1" || DeviceInfo.deviceType == "car" || DeviceInfo.deviceType == "tv") {
                 @Expect(e.code, 401)
             } else {
                 failExpect("newAccelerometer_Uncalibrated_SensorJsTest027 failed: ${e}")
@@ -268,7 +268,7 @@ class TestAccelerometerUncalibrated {
             // 取消第二个回调
             off(AccelerometerUncalibrated, callback: callback2)
         } catch (e: BusinessException) {
-            if (DeviceInfo.deviceType == "2in1" || DeviceInfo.deviceType == "tv") {
+            if (DeviceInfo.deviceType == "2in1" || DeviceInfo.deviceType == "car" || DeviceInfo.deviceType == "tv") {
                 @Expect(e.code, 401)
             } else {
                 failExpect("newAccelerometer_Uncalibrated_SensorJsTest029 failed: ${e}")
@@ -297,7 +297,7 @@ class TestAccelerometerUncalibrated {
             
             off(AccelerometerUncalibrated, callback: callback2)
         } catch (e: BusinessException) {
-            if (DeviceInfo.deviceType == "2in1" || DeviceInfo.deviceType == "tv") {
+            if (DeviceInfo.deviceType == "2in1" || DeviceInfo.deviceType == "car" || DeviceInfo.deviceType == "tv") {
                 @Expect(e.code, 401)
             } else {
                 failExpect("newAccelerometer_Uncalibrated_SensorJsTest030 failed: ${e}")
