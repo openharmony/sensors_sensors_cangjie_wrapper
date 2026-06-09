@@ -288,6 +288,12 @@ struct CSensorArray {
 }
 
 foreign {
+    /**
+     * Subscribe to sensor data changes.
+     *
+     * @note If this function succeeds (returns SUCCESS_CODE), the native side takes over the callback lifecycle.
+     *       If it fails (returns error code), the caller must manually release the callback using destroySelf().
+     */
     func FfiSensorSubscribeSensor(sensorId: Int32, interval: Int64, callback: Int64): Int32
     func FfiSensorUnSubscribeSensor(sensorId: Int32): Int32
     func FfiSensorGetAllSensors(sensors: CPointer<CSensorArray>): Int32
