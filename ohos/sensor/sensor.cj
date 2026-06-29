@@ -1655,10 +1655,11 @@ public func on<T>(sensorType: SensorId, callback: Callback1Argument<T>, option!:
         throw BusinessException(ERR_PARAMETER_ERROR, getErrorMsg(ERR_PARAMETER_ERROR))
     }
 
-    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
+    let lambdaData = Callback1Param.create(dataCallbackImpl)
     let interval = option?.interval.value ?? DEFAULT_REPORTING_INTERVAL
     let ret: Int32 = unsafe { FfiSensorSubscribeSensor(sensorType.getValue(), interval, lambdaData.getID()) }
     if (ret != SUCCESS_CODE) {
+        lambdaData.destroySelf()
         throw BusinessException(ret, getErrorMsg(ret))
     }
     // Due to interval, no need to check type is subscribed
@@ -1688,9 +1689,10 @@ public func once<T>(sensorType: SensorId, callback: Callback1Argument<T>): Unit 
         return
     }
 
-    let lambdaData = Callback1Param<CPointer<CSensorCallbackData>, Unit>(dataCallbackImpl)
-    let ret: Int32 = unsafe { FfiSensorSubscribeSensor(sensorType.getValue(), DEFAULT_REPORTING_INTERVAL, lambdaData.getID()) }
+    let lambdaData = Callback1Param.create(dataCallbackImpl)
+    let ret = unsafe { FfiSensorSubscribeSensor(sensorType.getValue(), DEFAULT_REPORTING_INTERVAL, lambdaData.getID()) }
     if (ret != SUCCESS_CODE) {
+        lambdaData.destroySelf()
         throw BusinessException(ret, getErrorMsg(ret))
     }
 
