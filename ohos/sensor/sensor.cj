@@ -270,33 +270,6 @@ public enum SensorId {
             case _ => throw BusinessException(14500101, "The type is not supported.")
         }
     }
-
-    static func parse(v: Int32): SensorId {
-        match (v) {
-            case 1 => Accelerometer
-            case 2 => Gyroscope
-            case 5 => AmbientLight
-            case 6 => MagneticField
-            case 8 => Barometer
-            case 10 => Hall
-            case 12 => Proximity
-            case 13 => Humidity
-            case 256 => Orientation
-            case 257 => Gravity
-            case 258 => LinearAccelerometer
-            case 259 => RotationVector
-            case 260 => AmbientTemperature
-            case 261 => MagneticFieldUncalibrated
-            case 263 => GyroscopeUncalibrated
-            case 264 => SignificantMotion
-            case 265 => PedometerDetection
-            case 266 => Pedometer
-            case 278 => HeartRate
-            case 280 => WearDetection
-            case 281 => AccelerometerUncalibrated
-            case _ => throw BusinessException(14500101, "The type is not supported.")
-        }
-    }
 }
 
 /**
@@ -346,18 +319,6 @@ public enum SensorAccuracy {
     ]
     AccuracyHigh
     | ...
-
-    prop value: Int32 {
-        get() {
-            match (this) {
-                case AccuracyUnreliable => 0
-                case AccuracyLow => 1
-                case AccuracyMedium => 2
-                case AccuracyHigh => 3
-                case _ => throw BusinessException(14500101, "The type is not supported.")
-            }
-        }
-    }
 
     static func parse(v: Int32): SensorAccuracy {
         match (v) {
@@ -506,12 +467,6 @@ public class AccelerometerResponse <: Response {
     ]
     public var z: Float32
 
-    init(x: Float32, y: Float32, z: Float32) {
-        this.x = x
-        this.y = y
-        this.z = z 
-    }
-
     init(v: CSensorCallbackData) {
         super(v.timestamp, SensorAccuracy.parse(v.option))
         let data = Response.parseCResponseData<CAccelerometerResponse>(v.data, v.dataLen)
@@ -594,10 +549,6 @@ public open class Response {
         this.accuracy = accuracy
     }
 
-    init() {
-        this(0, SensorAccuracy.AccuracyUnreliable)
-    }
-
     static func parseCResponseData<T>(data: CPointer<UInt8>, dataLen: Int32): T where T <: CType {
         let size = Int32(unsafe { sizeOf<T>() })
         if (size > dataLen) {
@@ -670,15 +621,6 @@ public class AccelerometerUncalibratedResponse <: Response {
     ]
     public var biasZ: Float32
 
-    init(x: Float32, y: Float32, z: Float32, biasX: Float32, biasY: Float32, biasZ: Float32) {
-        this.x = x
-        this.y = y
-        this.z = z
-        this.biasX = biasX
-        this.biasY = biasY
-        this.biasZ = biasZ
-    }
-
     init(v: CSensorCallbackData) {
         super(v.timestamp, SensorAccuracy.parse(v.option))
         let data = Response.parseCResponseData<CAccelerometerUncalibratedResponse>(v.data, v.dataLen)
@@ -722,12 +664,6 @@ public class LightResponse <: Response {
     ]
     public var infraredLuminance: ?Float32
 
-    init(intensity: Float32, colorTemperature!: ?Float32 = None, infraredLuminance!: ?Float32 = None) {
-        this.intensity = intensity
-        this.colorTemperature = colorTemperature
-        this.infraredLuminance = infraredLuminance
-    }
-
     init(v: CSensorCallbackData) {
         super(v.timestamp, SensorAccuracy.parse(v.option))
         let data = Response.parseCResponseData<CLightResponse>(v.data, v.dataLen)
@@ -754,10 +690,6 @@ public class AmbientTemperatureResponse <: Response {
     ]
     public var temperature: Float32
 
-    init(temperature: Float32) {
-        this.temperature = temperature
-    }
-
     init(v: CSensorCallbackData) {
         super(v.timestamp, SensorAccuracy.parse(v.option))
         let data = Response.parseCResponseData<CAmbientTemperatureResponse>(v.data, v.dataLen)
@@ -781,10 +713,6 @@ public class BarometerResponse <: Response {
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var pressure: Float32
-
-    init(pressure: Float32) {
-        this.pressure = pressure
-    }
 
     init(v: CSensorCallbackData) {
         super(v.timestamp, SensorAccuracy.parse(v.option))
@@ -825,12 +753,6 @@ public class GravityResponse <: Response {
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var z: Float32
-
-    init(x: Float32, y: Float32, z: Float32) {
-        this.x = x
-        this.y = y
-        this.z = z
-    }
 
     init(v: CSensorCallbackData) {
         super(v.timestamp, SensorAccuracy.parse(v.option))
@@ -873,12 +795,6 @@ public class GyroscopeResponse <: Response {
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var z: Float32
-
-    init(x: Float32, y: Float32, z: Float32) {
-        this.x = x
-        this.y = y
-        this.z = z
-    }
 
     init(v: CSensorCallbackData) {
         super(v.timestamp, SensorAccuracy.parse(v.option))
@@ -949,15 +865,6 @@ public class GyroscopeUncalibratedResponse <: Response {
     ]
     public var biasZ: Float32
 
-    init(x: Float32, y: Float32, z: Float32, biasX: Float32, biasY: Float32, biasZ: Float32) {
-        this.x = x
-        this.y = y
-        this.z = z
-        this.biasX = biasX
-        this.biasY = biasY
-        this.biasZ = biasZ
-    }
-
     init(v: CSensorCallbackData) {
         super(v.timestamp, SensorAccuracy.parse(v.option))
         let data = Response.parseCResponseData<CGyroscopeUncalibratedResponse>(v.data, v.dataLen)
@@ -983,10 +890,6 @@ public class HallResponse <: Response {
     ]
     public var status: UInt32
 
-    init(status: UInt32) {
-        this.status = status
-    }
-
     init(v: CSensorCallbackData) {
         super(v.timestamp, SensorAccuracy.parse(v.option))
         let data = Response.parseCResponseData<CHallResponse>(v.data, v.dataLen)
@@ -1011,10 +914,6 @@ public class HeartRateResponse <: Response {
     ]
     public var heartRate: UInt32
 
-    init(heartRate: UInt32) {
-        this.heartRate = heartRate
-    }
-
     init(v: CSensorCallbackData) {
         super(v.timestamp, SensorAccuracy.parse(v.option))
         let data = Response.parseCResponseData<CHeartRateResponse>(v.data, v.dataLen)
@@ -1038,10 +937,6 @@ public class HumidityResponse <: Response {
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var humidity: Float32
-
-    init(humidity: Float32) {
-        this.humidity = humidity
-    }
 
     init(v: CSensorCallbackData) {
         super(v.timestamp, SensorAccuracy.parse(v.option))
@@ -1085,12 +980,6 @@ public class LinearAccelerometerResponse <: Response {
     ]
     public var z: Float32
 
-    init(x: Float32, y: Float32, z: Float32) {
-        this.x = x
-        this.y = y
-        this.z = z
-    }
-
     init(v: CSensorCallbackData) {
         super(v.timestamp, SensorAccuracy.parse(v.option))
         let data = Response.parseCResponseData<CLinearAccelerometerResponse>(v.data, v.dataLen)
@@ -1131,12 +1020,6 @@ public class MagneticFieldResponse <: Response {
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var z: Float32
-
-    init(x: Float32, y: Float32, z: Float32) {
-        this.x = x
-        this.y = y
-        this.z = z
-    }
 
     init(v: CSensorCallbackData) {
         super(v.timestamp, SensorAccuracy.parse(v.option))
@@ -1207,15 +1090,6 @@ public class MagneticFieldUncalibratedResponse <: Response {
     ]
     public var biasZ: Float32
 
-    init(x: Float32, y: Float32, z: Float32, biasX: Float32, biasY: Float32, biasZ: Float32) {
-        this.x = x
-        this.y = y
-        this.z = z
-        this.biasX = biasX
-        this.biasY = biasY
-        this.biasZ = biasZ
-    }
-
     init(v: CSensorCallbackData) {
         super(v.timestamp, SensorAccuracy.parse(v.option))
         let data = Response.parseCResponseData<CMagneticFieldUncalibratedResponse>(v.data, v.dataLen)
@@ -1259,12 +1133,6 @@ public class OrientationResponse <: Response {
     ]
     public var gamma: Float32
 
-    init(alpha: Float32, beta: Float32, gamma: Float32) {
-        this.alpha = alpha
-        this.beta = beta
-        this.gamma = gamma
-    }
-
     init(v: CSensorCallbackData) {
         super(v.timestamp, SensorAccuracy.parse(v.option))
         let data = Response.parseCResponseData<COrientationResponse>(v.data, v.dataLen)
@@ -1288,10 +1156,6 @@ public class PedometerResponse <: Response {
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var steps: Int64
-
-    init(steps: Int64) {
-        this.steps = steps
-    }
 
     init(v: CSensorCallbackData) {
         super(v.timestamp, SensorAccuracy.parse(v.option))
@@ -1318,10 +1182,6 @@ public class PedometerDetectionResponse <: Response {
     ]
     public var scalar: UInt32
 
-    init(scalar: UInt32) {
-        this.scalar = scalar
-    }
-
     init(v: CSensorCallbackData) {
         super(v.timestamp, SensorAccuracy.parse(v.option))
         let data = Response.parseCResponseData<CPedometerDetectionResponse>(v.data, v.dataLen)
@@ -1345,10 +1205,6 @@ public class ProximityResponse <: Response {
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var distance: Float32
-
-    init(distance: Float32) {
-        this.distance = distance
-    }
 
     init(v: CSensorCallbackData) {
         super(v.timestamp, SensorAccuracy.parse(v.option))
@@ -1401,13 +1257,6 @@ public class RotationVectorResponse <: Response {
     ]
     public var w: Float32
 
-    init(x: Float32, y: Float32, z: Float32, w: Float32) {
-        this.x = x
-        this.y = y
-        this.z = z
-        this.w = w 
-    }
-
     init(v: CSensorCallbackData) {
         super(v.timestamp, SensorAccuracy.parse(v.option))
         let data = Response.parseCResponseData<CRotationVectorResponse>(v.data, v.dataLen)
@@ -1435,10 +1284,6 @@ public class SignificantMotionResponse <: Response {
     ]
     public var scalar: Int32
 
-    init(scalar: Int32) {
-        this.scalar = scalar
-    }
-
     init(v: CSensorCallbackData) {
         super(v.timestamp, SensorAccuracy.parse(v.option))
         let data = Response.parseCResponseData<CSignificantMotionResponse>(v.data, v.dataLen)
@@ -1462,10 +1307,6 @@ public class WearDetectionResponse <: Response {
         syscap: "SystemCapability.Sensors.Sensor"
     ]
     public var value: UInt32
-
-    init(value: UInt32) {
-        this.value = value
-    }
 
     init(v: CSensorCallbackData) {
         super(v.timestamp, SensorAccuracy.parse(v.option))
@@ -1605,21 +1446,6 @@ public class Sensor {
 
     @!Hide[isChecked: true]
     internal var isLocalSensor: ?Bool = Option<Bool>.None
-
-    init(sensorName: String, vendorName: String, firmwareVersion: String,
-        hardwareVersion: String, sensorId: Int32, maxRange: Float32, minSamplePeriod: Int64,
-        maxSamplePeriod: Int64, precision: Float32, power: Float32) {
-        this.sensorName = sensorName
-        this.vendorName = vendorName
-        this.firmwareVersion = firmwareVersion
-        this.hardwareVersion = hardwareVersion
-        this.sensorId = sensorId
-        this.maxRange = maxRange
-        this.minSamplePeriod = minSamplePeriod
-        this.maxSamplePeriod = maxSamplePeriod
-        this.precision = precision
-        this.power = power
-    }
 
     init(data: CSensor) {
         sensorName = data.sensorName.toString()

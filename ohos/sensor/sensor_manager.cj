@@ -51,23 +51,6 @@ class CallbackList {
         }
     }
 
-    func clear(): Unit {
-        synchronized(callBackMutex) {
-            callbackList.clear()
-        }
-    }
-
-    func contains(target: Callback1Argument<Response>): Bool {
-        synchronized(callBackMutex) {
-            for (callback in callbackList) {
-                if (refEq(callback, target)) {
-                    return true
-                }
-            }
-        }
-        false
-    }
-
     func isEmpty(): Bool {
         synchronized(callBackMutex) {
             callbackList.isEmpty()

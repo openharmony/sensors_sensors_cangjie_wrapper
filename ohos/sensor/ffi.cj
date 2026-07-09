@@ -222,19 +222,6 @@ struct CSensorCallbackData {
 }
 
 @C
-struct CGeomagneticResponse {
-    CGeomagneticResponse(
-        let x: Float32,
-        let y: Float32,
-        let z: Float32,
-        let geomagneticDip: Float32,
-        let deflectionAngle: Float32,
-        let levelIntensity: Float32,
-        let totalIntensity: Float32
-    ) {}
-}
-
-@C
 struct CSensor {
     var sensorName: CString = CString(CPointer())
     var vendorName: CString = CString(CPointer())
